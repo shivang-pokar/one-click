@@ -1,0 +1,7 @@
+.card-section {
+    width: 100%;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 0 auto;
+}

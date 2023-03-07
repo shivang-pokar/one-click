@@ -1,0 +1,43 @@
+<header class="d-flex align-items-center justify-content-between">
+    <div class="chip-section d-flex align-items-center" [matMenuTriggerFor]="menu">
+        <div class="avtar-name d-flex align-items-center justify-content-center">
+            S
+        </div>
+        <div class="desk-name">
+            Shivang's Desk
+        </div>
+        <mat-icon>expand_more</mat-icon>
+    </div>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <span>Shivang's Desk</span>
+        </button>
+    </mat-menu>
+
+    <div class="side-menu position-relative">
+        <div class="circle-menu">
+            <img src="assets/147133.png" alt="">
+        </div>
+        <div class="menu-item position-absolute">
+            <ul>
+                <li><a href="javascript:void(0)">Account</a></li>
+                <li><a routerLink="/channels">Integrations</a></li>
+                <li><a href="javascript:void(0)">Sign Out</a></li>
+            </ul>
+            <ul>
+                <li><a href="javascript:void(0)">Plan + billing</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<nav>
+    <ul>
+        <li [class.active]="router.url == route.url" *ngFor="let route of routerList">
+            <a [routerLink]="route.url" class="d-flex align-items-center">
+                <mat-icon>{{route.icon}}</mat-icon>
+                <span>{{route.label}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>

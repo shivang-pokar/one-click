@@ -1,0 +1,39 @@
+<div class="d-flex align-items-center flex-column justify-content-center h-100-vh">
+    <h1 class="mb-4">One Click Desk</h1>
+    <p class="text-center fw-500 mb-3"><strong>Take your Social media <br>
+            to the next level.</strong></p>
+
+    <form class="d-flex flex-column sign-in" [formGroup]="registerForm" (ngSubmit)="signup()">
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Desk Name</mat-label>
+            <input matInput formControlName='name'>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput formControlName='email'>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput type="password" formControlName='password'>
+        </mat-form-field>
+        <div class="text-center w-100">
+            <button class="border-round mt-2 large-btn" mat-raised-button color="primary" [disabled]="isloading">
+                <ng-container *ngIf="!isloading">
+                    Sign Up
+                </ng-container>
+                <ng-container *ngIf="isloading">
+                    <mat-spinner class="color-white button-loading"></mat-spinner>
+                </ng-container>
+            </button>
+        </div>
+    </form>
+
+    <div class="no-member mt-4 text-center">
+        <p class="m-0">Not a member ? <a routerLink="/login">Sign In</a></p>
+        <p class="m-0"><a href="">Forgot your password?</a></p>
+    </div>
+</div>
+<!-- <one-click-ui-loading *ngIf="isloading"></one-click-ui-loading> -->

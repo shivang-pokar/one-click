@@ -1,0 +1,28 @@
+.title-section {
+    border-bottom: 1px solid rgb(0 0 0 / 12%);
+    background: var(--white);
+    h3 {
+        padding-left: 25px;
+        margin: 0;
+        font-size: 17px;
+        line-height: 60px;
+    }
+}
+
+.main-section {
+    height: 100%;
+}
+.post-section {
+    height: 100%;
+}
+
+.left-section {
+    border-right: 1px solid rgb(0 0 0 / 12%);
+    height: 100%;
+    overflow: auto;
+    min-height: 100%;
+}
+
+.right-section {
+    background: #f4f4f4;
+}

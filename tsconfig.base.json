@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@one-click/data": ["libs/data/src/index.ts"],
+      "@one-click/one-click-services": ["libs/one-click-services/src/index.ts"],
+      "@one-click/one-click-ui": ["libs/one-click-ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

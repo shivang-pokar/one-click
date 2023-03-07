@@ -1,0 +1,27 @@
+.card-item {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    box-shadow: 0 5px 12px 0px rgb(0 0 0 / 5%);
+    height: 190px;
+    border: 1px solid #b8b8b859;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    img {
+        width: 40px;
+    }
+    a {
+        font-size: 14px;
+        text-decoration: none;
+        &.disconnect {
+            color: var(--danger);
+        }
+    }
+    h4 {
+        font-size: 20px;
+    }
+    p {
+        font-size: 14px;
+        color: #8d8ca0;
+    }
+}

@@ -1,0 +1,11 @@
+<div class="card-item d-flex align-items-center justify-content-between flex-column">
+    <img src="assets/{{social.image}}" alt="">
+    <div>
+        <h4 class="m-0">{{social.socialName}}</h4>
+        <p class="m-0">{{social.socialDescription}}</p>
+    </div>
+
+    <a href="javascript:void(0)" *ngIf="!social.connected" (click)="connectSocial(social)">Connect</a>
+    <a href="javascript:void(0)" class="disconnect" *ngIf="social.connected"
+        (click)="disconnectSocial(social)">Disconnect</a>
+</div>
