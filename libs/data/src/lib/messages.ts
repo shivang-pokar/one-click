@@ -17,7 +17,8 @@ export const ConnectionList: Array<Connection> = [
         socialDescription: 'Page or Group',
         connected: false,
         color: '#4267b2',
-        sendPost: false
+        sendPost: false,
+        badge: 0
     },
     {
         id: 'INSTAGRAM',
@@ -26,7 +27,8 @@ export const ConnectionList: Array<Connection> = [
         socialDescription: 'Business account',
         connected: false,
         color: '#bc2a8d',
-        sendPost: false
+        sendPost: false,
+        badge: 0
     },
     {
         id: 'TWITTER',
@@ -35,7 +37,8 @@ export const ConnectionList: Array<Connection> = [
         socialDescription: 'Profile',
         connected: false,
         color: '#1d9bef',
-        sendPost: false
+        sendPost: false,
+        badge: 0
     },
     {
         id: 'LINKEDIN',
@@ -44,6 +47,7 @@ export const ConnectionList: Array<Connection> = [
         socialDescription: 'Profile',
         connected: false,
         color: '#0a65c2',
-        sendPost: false
+        sendPost: false,
+        badge: 0
     }
 ]

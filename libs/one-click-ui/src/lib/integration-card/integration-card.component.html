@@ -1,4 +1,8 @@
 <div class="card-item d-flex align-items-center justify-content-between flex-column">
+    <div class="badge" *ngIf="social.badge" matTooltip="{{social.badge}} {{social.socialDescription}} connected"
+        [matBadge]="social.badge">
+    </div>
+
     <img src="assets/{{social.image}}" alt="">
     <div>
         <h4 class="m-0">{{social.socialName}}</h4>

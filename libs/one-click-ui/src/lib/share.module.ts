@@ -12,12 +12,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 @NgModule({
     imports: [
-
+        MatBadgeModule,
         MatButtonModule,
         MatPaginatorModule,
         MatTableModule,
@@ -29,12 +31,14 @@ import { RouterModule } from '@angular/router';
         MatIconModule,
         ClipboardModule,
         MatChipsModule,
-        RouterModule
+        RouterModule,
+        MatTooltipModule
     ],
     declarations: [
 
     ],
     exports: [
+        MatBadgeModule,
         MatInputModule,
         MatButtonModule,
         MatPaginatorModule,
@@ -46,7 +50,8 @@ import { RouterModule } from '@angular/router';
         MatIconModule,
         ClipboardModule,
         MatChipsModule,
-        RouterModule
+        RouterModule,
+        MatTooltipModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -167,6 +167,10 @@ body .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
 body .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: var(--white, #fff);
 }
+body .mat-mdc-progress-spinner.black .mdc-circular-progress__determinate-circle,
+body .mat-mdc-progress-spinner.black .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: var(--primary, #000);
+}
 
 .button-loading {
     width: 30px !important;

@@ -12,4 +12,5 @@ export class Connection {
     color?: string;
     connected?: boolean;
     sendPost?: boolean;
+    badge?: number;
 }
