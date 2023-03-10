@@ -6,7 +6,8 @@ export const messages = {
     NOT_VERIFIED: 'Your email address is not verified',
     INT_COMPLETED: 'Integration completed successfully',
     INT_DETAILS_UPDATED: 'Integration details updated successfully',
-    ARE_YOU_SURE: 'Are you sure you want to disconnect?'
+    ARE_YOU_SURE: 'Are you sure you want to disconnect?',
+    INT_REMOVED: 'Account removed successfully'
 }
 
 export const ConnectionList: Array<Connection> = [

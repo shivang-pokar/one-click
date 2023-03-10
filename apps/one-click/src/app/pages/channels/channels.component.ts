@@ -1,31 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Connection, ConnectionList, IntegrationData, messages } from '@one-click/data';
 import { AlertService, CrudService, SocialConnectService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'one-click-channels',
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.scss'],
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit, OnDestroy {
 
   connectionList = ConnectionList;
   collName: string = 'integration';
   integrationList: IntegrationData;
   company_id = this.cookieService.get('company_id');
+  destory$: Subject<void> = new Subject<void>();
   constructor(
     private cookieService: CookieService,
     public socialConnectService: SocialConnectService,
     public crudService: CrudService,
     public alertService: AlertService,
   ) {
-    
+
   }
 
   ngOnInit(): void {
-    this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).subscribe((resp: any) => {
+    this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).pipe(takeUntil(this.destory$)).subscribe((resp: any) => {
       this.integrationList = resp[0];
       if (!this.integrationList) {
         this.integrationList = new IntegrationData();
@@ -35,9 +37,6 @@ export class ChannelsComponent implements OnInit {
       this.connectionList.forEach(connection => {
         connection.badge = this.integrationList?.integrationList.filter(integration => connection.id == integration.type).length;
       });
-
-
-
     })
   }
 
@@ -117,6 +116,11 @@ export class ChannelsComponent implements OnInit {
     catch (e: any) {
       this.alertService.error(e.message)
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destory$.next()
+    this.destory$.complete()
   }
 
 }

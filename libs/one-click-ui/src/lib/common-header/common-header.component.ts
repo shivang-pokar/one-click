@@ -20,12 +20,16 @@ export class CommonHeaderComponent implements OnInit {
       label: 'Add Channels'
     },
     {
+      url: '/manage-account',
+      icon: 'manage_accounts',
+      label: 'Manage Account'
+    },
+    {
       url: '/settings',
       icon: 'settings',
       label: 'Settings'
     }
   ]
-
 
   constructor(
     public router: Router
@@ -33,6 +37,6 @@ export class CommonHeaderComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    
+
   }
 }

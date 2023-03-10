@@ -44,6 +44,11 @@ export class SocialConnectService {
     return this.fb.init(initParams);
   }
 
+  /**
+   * @authFacebook Connecting Facebook accounts
+   * @return { login, account }
+   * @account contains Account Token Information
+   */
   async authFacebook() {
     try {
       let login: any = await this.fb.login(loginParams);
@@ -57,6 +62,11 @@ export class SocialConnectService {
     }
   }
 
+  /**
+   * @authInstagram Connecting Instagram accounts
+   * @return instagramList
+   * @instagramList contains Account Token Information
+   */
   async authInstagram() {
     try {
       const login: any = await this.fb.login(loginParamsInsta);
@@ -67,6 +77,7 @@ export class SocialConnectService {
         if (instagram.instagram_business_account) {
           login.authResponse.id = instagram.instagram_business_account.id;
           login.authResponse.access_token = account.access_token;
+          login.authResponse.name = account.name;
           delete login.authResponse.accessToken;
           instagramList.push(login.authResponse);
         }
@@ -79,6 +90,9 @@ export class SocialConnectService {
   }
 
 
+  /**
+   * Converting Token Limited time access into LifeTime Access
+   */
   getLifeLongAccessFacebook(access_token: string, userID: any): Promise<any> {
     return new Promise((resolve, rejects) => {
       this.http.get(`${this.env.FB_AUTH_URL}/${userID}/accounts?access_token=${access_token}`).subscribe(async (resp: any) => {
@@ -95,6 +109,9 @@ export class SocialConnectService {
     })
   }
 
+  /**
+   * Get Instagram Account Details
+   */
   getInstagramDetail(access_token: string, id: any) {
     return new Promise((resolve, rejects) => {
       this.http.post(`${this.env.API_BASE_URL}/auth/insagram-id`, { access_token: access_token, id: id }).subscribe((respLong: any) => {
@@ -116,12 +133,19 @@ export class SocialConnectService {
     this.getTwitterAuthUrl();
   }
 
+  /**
+  @TwitterAuthUrl
+  */
   getTwitterAuthUrl() {
     this.http.get(this.env.API_BASE_URL + '/auth/twitter-authurl').subscribe((resp: any) => {
       window.location.href = `${resp.autlUrl}&state=twitter`;
     })
   }
 
+  /**
+   * @getTwitterToken
+   * Twitter Account Information
+   */
   getTwitterToken(oauth_token: string, oauth_verifier: string) {
     return this.http.post(this.env.API_BASE_URL + '/auth/twitter', { oauth_token: oauth_token, oauth_verifier: oauth_verifier }).pipe((map((action: any) => {
       action.id = action.user_id
@@ -135,6 +159,10 @@ export class SocialConnectService {
     })));
   }
 
+  /**
+   * Genrate Access Token from Refresh Token
+   * @returns AccessToken
+   */
   genrateTwitterToken(refresh_token: string) {
     return new Promise((resolve, reject) => {
       this.http.post(this.env.API_BASE_URL + '/auth/twitter-genrate-token', { refresh_token: refresh_token }).subscribe(resp => {
@@ -145,8 +173,10 @@ export class SocialConnectService {
     });
   }
 
+  /**
+   * @return Twitter User Details
+   */
   getTwitterUser(access_token: string) {
-
     return new Promise((resolve, reject) => {
       this.http.post(this.env.API_BASE_URL + '/auth/twitter-user', { "access_token": access_token }, {}).subscribe((userDetail: any) => {
         resolve(userDetail.data);

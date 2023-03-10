@@ -1,0 +1,8 @@
+<one-click-common-header></one-click-common-header>
+<section class="main-section">
+    <div class="card-section p-4">
+        <one-click-integration-card *ngFor="let connect of connectedConnectionList" [social]="connect"
+            (disconnect)="disconnect($event)">
+        </one-click-integration-card>
+    </div>
+</section>

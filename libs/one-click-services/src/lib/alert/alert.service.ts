@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '@one-click/one-click-ui';
 /* import { CommonDialogComponent, ConfirmationDialogComponent, FileDialogComponent } from '@one-click/one-click-ui'; */
 let message: string;
 
@@ -31,6 +32,14 @@ export class AlertService {
     });
   }
 
+  confirmationDialog(message: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { message: message },
+    });
+    return dialogRef
+  }
+
   /* openDialog(title: string, message: string): void {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
       width: '350px',
@@ -40,14 +49,6 @@ export class AlertService {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-  }
-
-  confirmationDialog(message: string) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
-      data: { message: message },
-    });
-    return dialogRef
   }
 
   fileDialog() {

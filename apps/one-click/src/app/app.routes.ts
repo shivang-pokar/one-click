@@ -26,4 +26,8 @@ export const appRoutes: Route[] = [
         path: 'auth-channel',
         loadChildren: () => import('./pages/auth-channel/auth-channel.module').then(m => m.AuthChannelModule)
     },
+    {
+        path: 'manage-account',
+        loadChildren: () => import('./pages/manage-account/manage-account.module').then(m => m.ManageAccountModule)
+    },
 ];
