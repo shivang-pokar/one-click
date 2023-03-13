@@ -78,6 +78,7 @@ export class SocialConnectService {
           login.authResponse.id = instagram.instagram_business_account.id;
           login.authResponse.access_token = account.access_token;
           login.authResponse.name = account.name;
+          login.authResponse.img = `https://graph.facebook.com/${account.id}/picture?type=normal`
           delete login.authResponse.accessToken;
           instagramList.push(login.authResponse);
         }
@@ -100,6 +101,7 @@ export class SocialConnectService {
         for (let page of resp.data) {
           let pageAccess: any = await this.http.post(`${this.env.API_BASE_URL}/auth/fb-life-long-token`, { access_token: page.access_token }).toPromise()
           page.access_token = pageAccess.access_token;
+          page.img = `https://graph.facebook.com/${page.id}/picture?type=normal`;
           connectedPages.push(page);
         }
         resolve(connectedPages);
@@ -178,7 +180,7 @@ export class SocialConnectService {
    */
   getTwitterUser(access_token: string) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.env.API_BASE_URL + '/auth/twitter-user', { "access_token": access_token }, {}).subscribe((userDetail: any) => {
+      this.http.post(this.env.API_BASE_URL + '/twitter/get-user', { "access_token": access_token }, {}).subscribe((userDetail: any) => {
         resolve(userDetail.data);
       }, er => {
         reject(er);

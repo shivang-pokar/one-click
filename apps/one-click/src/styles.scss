@@ -89,6 +89,7 @@ $theme: mat-light-theme($primary, $accent);
     --white: #fff;
     --primary-rgb: 0, 0, 0;
     --light-font: #a5a5a5;
+    --light-border: #e0e0e0;
     --facebook: #4267b2;
     --danger: #f44336;
 }
@@ -126,6 +127,11 @@ h1 {
     border-radius: 12px !important;
     background-color: transparent;
 }
+
+.mat-form-field-appearance-fill.light-border .mdc-text-field {
+    border: 1px solid var(--light-border);
+}
+
 .mat-form-field.mat-focused .mat-form-field-ripple,
 .mat-form-field-appearance-fill:not(.mat-form-field-disabled)
     .mat-form-field-flex:hover
@@ -224,4 +230,65 @@ body .mat-mdc-raised-button[disabled][disabled] {
 
 .pr-5 {
     padding-right: 3rem !important;
+}
+
+.ml-1 {
+    margin-left: 0.25rem !important;
+}
+
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.ml-3 {
+    margin-left: 1rem !important;
+}
+
+.mr-3 {
+    margin-right: 1rem !important;
+}
+
+.ml-4 {
+    margin-left: 1.5rem !important;
+}
+
+.mr-4 {
+    margin-right: 1.5rem !important;
+}
+
+.ml-5 {
+    margin-left: 3rem !important;
+}
+
+.mr-5 {
+    margin-right: 3rem !important;
+}
+
+.select-account {
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+        .mat-mdc-form-field-infix {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}
+
+.account-autocomplete {
+    &.mat-mdc-autocomplete-panel {
+        img {
+            border-radius: 50%;
+        }
+        .type-image {
+            right: 6px;
+            bottom: -2px;
+        }
+    }
 }

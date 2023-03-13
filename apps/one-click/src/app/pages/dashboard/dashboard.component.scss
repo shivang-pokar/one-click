@@ -7,6 +7,29 @@
         font-size: 17px;
         line-height: 60px;
     }
+    .social-tab-list {
+        padding-right: 25px;
+        display: flex;
+        a {
+            filter: grayscale(100%);
+            display: flex;
+            align-items: center;
+            img {
+                display: block;
+            }
+            text-decoration: none;
+
+            mat-icon {
+                font-size: 22px;
+                width: 22px;
+                height: 22px;
+            }
+
+            &.showActive {
+                filter: grayscale(0);
+            }
+        }
+    }
 }
 
 .main-section {
@@ -25,4 +48,20 @@
 
 .right-section {
     background: #f4f4f4;
+}
+
+.content-section {
+    max-height: calc(100% - 62px);
+    overflow: auto;
+}
+
+.footer-post-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px -6px 15px rgba(0, 0, 0, 0.08);
+    background: var(--white);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    //border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 0;
 }

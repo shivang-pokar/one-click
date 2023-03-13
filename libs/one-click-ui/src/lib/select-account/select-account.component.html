@@ -1,0 +1,32 @@
+<form>
+    <mat-form-field class="w-100 light-border select-account" appearance="fill">
+        <mat-chip-grid #chipGrid aria-label="Fruit selection">
+            <mat-chip-row *ngFor="let integration of selectedIntegration" (removed)="remove(integration)">
+                <span class="position-relative">
+                    <img class="mr-2" [src]="integration.img" alt="" height="25" style="border-radius: 50%;">
+                    <img [src]="integration.type | socialType" alt="" height="12" class="position-absolute type-image">
+                </span>
+                {{integration.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + integration">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip-row>
+            <input placeholder="Select Account...." #integrationInput [formControl]="integrationCtrl"
+                [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                style="width: 100% !important; flex: 1 0 150px !important;"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+        </mat-chip-grid>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" class="account-autocomplete">
+            <mat-option *ngFor="let connection of filteredIntegrations | async" [value]="connection">
+                <div class="d-flex align-items-center">
+                    <span class="position-relative">
+                        <img class="mr-2" [src]="connection.img" alt="" height="25">
+                        <img [src]="connection.type | socialType" alt="" height="12"
+                            class="position-absolute type-image">
+                    </span>
+                    <span>{{connection.name}}</span>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>

@@ -1,0 +1,16 @@
+<div class="content-section">
+
+    <div class="mb-3">
+        <mat-slide-toggle color="primary" name="enableWifi"><span class="ml-1">Personalized for each social
+                account</span></mat-slide-toggle>
+    </div>
+
+    <mat-form-field appearance="fill" class="light-border w-100">
+        <mat-label>Post Description</mat-label>
+        <textarea [(ngModel)]="message" name="message" matInput></textarea>
+    </mat-form-field>
+    <div (click)="uploadSelectFile()" class="image-section d-flex align-items-center justify-content-center"
+        style="background: #000;">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">photo_library</mat-icon>
+    </div>
+</div>

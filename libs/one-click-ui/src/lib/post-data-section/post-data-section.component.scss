@@ -1,0 +1,67 @@
+mat-form-field {
+    textarea {
+        height: 120px;
+        resize: none;
+    }
+}
+
+.image-section {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #4267b2;
+    color: var(--white);
+    overflow: hidden;
+    margin-right: 10px;
+
+    &.selected-files {
+        &::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transition: 0.5s ease all;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    mat-icon {
+        font-size: 30px;
+        width: auto;
+        height: auto;
+        &.delete {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            opacity: 0;
+            z-index: 11;
+        }
+    }
+
+    &:hover {
+        &.selected-files {
+            &:after {
+                opacity: 1;
+            }
+        }
+        mat-icon {
+            cursor: pointer;
+            &.delete {
+                opacity: 1;
+            }
+        }
+    }
+}

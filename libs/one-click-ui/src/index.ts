@@ -3,3 +3,7 @@ export * from './lib/integration-card/integration-card.component';
 export * from './lib/common-header/common-header.module';
 export * from './lib/common-header/common-header.component';
 export * from './lib/confirmation-dialog/confirmation-dialog.component';
+export * from './lib/post-data-section/post-data-section.component';
+export * from './lib/facebook-post-ui/facebook-post-ui.component';
+export * from './lib/instagram-post-ui/instagram-post-ui.component';
+export * from './lib/twitter-post-ui/twitter-post-ui.component';

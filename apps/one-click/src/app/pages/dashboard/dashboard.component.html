@@ -1,15 +1,61 @@
 <one-click-common-header></one-click-common-header>
 <section class="main-section">
-    <div class="post-section d-flex">
-        <div class="left-section col-6">
+    <div class="post-section d-flex position-relative">
+        <div class="left-section col-6 position-relative">
             <div class="title-section">
                 <h3>Post Content</h3>
             </div>
-        </div>
-        <div class="right-section col-6">
-            <div class="title-section">
-                <h3>Preview Content</h3>
+            <div class="p-3">
+                <ng-container *ngIf="integrationList.length">
+                    <one-click-select-account [integrationList]="integrationList"
+                        (selectedAccount)="selectedAccount($event)"></one-click-select-account>
+
+                    <one-click-post-data-section
+                        [selectedAccountList]="selectedAccountList"></one-click-post-data-section>
+                </ng-container>
             </div>
         </div>
+        <div class="right-section col-6">
+            <div class="title-section d-flex align-items-center justify-content-between">
+                <h3>Preview Content</h3>
+                <div class="social-tab-list">
+                    <a class="ml-2" href="javascript:void(0)" (click)="selectedType = 'ALL'"
+                        [class.showActive]="selectedType == 'ALL' ">
+                        <mat-icon>apps</mat-icon>
+                    </a>
+                    <ng-container *ngFor="let connection of connectionList">
+                        <ng-container *ngIf="connection.connected">
+                            <a class="ml-2" href="javascript:void(0)"
+                                [class.showActive]="selectedType == connection.id || selectedType == 'ALL' "
+                                (click)="filterPreview(connection)"><img src="assets/{{connection.image}}" alt=""
+                                    width="22"></a>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="p-3 content-section">
+
+                <ng-container *ngFor="let connection of integrationList">
+                    <ng-container
+                        *ngIf="connection.is_selected && connection.type == 'FACEBOOK' && (selectedType == 'FACEBOOK' || selectedType == 'ALL') ">
+                        <one-click-facebook-post-ui></one-click-facebook-post-ui>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="connection.is_selected && connection.type == 'INSTAGRAM' && (selectedType == 'INSTAGRAM' || selectedType == 'ALL')">
+                        <one-click-instagram-post-ui></one-click-instagram-post-ui>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="connection.is_selected && connection.type == 'TWITTER' && (selectedType == 'TWITTER' || selectedType == 'ALL') ">
+                        <one-click-twitter-post-ui></one-click-twitter-post-ui>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-end">
+            <button mat-button color="primary">Save Draft</button>
+            <button mat-raised-button class="ml-2" color="primary">Post Now</button>
+        </div>
+
     </div>
 </section>

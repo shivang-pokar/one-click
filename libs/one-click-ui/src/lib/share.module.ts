@@ -14,6 +14,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 
 
@@ -32,10 +37,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         ClipboardModule,
         MatChipsModule,
         RouterModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatAutocompleteModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule
     ],
     declarations: [
-
+        GetSocialTypePipe
     ],
     exports: [
         MatBadgeModule,
@@ -51,7 +60,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         ClipboardModule,
         MatChipsModule,
         RouterModule,
-        MatTooltipModule
+        MatTooltipModule,
+        GetSocialTypePipe,
+        MatAutocompleteModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

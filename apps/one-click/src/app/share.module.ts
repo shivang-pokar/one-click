@@ -15,6 +15,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { CommonHeaderModule, OneClickUiModule } from '@one-click/one-click-ui';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @NgModule({
     imports: [
@@ -35,10 +40,13 @@ import { CommonHeaderModule, OneClickUiModule } from '@one-click/one-click-ui';
         MatProgressSpinnerModule,
         AngularFireAuthModule,
         CommonHeaderModule,
-        OneClickUiModule
+        OneClickUiModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        MatSlideToggleModule
     ],
     declarations: [
-
+        GetSocialTypePipe,
     ],
     exports: [
         FormsModule,
@@ -57,7 +65,11 @@ import { CommonHeaderModule, OneClickUiModule } from '@one-click/one-click-ui';
         MatProgressSpinnerModule,
         AngularFireAuthModule,
         CommonHeaderModule,
-        OneClickUiModule
+        OneClickUiModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        GetSocialTypePipe,
+        MatSlideToggleModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
