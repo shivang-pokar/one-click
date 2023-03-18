@@ -10,8 +10,8 @@
                     <one-click-select-account [integrationList]="integrationList"
                         (selectedAccount)="selectedAccount($event)"></one-click-select-account>
 
-                    <one-click-post-data-section
-                        [selectedAccountList]="selectedAccountList"></one-click-post-data-section>
+                    <one-click-post-data-section [selectedAccountList]="selectedAccountList"
+                        (postFormValues)="postFormValues($event)"></one-click-post-data-section>
                 </ng-container>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <ng-container *ngFor="let connection of integrationList">
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'FACEBOOK' && (selectedType == 'FACEBOOK' || selectedType == 'ALL') ">
-                        <one-click-facebook-post-ui></one-click-facebook-post-ui>
+                        <one-click-facebook-post-ui [connection]="connection"></one-click-facebook-post-ui>
                     </ng-container>
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'INSTAGRAM' && (selectedType == 'INSTAGRAM' || selectedType == 'ALL')">
@@ -54,7 +54,7 @@
 
         <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-end">
             <button mat-button color="primary">Save Draft</button>
-            <button mat-raised-button class="ml-2" color="primary">Post Now</button>
+            <button mat-raised-button class="ml-2" (click)="postNow()" color="primary">Post Now</button>
         </div>
 
     </div>

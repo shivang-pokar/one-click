@@ -6,13 +6,13 @@ mat-form-field {
 }
 
 .image-section {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    background: #4267b2;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
     color: var(--white);
     overflow: hidden;
     margin-right: 10px;
+    margin-top: 10px;
 
     &.selected-files {
         &::after {
@@ -37,7 +37,7 @@ mat-form-field {
     }
 
     mat-icon {
-        font-size: 30px;
+        font-size: 22px;
         width: auto;
         height: auto;
         &.delete {
@@ -64,4 +64,65 @@ mat-form-field {
             }
         }
     }
+}
+
+.post-for-all {
+    ::ng-deep {
+        .mat-mdc-form-field-subscript-wrapper {
+            display: none !important;
+        }
+    }
+}
+
+.attach-continer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: auto;
+
+    .attach-section {
+        gap: 20px;
+        margin-top: 10px;
+        .attach-image-section {
+            width: 80px;
+            height: 80px;
+            border-radius: 3px;
+            &::after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(150deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 85%);
+                left: 0;
+                top: 0;
+                border-radius: 3px;
+                z-index: 1;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            &:hover {
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            .cancel {
+                right: -10px;
+                top: -7px;
+                z-index: 11;
+            }
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.image-alert {
+    background: rgba(var(--danger-rgb), 0.2);
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 10px;
 }

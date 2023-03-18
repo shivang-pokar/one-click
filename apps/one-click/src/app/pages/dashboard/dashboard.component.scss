@@ -65,3 +65,14 @@
     //border-top: 1px solid rgba(0, 0, 0, 0.12);
     border-left: 0;
 }
+
+one-click-post-data-section {
+    ::ng-deep {
+        .mat-form-field-invalid .mdc-text-field {
+            border-color: var(--light-border) !important;
+        }
+        .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
+}

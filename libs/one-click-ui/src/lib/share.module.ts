@@ -18,6 +18,8 @@ import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 
@@ -41,7 +43,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         GetSocialTypePipe
@@ -65,7 +68,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatProgressSpinnerModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

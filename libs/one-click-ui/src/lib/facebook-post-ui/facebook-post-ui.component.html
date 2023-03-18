@@ -1,15 +1,20 @@
 <h3>Facebook</h3>
 <div class="post">
     <div class="info">
-        <img class="profile-pic" src="https://source.unsplash.com/random/100X100" alt="Profile pic">
+        <img class="profile-pic" [src]="connection?.img" alt="Profile pic">
         <div class="user">
-            <p class="m-0">Sathish kumar</p>
-            <span class="m-0">Jan 10 at 7 PM</span>
+            <p class="m-0">{{connection.name}}</p>
+            <!-- <span class="m-0">Jan 10 at 7 PM</span> -->
         </div>
     </div>
 
     <div class="post-content">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-        <img src="https://source.unsplash.com/random/400X400" alt="">
+        <p *ngIf="connection?.postContent?.content">{{connection?.postContent?.content}}</p>
+
+        <ng-container *ngIf="connection?.postContent?.attachment?.length">
+            <ng-container *ngFor="let attach of connection?.postContent?.attachment">
+                <img [src]="attach.url" alt="">
+            </ng-container>
+        </ng-container>
     </div>
 </div>

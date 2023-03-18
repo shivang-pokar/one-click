@@ -1,7 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '@one-click/one-click-ui';
+import { CommonDialogComponent, ConfirmationDialogComponent, FileManagerComponent } from '@one-click/one-click-ui';
 /* import { CommonDialogComponent, ConfirmationDialogComponent, FileDialogComponent } from '@one-click/one-click-ui'; */
 let message: string;
 
@@ -40,7 +40,7 @@ export class AlertService {
     return dialogRef
   }
 
-  /* openDialog(title: string, message: string): void {
+  openDialog(title: string, message: string): void {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
       width: '350px',
       data: { title: title, message: message },
@@ -52,12 +52,12 @@ export class AlertService {
   }
 
   fileDialog() {
-    const dialogRef = this.dialog.open(FileDialogComponent, {
+    const dialogRef = this.dialog.open(FileManagerComponent, {
       width: '750px',
     });
     return dialogRef
 
-  } */
+  }
 
 }
 

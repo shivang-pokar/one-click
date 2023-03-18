@@ -12,4 +12,7 @@ export class FileItem {
     lastModifiedDateTime?: string;
     url?: string;
     parentFolder?: string;
+    selected?: boolean;
+    width?: any;
+    height?: any;
 }

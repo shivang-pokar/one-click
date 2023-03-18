@@ -7,3 +7,6 @@ export * from './lib/post-data-section/post-data-section.component';
 export * from './lib/facebook-post-ui/facebook-post-ui.component';
 export * from './lib/instagram-post-ui/instagram-post-ui.component';
 export * from './lib/twitter-post-ui/twitter-post-ui.component';
+export * from './lib/common-dialog/common-dialog.component';
+export * from './lib/file-manager/file-manager.component';
+export * from './lib/loading/loading.component';

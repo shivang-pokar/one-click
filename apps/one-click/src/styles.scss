@@ -2,35 +2,35 @@
 @import "@angular/material/theming";
 @include mat-core();
 $mat-blue: (
-    50: #e3f2fd,
-    100: #bbdefb,
-    200: #000,
-    300: #64b5f6,
-    400: #42a5f5,
-    500: #2196f3,
-    600: #1e88e5,
-    700: #1976d2,
-    800: #1565c0,
-    900: #0d47a1,
-    A100: #82b1ff,
-    A200: #448aff,
-    A400: #2979ff,
-    A700: #2962ff,
+    50: #e0e0e0,
+    100: #b3b3b3,
+    200: #000000,
+    300: #4d4d4d,
+    400: #262626,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #a6a6a6,
+    A200: #8c8c8c,
+    A400: #737373,
+    A700: #666666,
     contrast: (
-        50: $dark-primary-text,
-        100: $dark-primary-text,
-        200: #fff,
-        300: $dark-primary-text,
-        400: $dark-primary-text,
-        500: $light-primary-text,
-        600: $light-primary-text,
-        700: $light-primary-text,
-        800: $light-primary-text,
-        900: $light-primary-text,
-        A100: $dark-primary-text,
-        A200: $light-primary-text,
-        A400: $light-primary-text,
-        A700: $light-primary-text,
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #ffffff,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #ffffff,
+        A700: #ffffff,
     ),
 );
 
@@ -42,39 +42,6 @@ $mat-orange: (
         100: #fff,
         200: #fff,
         700: #fff,
-    ),
-);
-
-$md-mcgpalette0: (
-    50: #ffffff,
-    100: #ffffff,
-    200: #ffffff,
-    300: #ffffff,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #ffffff,
-    A200: #ffffff,
-    A400: #ffffff,
-    A700: #ffffff,
-    contrast: (
-        50: #000000,
-        100: #000000,
-        200: #000000,
-        300: #000000,
-        400: #000000,
-        500: #000000,
-        600: #000000,
-        700: #000000,
-        800: #000000,
-        900: #000000,
-        A100: #000000,
-        A200: #000000,
-        A400: #000000,
-        A700: #000000,
     ),
 );
 
@@ -92,12 +59,15 @@ $theme: mat-light-theme($primary, $accent);
     --light-border: #e0e0e0;
     --facebook: #4267b2;
     --danger: #f44336;
+    --danger-rgb: 244, 67, 54;
+    --active: #f4f4f4;
 }
 * {
     --bs-font-sans-serif: "Roboto", sans-serif;
 }
 
 @import "~bootstrap/dist/css/bootstrap.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 
 html,
 body {
@@ -291,4 +261,8 @@ body .mat-mdc-raised-button[disabled][disabled] {
             bottom: -2px;
         }
     }
+}
+
+button {
+    min-height: 42px;
 }

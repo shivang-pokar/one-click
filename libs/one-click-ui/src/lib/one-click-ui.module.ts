@@ -8,6 +8,9 @@ import { SelectAccountComponent } from './select-account/select-account.componen
 import { FacebookPostUiComponent } from './facebook-post-ui/facebook-post-ui.component';
 import { InstagramPostUiComponent } from './instagram-post-ui/instagram-post-ui.component';
 import { TwitterPostUiComponent } from './twitter-post-ui/twitter-post-ui.component';
+import { CommonDialogComponent } from './common-dialog/common-dialog.component';
+import { FileManagerComponent } from './file-manager/file-manager.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -18,7 +21,10 @@ import { TwitterPostUiComponent } from './twitter-post-ui/twitter-post-ui.compon
     SelectAccountComponent,
     FacebookPostUiComponent,
     InstagramPostUiComponent,
-    TwitterPostUiComponent
+    TwitterPostUiComponent,
+    CommonDialogComponent,
+    FileManagerComponent,
+    LoadingComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -26,7 +32,10 @@ import { TwitterPostUiComponent } from './twitter-post-ui/twitter-post-ui.compon
     SelectAccountComponent,
     FacebookPostUiComponent,
     InstagramPostUiComponent,
-    TwitterPostUiComponent
+    TwitterPostUiComponent,
+    CommonDialogComponent,
+    FileManagerComponent,
+    LoadingComponent
   ]
 })
 export class OneClickUiModule { }

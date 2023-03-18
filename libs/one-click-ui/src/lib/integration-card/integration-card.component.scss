@@ -9,6 +9,12 @@
     text-align: center;
     position: relative;
 
+    ::ng-deep {
+        .mat-badge-content {
+            color: var(--white);
+        }
+    }
+
     .badge {
         position: absolute;
         left: 3px;

@@ -13,4 +13,7 @@ export class Connection {
     connected?: boolean;
     sendPost?: boolean;
     badge?: number;
+    charecterLimite: number = -1;
+    imageRationMin: number = 0;
+    imageRationMax: number = 0;
 }

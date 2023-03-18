@@ -5,3 +5,4 @@ export * from './lib/messages';
 export * from './lib/post-details';
 export * from './lib/post';
 export * from './lib/filemanager';
+export * from './lib/post-content';

@@ -6,11 +6,9 @@
     </a>
 </h1> -->
 <div mat-dialog-content class="message-section">
-    <p class="text-center">{{message}}</p>
+    <p>{{message}}</p>
 </div>
-<div mat-dialog-actions align="center" class="button-section">
-    <div class="d-flex align-items-center justify-content-between w-100">
-        <button mat-button mat-dialog-close color="warn">Close</button>
-        <button mat-raised-button cdkFocusInitial [mat-dialog-close]="true" color="primary">Confirm</button>
-    </div>
+<div mat-dialog-actions align="end" class="button-section">
+    <button mat-button mat-dialog-close color="warn">Close</button>
+    <button mat-raised-button cdkFocusInitial [mat-dialog-close]="true" color="primary">Confirm</button>
 </div>

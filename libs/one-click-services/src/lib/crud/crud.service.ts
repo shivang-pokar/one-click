@@ -73,19 +73,27 @@ export class CrudService {
 
 
   fileUploadService(path: string, event: any, preFix?: any) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       let filesList: any = [];
-      Array.prototype.forEach.call(event.target.files, (file) => {
-        let name = (preFix) ? preFix + '_' + file.name : file.name;
-        filesList.push(this.fileUpload(path + '/' + name, file))
-      });
+      let dimentations: any = [];
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        let name = (preFix) ? preFix + '_' + event.target.files[i].name : event.target.files[i].name;
+        filesList.push(this.fileUpload(path + '/' + name, event.target.files[i]))
+        let dimentation: any = await this.getImageDimentation(event.target.files[i]);
+        dimentations.push({ width: dimentation.width, height: dimentation.height });
+      }
+
+      console.log(dimentations)
       forkJoin(filesList).subscribe((resp: any) => {
         let fileList: any = [];
         resp.forEach(async (fileItem: any, keyIndex: number) => {
-          let meta = await fileItem.getMetadata()
+          let meta = await fileItem.getMetadata();
           meta.parent = fileItem.parent.name;
           let url = await fileItem.getDownloadURL()
           meta.url = url;
+          meta.width = dimentations[keyIndex].width;
+          meta.height = dimentations[keyIndex].height;
           fileList.push(this.uploadFileStorage(meta))
           if (keyIndex == (resp.length - 1)) {
             resolve(fileList);
@@ -99,6 +107,26 @@ export class CrudService {
 
   }
 
+  getImageDimentation(file: any) {
+    return new Promise((resolve, reject) => {
+      var img: any;
+      var _URL = window.URL || window.webkitURL;
+      if (file) {
+        img = new Image();
+        var objectUrl = _URL.createObjectURL(file);
+        img.onload = () => {
+          resolve({
+            width: img.width,
+            height: img.height
+          });
+          //alert(img.width + " " + img.height);
+          _URL.revokeObjectURL(objectUrl);
+        };
+        img.src = objectUrl;
+      }
+    })
+  }
+
   uploadFileStorage(resp: any) {
     let filesItem: any = {};
     filesItem.id = Math.random().toString(16).slice(2);
@@ -108,6 +136,8 @@ export class CrudService {
     filesItem.lastModifiedDateTime = resp.updated;
     filesItem.url = resp.url;
     filesItem.parentFolder = resp.parent;
+    filesItem.width = resp.width;
+    filesItem.height = resp.height;
     return filesItem;
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IntegrationData } from '@one-click/data';
+import { Connection, IntegrationData } from '@one-click/data';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +17,18 @@ export class CommonServiceService {
     }
     return integrationList;
   }
+
+  getImageRation(width: number, height: number) {
+    let r = this.gcd(width, height);
+    return `${width / r}:${height / r}`;
+  }
+
+  gcd(a: number, b: number): number {
+    return (b == 0) ? a : this.gcd(b, a % b);
+  }
+
+  validateRationImage(width: number, height: number, connection: Connection) {
+    return width / height >= connection.imageRationMin && width / height <= connection.imageRationMax;
+  }
+
 }

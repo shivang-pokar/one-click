@@ -1,0 +1,73 @@
+<div class="file-manager d-flex">
+    <div class="left-section">
+        <h2 class="d-flex align-items-center">File Manager</h2>
+        <ul>
+            <li class="d-flex align-items-center" *ngFor="let menu of menuList;let i = index"
+                [class.active]="selectedIndex == i" (click)="selectedIndex = i">
+                <mat-icon class="material-icons-outlined">
+                    {{menu.icon}}
+                </mat-icon>
+                {{menu.text}}
+            </li>
+        </ul>
+    </div>
+    <div class="right-section">
+        <div class="">
+            <h2 class="d-flex align-items-center justify-content-between">
+                <span>{{menuList[selectedIndex].text}}</span>
+                <button mat-icon-button mat-dialog-close>
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                </button>
+            </h2>
+
+        </div>
+        <div class="content-section p-4">
+            <!--  <div *ngIf="selectedIndex == 0" class="upload-section w-100 h-100">
+
+                <div
+                    class="no-file-section w-100 h-100 d-flex align-items-center justify-content-center flex-column position-relative">
+                    <input type="file" class="position-absolute w-100 h-100 opacity-0" multiple
+                        (change)="uploadFiles($event)">
+                    <mat-icon class="material-icons-outlined">
+                        drive_folder_upload
+                    </mat-icon>
+                    <p>Upload Photo/Video</p>
+                </div>
+            </div> -->
+
+            <div *ngIf="selectedIndex == 0" class="upload-section w-100 h-100">
+                <div class="uploaded-file d-flex flex-wrap">
+                    <div class="upload-section position-relative align-items-center justify-content-center d-flex">
+                        <input type="file" class="position-absolute w-100 h-100 opacity-0" multiple
+                            (change)="uploadFiles($event)">
+                        <mat-icon class="material-icons-outlined">
+                            add_a_photo
+                        </mat-icon>
+                    </div>
+
+
+                    <ng-container *ngFor="let file of fileManager?.fileList">
+                        <div class="image-section position-relative" [class.selected]="isImageSelected(file)">
+                            <img [src]="file.url" alt="" class="w-100 h-100">
+                            <div class="selected-section position-absolute d-flex align-items-end">
+                                <mat-icon color="warn" (click)="deleteFile(file)"
+                                    class="position-absolute cancel">delete</mat-icon>
+                                <div class="area-section d-flex align-items-end position-absolute w-100 h-100"
+                                    (click)="selectItem(file)">
+                                    <mat-checkbox color="primary" [checked]="isImageSelected(file)">
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+
+            <one-click-loading *ngIf="isLoading"></one-click-loading>
+        </div>
+        <div class="button-section d-flex align-items-center justify-content-end">
+            <button cdkFocusInitial mat-raised-button [mat-dialog-close]="selectImages" color="primary">Select</button>
+        </div>
+    </div>
+</div>
