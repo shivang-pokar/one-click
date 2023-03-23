@@ -9,12 +9,32 @@
     </div>
 
     <div class="post-content">
-        <p *ngIf="connection?.postContent?.content">{{connection?.postContent?.content}}</p>
+        <p *ngIf="connection?.postContent?.message">{{connection?.postContent?.message}}</p>
 
         <ng-container *ngIf="connection?.postContent?.attachment?.length">
-            <ng-container *ngFor="let attach of connection?.postContent?.attachment">
-                <img [src]="attach.url" alt="">
-            </ng-container>
+            <div class="attach-continer flex-wrap d-flex">
+                <ng-container *ngIf="connection?.postContent?.attachment?.length != 3">
+                    <ng-container *ngFor="let attach of connection?.postContent?.attachment; let i = index">
+                        <div class="img position-relative" *ngIf="i < 4"
+                            [class.w-100]="connection?.postContent?.attachment?.length == 1" [class.extra-height]="connection?.postContent?.attachment?.length == 2">
+                            <img [src]="attach.url" alt="">
+                            <span *ngIf="i == 3 && connection?.postContent?.attachment?.length > 4"
+                                class="extra-images position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+                                +{{connection?.postContent?.attachment?.length - (i + 1)}}
+                            </span>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="connection?.postContent?.attachment?.length == 3">
+                    <div class="img position-relative large-height">
+                        <img [src]="connection?.postContent?.attachment[0].url" alt="">
+                    </div>
+                    <div class="img position-relative two-column-image d-flex">
+                        <img [src]="connection?.postContent?.attachment[1].url" alt="" class="d-block">
+                        <img [src]="connection?.postContent?.attachment[2].url" alt="" class="d-block">
+                    </div>
+                </ng-container>
+            </div>
         </ng-container>
     </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConnectionList, FileItem } from '@one-click/data';
+import { ConnectionList, FileItem, PostContent } from '@one-click/data';
 import { AlertService, CommonServiceService } from '@one-click/one-click-services';
 
 @Component({
@@ -10,17 +10,16 @@ import { AlertService, CommonServiceService } from '@one-click/one-click-service
 })
 export class PostDataSectionComponent implements OnInit, OnChanges {
 
-  personalized: boolean = false;
   @Input() selectedAccountList: Array<any> = [];
   maxCharecterLimite: number = 0;
   connectionList = ConnectionList;
   typedCharecter: number = 0;
   type: string = "ALL";
-  connectionListSelected = this.connectionList.filter(el => el.connected == true && (el.id == this.type || this.type == 'ALL'));
+  connectionListSelected: Array<any> = [];
   postForm: FormGroup;
   @Output() postFormValues = new EventEmitter();
-
-  //isAttachValid: boolean = true;
+  @Input() singleAccount: any;
+  @Input() noPersonalizedData: PostContent;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,12 +30,22 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
     this.postForm = this.formBuilder.group({
       message: [''],
       id: ['ALL'],
+      type: ['ALL'],
       attachment: [''],
       attachment_valid: [true]
     });
   }
 
   ngOnInit(): void {
+
+    if (this.singleAccount) {
+      this.selectedAccountList = [this.singleAccount];
+      this.type = this.singleAccount.type;
+      this.postForm.get('id')?.setValue(this.singleAccount.id);
+      this.postForm.get('type')?.setValue(this.type);
+    }
+
+    this.filterConnectionListSelected()
 
     this.charecterValidateion();
     this.postForm.valueChanges.subscribe(resp => {
@@ -45,12 +54,15 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
 
     this.postForm.updateValueAndValidity({ onlySelf: false, emitEvent: true });
 
-
+    if (this.noPersonalizedData) {
+      this.noPersonalizedData.id = "ALL";
+      this.postForm.patchValue(this.noPersonalizedData);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('selectedAccountList' in changes) {
-      this.connectionListSelected = this.connectionList.filter(el => el.connected == true && (el.id == this.type || this.type == 'ALL'));
+    if ('selectedAccountList' in changes || 'singleAccount' in changes) {
+      this.filterConnectionListSelected()
       this.charecterValidateion();
       this.validateImages();
     }
@@ -106,6 +118,15 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       if (connection.connected && connection.charecterLimite > 0) {
         charLimite.push(connection.charecterLimite);
       }
+
+      if (connection.attachRequired) {
+        this.postForm.get('attachment')?.setValidators([Validators.required]);
+        this.postForm.get('attachment')?.updateValueAndValidity();
+      } else {
+        this.postForm.get('attachment')?.setValidators([]);
+        this.postForm.get('attachment')?.updateValueAndValidity();
+      }
+
     });
 
     if (charLimite.length) {
@@ -122,13 +143,28 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
   }
 
   postDescription() {
-    this.typedCharecter = this.postForm.get('message')?.value.length;
+    this.typedCharecter = this.postForm.get('message')?.value?.length || "";
   }
 
   removeAttach(file: FileItem) {
     let attachment: Array<FileItem> = this.postForm.get('attachment')?.value;
     attachment = attachment.filter(item => item.id != file.id);
     this.setAttachment(attachment, false);
+  }
+
+  filterConnectionListSelected() {
+    this.connectionListSelected = this.connectionList.filter(el => el.connected == true && (el.id == this.type || this.type == 'ALL'));
+  }
+
+  clearAll() {
+    this.alertService.confirmationDialog('Are you sure you want to clear the post?').afterClosed().subscribe(resp => {
+      if (resp) {
+        this.postForm.get('message')?.reset();
+        this.postForm.get('attachment')?.setValue([]);
+        this.postForm.get('attachment_valid')?.setValue(true);
+        this.postDescription();
+      }
+    })
   }
 
 }

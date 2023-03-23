@@ -6,7 +6,7 @@ const fs = require('fs');
 export const twitterPost = async (req, res) => {
     try {
         const client = getTwitterClient(req);
-        let mediaId = await uploadAllImage(req.body.image_url, client);
+        let mediaId = await uploadAllImage(req.body.attachment, client);
         const post = await client.v1.tweet(req.body.message, {
             media_ids: mediaId,
         });
@@ -122,7 +122,7 @@ function getTwitterClient(req) {
     const client = new TwitterApi({
         appKey: environment.twitter_app_key,
         appSecret: environment.twitter_app_secret,
-        accessToken: req.body.oauth_token,
+        accessToken: req?.body?.oauth_token || req?.body?.access_token,
         accessSecret: req.body.oauth_token_secret,
     });
     return client;

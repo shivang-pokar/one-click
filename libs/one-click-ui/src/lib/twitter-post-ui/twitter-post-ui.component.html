@@ -3,21 +3,47 @@
 <div class="post d-flex">
     <div class="flex-shrink-0 mr-3">
         <div class="image-section">
-            <img class="profile-pic" src="https://source.unsplash.com/random/100X100" alt="Profile pic">
+            <img class="profile-pic" [src]="connection.img" alt="Profile pic">
         </div>
     </div>
     <div class="flex-1">
         <div class="top-section">
-            <strong class="mr-2">John Wick</strong>
-            <span>@john1123wick</span>
+            <strong class="mr-2">{{connection.name}}</strong>
+            <span>@{{connection.username}}</span>
         </div>
         <div class="content-section">
-            <p class="m-0">As every year, in 2023 we took a chance at CES to showcase how ASUS commits to providing you
-                with the
-                best laptops. Click the post to see 6 reasons to choose ASUS laptops.</p>
+            <p class="m-0" *ngIf="connection?.postContent?.message">{{connection?.postContent?.message}}</p>
         </div>
         <div class="caption-image-section">
-            <img src="https://source.unsplash.com/random/400X400" alt="">
+            <!-- <img src="https://source.unsplash.com/random/400X400" alt=""> -->
+
+            <ng-container *ngIf="connection?.postContent?.attachment?.length">
+                <div class="attach-continer flex-wrap d-flex">
+                    <ng-container *ngIf="connection?.postContent?.attachment?.length != 3">
+                        <ng-container *ngFor="let attach of connection?.postContent?.attachment; let i = index">
+                            <div class="img position-relative" *ngIf="i < 4"
+                                [class.w-100]="connection?.postContent?.attachment?.length == 1"
+                                [class.extra-height]="connection?.postContent?.attachment?.length == 2">
+                                <img [src]="attach.url" alt="">
+                                <span *ngIf="i == 3 && connection?.postContent?.attachment?.length > 4"
+                                    class="extra-images position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+                                    +{{connection?.postContent?.attachment?.length - (i + 1)}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="connection?.postContent?.attachment?.length == 3">
+                        <div class="img position-relative large-height">
+                            <img [src]="connection?.postContent?.attachment[0].url" alt="">
+                        </div>
+                        <div class="img position-relative two-column-image d-flex">
+                            <img [src]="connection?.postContent?.attachment[1].url" alt="" class="d-block">
+                            <img [src]="connection?.postContent?.attachment[2].url" alt="" class="d-block">
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AlertService, CrudService } from '@one-click/one-click-services';
 import { Connection, ConnectionList, IntegrationData, messages, PostContent } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
@@ -22,11 +22,16 @@ export class DashboardComponent implements OnInit {
   selectedType: string = "ALL";
   postForm: FormGroup;
   postContent: Array<PostContent> = [];
+  postFormList: Array<FormGroup> = [];
+  personalized: boolean = false;
+  personalizedEv: boolean = false;
+  noPersonalizedData: PostContent = new PostContent();
 
   constructor(
     public crudService: CrudService,
     public alertService: AlertService,
     private cookieService: CookieService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
 
   }
@@ -89,47 +94,138 @@ export class DashboardComponent implements OnInit {
 
   postNow() {
 
-    if (this.postForm.get('id').value == 'ALL') {
-      if (this.checkPostCondition) {
-        let errors = this.postForm.get('message').errors;
-        if (errors['maxlength']) {
-          let message = messages.POST_REQUIRED_MAX_LENGTH
-          message = message.replace('@number', errors['maxlength'].requiredLength);
-          let index = this.connectionList.findIndex(connection => connection.charecterLimite == errors['maxlength'].requiredLength);
-          message = message.replace('@social', this.connectionList[index].socialName);
-          this.alertService.openDialog(messages.LIMITE_EXCE_TITLE, message);
+    for (let form of this.postFormList) {
+      if (this.checkPostCondition(form)) {
+
+        this.showErrorAlert(form);
+        return;
+
+      }
+      else {
+
+        let postData: Array<PostContent> = [];
+        this.integrationList.forEach(account => {
+          if (account.is_selected) {
+            account.postContent.user_id = account.id;
+            account.postContent.access_token = account.access_token;
+
+            if (account.oauth_token_secret) {
+              account.postContent['oauth_token_secret'] = account.oauth_token_secret;
+            }
+            postData.push(account.postContent);
+          }
+        });
+
+        if (postData.length) {
+          this.crudService.createPost(postData).subscribe((resp: any) => {
+            this.alertService.success(resp.message)
+          }, er => {
+            this.alertService.error(er.message);
+          })
         }
-        else if (this.postForm.get('attachment_valid').value == false) {
-          this.alertService.openDialog('Your Post is Empty', messages.IMG_RATION);
-        }
-        else {
-          this.alertService.openDialog('Your Post is Empty', messages.POST_REQUIRED);
-        }
+
       }
     }
-
   }
 
-  get checkPostCondition() {
-    return this.postForm.invalid || !this.postForm.get('message').value && !this.postForm.get('attachment').value || this.postForm.get('attachment_valid').value == false
+  showErrorAlert(form: FormGroup) {
+
+    let errors = form.get('message').errors;
+    let attachmentErrors = form.get('attachment')?.errors;
+
+    if (errors && errors['maxlength']) {
+      let message = messages.POST_REQUIRED_MAX_LENGTH;
+      message = message.replace('@number', errors['maxlength'].requiredLength);
+      let index = this.connectionList.findIndex(connection => connection.charecterLimite == errors['maxlength'].requiredLength);
+      message = message.replace('@social', this.connectionList[index].socialName);
+      this.alertService.openDialog(messages.LIMITE_EXCE_TITLE, message);
+    }
+    else if (attachmentErrors && attachmentErrors['required']) {
+
+      let index = this.connectionList.findIndex(connection => connection.connected && connection.attachRequired == true);
+      let message = messages.ATTACH_REQUIRED;
+      message = message.replace('@social', this.connectionList[index].socialName);
+      this.alertService.openDialog(messages.ATTACH_REQUIRED_TITLE, message);
+    }
+    else if (form.get('attachment_valid').value == false) {
+      this.alertService.openDialog('Image aspect ratio', messages.IMG_RATION);
+    }
+    else {
+      this.alertService.openDialog('Your Post is Empty', messages.POST_REQUIRED);
+    }
+  }
+
+  checkPostCondition(form: FormGroup) {
+    return form.invalid
+      || (!form.get('message').value && (!form.get('attachment').value || !form.get('attachment').value?.length))
+      || form.get('attachment_valid').value == false;
   }
 
   postFormValues(event: FormGroup) {
-    this.postForm = event;
-    if (this.postForm.get('id').value == 'ALL') {
-      this.postContent = [];
+
+    if (event.value.id == "ALL") {
+      this.noPersonalizedData = event.value;
+    }
+
+    let index = this.postFormList.findIndex(form => form.value.id == event.value.id);
+
+    if (index == -1) {
+      this.postFormList.push(event);
+    } else {
+      this.postFormList[index] = event;
+    }
+
+    if (!this.personalized) {
       this.integrationList.forEach(account => {
         if (account.is_selected) {
           let content: PostContent = new PostContent();
           content.id = this.crudService.angularFirestore.createId();
-          content.content = this.postForm.get('message').value;
-          content.attachment = this.postForm.get('attachment').value || [];
+          content.message = event.value?.message;
+          content.type = account.type;
+          content.attachment = event.value?.attachment || [];
           account.postContent = content;
+        }
+      });
+    } else {
+      this.postFormList.forEach(form => {
+        let integrationIndex = this.integrationList.findIndex(integration => integration.id == form.value.id);
+        if (integrationIndex >= 0) {
+          let content: PostContent = new PostContent();
+          content.id = this.crudService.angularFirestore.createId();
+          content.type = this.integrationList[integrationIndex].type;
+          content.message = form.get('message').value;
+          content.attachment = form.get('attachment').value || [];
+          this.integrationList[integrationIndex].postContent = JSON.parse(JSON.stringify(content));
         }
       });
     }
   }
 
-
+  putPersonalizedData(event: any) {
+    if (event.checked) {
+      this.personalized = event.checked;
+      this.personalizedEv = event.checked;
+      setTimeout(() => {
+        this.postFormList = this.postFormList.filter(form => form.value.id != 'ALL');
+        this.postFormList.forEach(form => {
+          if (form.value.id != 'ALL') {
+            form.get('message').setValue(this.noPersonalizedData.message);
+            form.get('attachment').setValue(this.noPersonalizedData.attachment);
+          }
+        })
+      }, 150)
+    } else {
+      this.alertService.confirmationDialog('Customized posts for each account will be lost').afterClosed().subscribe(resp => {
+        if (resp) {
+          this.personalized = false;
+          this.personalizedEv = false;
+          this.postFormList = this.postFormList.filter(form => form.value.type != "ALL");
+        } else {
+          this.personalized = true;
+          this.personalizedEv = true;
+        }
+      });
+    }
+  }
 
 }

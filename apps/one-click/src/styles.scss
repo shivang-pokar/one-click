@@ -266,3 +266,23 @@ body .mat-mdc-raised-button[disabled][disabled] {
 button {
     min-height: 42px;
 }
+
+.slick-slider {
+    width: 100%;
+    margin: auto;
+}
+
+body .slick-prev,
+body .slick-next {
+    height: 45px;
+    width: 40px;
+    z-index: 11;
+}
+
+body .slick-next {
+    right: 0;
+}
+
+body .slick-prev {
+    left: 0;
+}

@@ -13,8 +13,7 @@ const loginParams: LoginOptions = {
 
 const loginParamsInsta: LoginOptions = {
   auth_type: 'rerequest',
-  /* pages_read_engagement,business_management,ads_management */
-  scope: 'instagram_basic,pages_show_list,instagram_manage_insights,instagram_content_publish',
+  scope: 'instagram_basic,pages_show_list,instagram_manage_insights,instagram_content_publish,pages_read_engagement,business_management,ads_management',
   return_scopes: true,
 }
 

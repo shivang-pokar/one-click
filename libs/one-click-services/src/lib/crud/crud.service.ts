@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
+import { PostContent } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
 
 @Injectable({
@@ -11,6 +13,8 @@ export class CrudService {
   constructor(
     public angularFirestore: AngularFirestore,
     public angularFireStorage: AngularFireStorage,
+    @Inject('env') public env: any,
+    private http: HttpClient
   ) { }
 
   update(collName: string, obj: any, id: string) {
@@ -139,6 +143,11 @@ export class CrudService {
     filesItem.width = resp.width;
     filesItem.height = resp.height;
     return filesItem;
+  }
+
+
+  createPost(body: Array<PostContent>) {
+    return this.http.post(`${this.env.API_BASE_URL}/post/create-post`, body);
   }
 
 }

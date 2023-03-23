@@ -48,7 +48,43 @@ h3 {
         margin-top: 10px;
         overflow: hidden;
         img {
+            max-height: 400px;
+            -o-object-fit: cover;
+            object-fit: cover;
             width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.attach-continer {
+    gap: 2px;
+    .img {
+        width: calc(50% - 1px);
+
+        &.extra-height {
+            height: 200px;
+        }
+        .extra-images {
+            left: 0;
+            top: 0;
+            z-index: 99;
+            background-color: rgba(var(--primary-rgb), 0.45);
+            font-size: 30px;
+            color: var(--white);
+        }
+        &.large-height {
+            height: 300px;
+            img {
+                height: 100%;
+            }
+        }
+        &.two-column-image {
+            gap: 2px;
+            flex-direction: column;
+            img {
+                height: calc(50% - 1px);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 
@@ -44,7 +44,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         FormsModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SlickCarouselModule
     ],
     declarations: [
         GetSocialTypePipe
@@ -69,7 +70,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         FormsModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SlickCarouselModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

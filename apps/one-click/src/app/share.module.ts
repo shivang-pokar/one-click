@@ -19,6 +19,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         OneClickUiModule,
         MatChipsModule,
         MatAutocompleteModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        SlickCarouselModule
     ],
     declarations: [
         GetSocialTypePipe,

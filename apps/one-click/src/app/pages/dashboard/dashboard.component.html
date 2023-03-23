@@ -10,8 +10,27 @@
                     <one-click-select-account [integrationList]="integrationList"
                         (selectedAccount)="selectedAccount($event)"></one-click-select-account>
 
-                    <one-click-post-data-section [selectedAccountList]="selectedAccountList"
-                        (postFormValues)="postFormValues($event)"></one-click-post-data-section>
+                    <div class="mb-3">
+
+                        <mat-slide-toggle [(ngModel)]="personalizedEv" color="primary" name="personalized"
+                            (change)="putPersonalizedData($event)"><span class="ml-1">Personalized
+                                for each social
+                                account</span></mat-slide-toggle>
+                    </div>
+
+                    <ng-container *ngIf="!personalized">
+                        <one-click-post-data-section [selectedAccountList]="selectedAccountList"
+                            [noPersonalizedData]="noPersonalizedData"
+                            (postFormValues)="postFormValues($event)"></one-click-post-data-section>
+                    </ng-container>
+
+                    <ng-container *ngIf="personalized">
+                        <div *ngFor="let account of selectedAccountList" class="mb-4">
+                            <one-click-post-data-section [singleAccount]="account"
+                                (postFormValues)="postFormValues($event)"></one-click-post-data-section>
+                        </div>
+                    </ng-container>
+
                 </ng-container>
             </div>
         </div>
@@ -34,7 +53,7 @@
                 </div>
             </div>
             <div class="p-3 content-section">
-
+                <p class="text-center">View of a post on one platform may look different</p>
                 <ng-container *ngFor="let connection of integrationList">
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'FACEBOOK' && (selectedType == 'FACEBOOK' || selectedType == 'ALL') ">
@@ -42,11 +61,11 @@
                     </ng-container>
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'INSTAGRAM' && (selectedType == 'INSTAGRAM' || selectedType == 'ALL')">
-                        <one-click-instagram-post-ui></one-click-instagram-post-ui>
+                        <one-click-instagram-post-ui [connection]="connection"></one-click-instagram-post-ui>
                     </ng-container>
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'TWITTER' && (selectedType == 'TWITTER' || selectedType == 'ALL') ">
-                        <one-click-twitter-post-ui></one-click-twitter-post-ui>
+                        <one-click-twitter-post-ui [connection]="connection"></one-click-twitter-post-ui>
                     </ng-container>
                 </ng-container>
             </div>

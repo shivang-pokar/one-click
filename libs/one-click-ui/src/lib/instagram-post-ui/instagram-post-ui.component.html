@@ -4,23 +4,28 @@
 <div class="post">
     <div class="top">
         <div class="image">
-            <img src="https://cdn2.bigcommerce.com/server5400/3po1k2/products/8171/images/14559/161_light_blue__46032.1418747956.1280.1280.jpg"
-                width="40px" height="40px" alt="">
+            <img [src]="connection.img" width="40px" height="40px" alt="">
         </div>
         <div class="information">
             <div class="username">
                 <div class="designation">
-                    thecolorlesseyes
+                    {{connection.name}}
                 </div>
             </div>
-            <div class="name">
+            <!-- <div class="name">
                 The Colorless Eyes
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="middle">
-        <img src="https://cdn2.bigcommerce.com/server5400/3po1k2/products/8171/images/14559/161_light_blue__46032.1418747956.1280.1280.jpg?c=2g"
-            class="post-image" alt="">
+
+        <ng-container *ngIf="connection?.postContent?.attachment?.length">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem trackBy *ngFor="let attach of connection?.postContent?.attachment" class="slide">
+                    <img [src]="attach.url" alt="" width="100%">
+                </div>
+            </ngx-slick-carousel>
+        </ng-container>
     </div>
 
     <div class="options">
@@ -75,15 +80,15 @@
             </svg>
         </div>
     </div>
-    <div class="likes">
-        137 likes
-    </div>
     <div class="caption">
         <div class="content">
             <div class="information">
-                <div class="username">thecolorlesseyes</div>
-                <div class="text"> No caption needed 🤗 </div>
-                <button>more</button>
+                <ng-container *ngIf="connection?.postContent?.message">
+                    <div class="username">{{connection.name}}</div>
+                    <div class="text"> {{connection?.postContent?.message}}
+                    </div>
+                    <button>more</button>
+                </ng-container>
             </div>
         </div>
     </div>

@@ -4,9 +4,9 @@ var { environment } = require('../environments/environment');
 
 export const facebookPost = async (req, res, next) => {
     try {
-        const allUrlList = createImageUrl(req.body.images, req.body.access_token, req.body.id);
+        const allUrlList = createImageUrl(req.body.attachment, req.body.access_token, req.body.user_id);
         const imageList = await getImagePerma(allUrlList);
-        const feed = await axios.post(`${environment.FB_AUTH_URL}/${req.body.id}/feed`, {
+        const feed = await axios.post(`${environment.FB_AUTH_URL}/${req.body.user_id}/feed`, {
             access_token: req.body.access_token,
             message: req.body.message,
             attached_media: imageList

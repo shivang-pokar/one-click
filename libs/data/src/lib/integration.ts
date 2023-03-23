@@ -12,6 +12,7 @@ export class Connection {
     color?: string;
     connected?: boolean;
     sendPost?: boolean;
+    attachRequired?: boolean;
     badge?: number;
     charecterLimite: number = -1;
     imageRationMin: number = 0;

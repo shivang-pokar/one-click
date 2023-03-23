@@ -1,11 +1,14 @@
+<div class="account-section p-2 pb-3" *ngIf="singleAccount">
+    <mat-chip-row class="account-data">
+        <span class="position-relative">
+            <img class="mr-2" [src]="singleAccount.img" alt="" height="25" style="border-radius: 50%;">
+            <img [src]="singleAccount.type | socialType" alt="" height="12" class="position-absolute type-image">
+        </span>
+        {{singleAccount.name}}
+    </mat-chip-row>
+</div>
+
 <div class="content-section">
-
-    <div class="mb-3">
-        <mat-slide-toggle [(ngModel)]="personalized" color="primary" name="personalized"><span class="ml-1">Personalized
-                for each social
-                account</span></mat-slide-toggle>
-    </div>
-
     <form [formGroup]="postForm">
         <ng-container>
             <mat-form-field appearance="fill" class="light-border w-100 post-for-all">
@@ -36,7 +39,7 @@
                 <mat-icon aria-hidden="false" aria-label="Example home icon">photo_library</mat-icon>
             </div>
             <div class="d-flex align-items-center">
-                <mat-icon color="warn">delete</mat-icon>
+                <mat-icon class="delete" (click)="clearAll()" color="warn">delete</mat-icon>
                 <p class="m-0 ml-2" *ngIf="maxCharecterLimite > 0">
                     {{maxCharecterLimite - typedCharecter}}</p>
             </div>

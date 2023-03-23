@@ -44,6 +44,8 @@ export class AuthChannelComponent implements OnInit {
     this.socialConnectService.getTwitterToken(oauth_token, oauth_verifier).subscribe(resp => {
       this.getIntegration().then(async () => {
         const userData: any = await this.socialConnectService.getTwitterUser(resp.access_token);
+        resp.username = userData[0].username;
+        resp.name = userData[0].name;
         resp.img = userData[0].profile_image_url;
         resp.created_at = userData[0].created_at;
         resp.protected = userData[0].protected;

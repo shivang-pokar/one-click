@@ -11,6 +11,8 @@ import twitterRouter from './routes/twitter.js';
 import linkedinRouter from './routes/linkedin.js';
 import instagramrRouter from './routes/instagram.js';
 import facebookRouter from './routes/facebook.js';
+import post from './routes/post.js';
+import { environment } from './environments/environment.js';
 
 const app = express.default();
 
@@ -23,12 +25,13 @@ app.use('/twitter', twitterRouter);
 app.use('/linkedin', linkedinRouter);
 app.use('/instagramr', instagramrRouter);
 app.use('/facebook', facebookRouter);
+app.use('/post', post);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to one-click-api!' });
 });
 
-const port = process.env.port || 3333;
+const port = environment.port;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
 });
