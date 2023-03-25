@@ -10,3 +10,4 @@ export * from './lib/twitter-post-ui/twitter-post-ui.component';
 export * from './lib/common-dialog/common-dialog.component';
 export * from './lib/file-manager/file-manager.component';
 export * from './lib/loading/loading.component';
+export * from './lib/social-chip/social-chip.component';

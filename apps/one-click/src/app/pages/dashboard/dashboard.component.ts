@@ -116,13 +116,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   setPostData(postContent: Array<PostContent>, status: string, postResp: Array<any>) {
-    let postContainer = new PostContainer();
+    const postContainer = new PostContainer();
     postContainer.id = this.crudService.angularFirestore.createId();
     postContainer.company_id = this.company_id;
     postContainer.status = status;
 
     postResp.forEach(post => {
-      let index = postContent.findIndex(element => element.type == post.type);
+      const index = postContent.findIndex(element => element.type == post.type);
       if (index >= 0) {
         postContent[index].post_id = post?.data?.id
       }
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   formReset() {
-    for (let form of this.postFormList) {
+    for (const form of this.postFormList) {
       const value = form.value;
       form.reset({
         id: value.id,
@@ -147,7 +147,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   createPostObj(): Array<PostContent> {
-    let postData: Array<PostContent> = [];
+    const postData: Array<PostContent> = [];
     this.integrationList.forEach(account => {
       if (account.is_selected) {
         account.postContent.user_id = account.id;
@@ -164,19 +164,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showErrorAlert(form: FormGroup) {
 
-    let errors = form.get('message').errors;
-    let attachmentErrors = form.get('attachment')?.errors;
+    const errors = form.get('message').errors;
+    const attachmentErrors = form.get('attachment')?.errors;
 
     if (errors && errors['maxlength']) {
       let message = messages.POST_REQUIRED_MAX_LENGTH;
       message = message.replace('@number', errors['maxlength'].requiredLength);
-      let index = this.connectionList.findIndex(connection => connection.charecterLimite == errors['maxlength'].requiredLength);
+      const index = this.connectionList.findIndex(connection => connection.charecterLimite == errors['maxlength'].requiredLength);
       message = message.replace('@social', this.connectionList[index].socialName);
       this.alertService.openDialog(messages.LIMITE_EXCE_TITLE, message);
     }
     else if (attachmentErrors && attachmentErrors['required']) {
 
-      let index = this.connectionList.findIndex(connection => connection.connected && connection.attachRequired == true);
+      const index = this.connectionList.findIndex(connection => connection.connected && connection.attachRequired == true);
       let message = messages.ATTACH_REQUIRED;
       message = message.replace('@social', this.connectionList[index].socialName);
       this.alertService.openDialog(messages.ATTACH_REQUIRED_TITLE, message);

@@ -7,4 +7,5 @@ export class PostContent {
     access_token: string = "";
     attachment: Array<any> = [];
     created_at: number = new Date().getTime();
+    showDesc: boolean = false;
 }

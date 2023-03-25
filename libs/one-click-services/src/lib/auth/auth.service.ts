@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { CookieService } from 'ngx-cookie-service';
 import * as firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
 import { User } from '@one-click/data';
 import { CrudService } from '../crud/crud.service';
 import { AlertService } from '../alert/alert.service';
-import { take } from 'rxjs';
+import { Observable, of, switchMap, take } from 'rxjs';
 
 
 @Injectable({
@@ -13,6 +15,7 @@ import { take } from 'rxjs';
 })
 export class AuthService {
   userCollection: string = 'users';
+  firebase = firebase.default;
   constructor(
     private angularFireAuth: AngularFireAuth,
     private cookieService: CookieService,

@@ -31,6 +31,7 @@ export class PostContainer {
     @SCHEDULE
      */
     status?: string;
-
+    keyIndex?: number;
+    createdAt?: any;
 
 }

@@ -11,6 +11,7 @@ import { TwitterPostUiComponent } from './twitter-post-ui/twitter-post-ui.compon
 import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SocialChipComponent } from './social-chip/social-chip.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -24,7 +25,8 @@ import { LoadingComponent } from './loading/loading.component';
     TwitterPostUiComponent,
     CommonDialogComponent,
     FileManagerComponent,
-    LoadingComponent
+    LoadingComponent,
+    SocialChipComponent,
   ],
   exports: [
     IntegrationCardComponent,
@@ -35,7 +37,8 @@ import { LoadingComponent } from './loading/loading.component';
     TwitterPostUiComponent,
     CommonDialogComponent,
     FileManagerComponent,
-    LoadingComponent
-  ]
+    LoadingComponent,
+    SocialChipComponent
+  ],
 })
 export class OneClickUiModule { }

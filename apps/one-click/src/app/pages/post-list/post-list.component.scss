@@ -6,3 +6,50 @@ mat-button-toggle-group {
         }
     }
 }
+
+.post-box {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+
+    p {
+        font-size: 14px;
+    }
+
+    .media {
+        .image-section {
+            width: 55px;
+            height: 55px;
+            border-radius: 3px;
+            overflow: hidden;
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.bottom-section {
+    .gap-10 {
+        gap: 10px;
+    }
+}
+
+.filter-section {
+    ul {
+        li {
+            list-style: none;
+            &.active {
+                background: var(--active);
+            }
+            a {
+                display: block;
+                line-height: 42px;
+                font-size: 14px;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-decoration: none;
+                color: var(--primary);
+            }
+        }
+    }
+}

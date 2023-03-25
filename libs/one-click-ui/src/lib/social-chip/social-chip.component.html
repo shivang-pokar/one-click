@@ -1,0 +1,7 @@
+<mat-chip-row class="account-data" [class.selected]="selected">
+    <span class="position-relative">
+        <img class="mr-2" [src]="integration.img" alt="" height="25" style="border-radius: 50%;">
+        <img [src]="integration.type | socialType" alt="" height="12" class="position-absolute type-image">
+    </span>
+    {{integration.name}}
+</mat-chip-row>

@@ -21,6 +21,7 @@ import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { GetAccountPipe } from './pipes/get-account/get-account.pipe';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ],
     declarations: [
         GetSocialTypePipe,
+        GetAccountPipe
     ],
     exports: [
         FormsModule,
@@ -74,7 +76,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatAutocompleteModule,
         GetSocialTypePipe,
         MatSlideToggleModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        GetAccountPipe
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
