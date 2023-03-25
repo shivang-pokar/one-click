@@ -15,6 +15,11 @@ export class CommonHeaderComponent implements OnInit {
       label: 'Post Content'
     },
     {
+      url: '/posts',
+      icon: 'feed',
+      label: 'Posts'
+    },
+    {
       url: '/channels',
       icon: 'add_circle',
       label: 'Add Channels'

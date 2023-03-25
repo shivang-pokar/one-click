@@ -122,7 +122,7 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       if (connection.attachRequired) {
         this.postForm.get('attachment')?.setValidators([Validators.required]);
         this.postForm.get('attachment')?.updateValueAndValidity();
-      } else {
+      } else if (this.postForm.get('type')?.value != "ALL") {
         this.postForm.get('attachment')?.setValidators([]);
         this.postForm.get('attachment')?.updateValueAndValidity();
       }

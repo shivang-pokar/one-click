@@ -4,23 +4,65 @@ var { environment } = require('../environments/environment');
 
 
 export const createPost = async (req, res) => {
-    console.log(environment.LOCAL_URL);
-    console.log(req.body);
     if (req.body) {
+        let post = [];
         for (let element of req.body) {
             if (element.type == "FACEBOOK") {
-                await axios.post(`${environment.LOCAL_URL}/facebook/create-post`, element)
+                try {
+                    const fb = await axios.post(`${environment.LOCAL_URL}/facebook/create-post`, element);
+                    post.push({
+                        error: false,
+                        type: "FACEBOOK",
+                        data: fb.data
+                    })
+                }
+                catch (e) {
+                    post.push({
+                        error: true,
+                        type: "FACEBOOK",
+                        data: e
+                    })
+                }
             }
             if (element.type == "TWITTER") {
-                await axios.post(`${environment.LOCAL_URL}/twitter/create-post`, element)
+                try {
+                    const twitter = await axios.post(`${environment.LOCAL_URL}/twitter/create-post`, element)
+                    post.push({
+                        error: false,
+                        type: "TWITTER",
+                        data: twitter.data
+                    })
+                }
+                catch (e) {
+                    post.push({
+                        error: true,
+                        type: "TWITTER",
+                        data: e
+                    })
+                }
             }
             if (element.type == "INSTAGRAM") {
-                await axios.post(`${environment.LOCAL_URL}/instagramr/create-post`, element)
+                try {
+                    const insta = await axios.post(`${environment.LOCAL_URL}/instagramr/create-post`, element);
+                    post.push({
+                        error: false,
+                        type: "INSTAGRAM",
+                        data: insta.data
+                    })
+                }
+                catch (e) {
+                    post.push({
+                        error: true,
+                        type: "INSTAGRAM",
+                        data: e
+                    })
+                }
             }
         }
         res.send({
             error: false,
-            message: "Content posted succesfully"
+            message: "Content posted succesfully",
+            post: post
         });
     }
 }

@@ -20,6 +20,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { GetSocialTypePipe } from './pipes/get-social-type/get-social-type.pipe';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         MatChipsModule,
         MatAutocompleteModule,
         MatSlideToggleModule,
-        SlickCarouselModule
+        SlickCarouselModule,
+        MatButtonToggleModule
     ],
     declarations: [
         GetSocialTypePipe,
@@ -71,7 +73,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         MatChipsModule,
         MatAutocompleteModule,
         GetSocialTypePipe,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatButtonToggleModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

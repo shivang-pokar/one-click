@@ -16,7 +16,6 @@ export const instagramrPost = async (req, res, next) => {
 
     }
     catch (e) {
-        console.log(e);
         if (e?.response?.status) {
             res.status(e.response.status)
         }

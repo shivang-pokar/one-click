@@ -4,21 +4,32 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
 import { PostContent } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
+import * as firebase from 'firebase/compat/app';
+import "firebase/compat/database"
+import "firebase/compat/firestore";
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
 
+  firebase: any = firebase.default;
+  database = this.firebase.database();
+  uid = this.cookieService.get('uid');
+
+
+
   constructor(
     public angularFirestore: AngularFirestore,
     public angularFireStorage: AngularFireStorage,
     @Inject('env') public env: any,
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService,
   ) { }
 
   update(collName: string, obj: any, id: string) {
-    obj["updatedBy"] = "";
+    obj["updatedBy"] = this.uid;
     obj["deleteFlag"] = "N";
     obj["updatedAt"] = new Date().getTime();
     obj = JSON.parse(JSON.stringify(obj));
@@ -30,9 +41,9 @@ export class CrudService {
       id = this.angularFirestore.createId();
     }
     obj["id"] = id;
-    obj["createdBy"] = "";
+    obj["createdBy"] = this.uid;
     obj["createdAt"] = new Date().getTime();
-    obj["updatedBy"] = "";
+    obj["updatedBy"] = this.uid;
     obj["updatedAt"] = new Date().getTime();
     obj["deleteFlag"] = "N";
     obj = JSON.parse(JSON.stringify(obj));
@@ -88,7 +99,6 @@ export class CrudService {
         dimentations.push({ width: dimentation.width, height: dimentation.height });
       }
 
-      console.log(dimentations)
       forkJoin(filesList).subscribe((resp: any) => {
         let fileList: any = [];
         resp.forEach(async (fileItem: any, keyIndex: number) => {
@@ -148,6 +158,18 @@ export class CrudService {
 
   createPost(body: Array<PostContent>) {
     return this.http.post(`${this.env.API_BASE_URL}/post/create-post`, body);
+  }
+
+  setRealTimeData(path: string, obj: any) {
+
+    obj["createdBy"] = this.uid;
+    obj["createdAt"] = new Date().getTime();
+    obj["updatedBy"] = this.uid;
+    obj["updatedAt"] = new Date().getTime();
+    obj["deleteFlag"] = "N";
+    obj = JSON.parse(JSON.stringify(obj));
+
+    return this.database.ref(path).set(obj);
   }
 
 }

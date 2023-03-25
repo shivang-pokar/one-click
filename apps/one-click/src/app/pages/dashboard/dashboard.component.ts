@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertService, CrudService } from '@one-click/one-click-services';
-import { Connection, ConnectionList, IntegrationData, messages, PostContent } from '@one-click/data';
+import { Connection, ConnectionList, IntegrationData, messages, PostContainer, PostContent } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { FormGroup } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   integrationList: any[] = [];
   integration: IntegrationData;
@@ -26,12 +26,12 @@ export class DashboardComponent implements OnInit {
   personalized: boolean = false;
   personalizedEv: boolean = false;
   noPersonalizedData: PostContent = new PostContent();
+  isloading: boolean = false;
 
   constructor(
     public crudService: CrudService,
     public alertService: AlertService,
     private cookieService: CookieService,
-    private changeDetectorRef: ChangeDetectorRef
   ) {
 
   }
@@ -93,39 +93,73 @@ export class DashboardComponent implements OnInit {
   }
 
   postNow() {
-
     for (let form of this.postFormList) {
       if (this.checkPostCondition(form)) {
-
         this.showErrorAlert(form);
         return;
-
-      }
-      else {
-
-        let postData: Array<PostContent> = [];
-        this.integrationList.forEach(account => {
-          if (account.is_selected) {
-            account.postContent.user_id = account.id;
-            account.postContent.access_token = account.access_token;
-
-            if (account.oauth_token_secret) {
-              account.postContent['oauth_token_secret'] = account.oauth_token_secret;
-            }
-            postData.push(account.postContent);
-          }
-        });
-
-        if (postData.length) {
-          this.crudService.createPost(postData).subscribe((resp: any) => {
-            this.alertService.success(resp.message)
-          }, er => {
-            this.alertService.error(er.message);
-          })
-        }
-
       }
     }
+
+    let postContent: Array<PostContent> = this.createPostObj();
+    if (postContent.length) {
+      this.isloading = true;
+      this.crudService.createPost(postContent).subscribe((resp: any) => {
+        this.alertService.success(resp.message);
+        this.setPostData(postContent, 'SUCESS', resp.post);
+        this.formReset();
+        this.isloading = false;
+      }, er => {
+        this.alertService.error(er.message);
+      })
+    }
+
+  }
+
+  setPostData(postContent: Array<PostContent>, status: string, postResp: Array<any>) {
+    let postContainer = new PostContainer();
+    postContainer.id = this.crudService.angularFirestore.createId();
+    postContainer.company_id = this.company_id;
+    postContainer.status = status;
+
+    postResp.forEach(post => {
+      let index = postContent.findIndex(element => element.type == post.type);
+      if (index >= 0) {
+        postContent[index].post_id = post?.data?.id
+      }
+    });
+
+
+    postContainer.postContent = postContent;
+    this.crudService.add('postContainer', postContainer);
+    //this.crudService.setRealTimeData(`postContainer/${postContainer.id}`, postContainer);
+  }
+
+  formReset() {
+    for (let form of this.postFormList) {
+      const value = form.value;
+      form.reset({
+        id: value.id,
+        type: value.type,
+        attachment_valid: true,
+      })
+    }
+    this.noPersonalizedData = new PostContent();
+  }
+
+  createPostObj(): Array<PostContent> {
+    let postData: Array<PostContent> = [];
+    this.integrationList.forEach(account => {
+      if (account.is_selected) {
+        account.postContent.user_id = account.id;
+        account.postContent.access_token = account.access_token;
+
+        if (account.oauth_token_secret) {
+          account.postContent['oauth_token_secret'] = account.oauth_token_secret;
+        }
+        postData.push(account.postContent);
+      }
+    });
+    return postData;
   }
 
   showErrorAlert(form: FormGroup) {
@@ -226,6 +260,11 @@ export class DashboardComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destory$.next()
+    this.destory$.complete()
   }
 
 }

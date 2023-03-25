@@ -1,0 +1,8 @@
+mat-button-toggle-group {
+    font-size: 14px;
+    ::ng-deep {
+        .mat-button-toggle-label-content {
+            line-height: 42px;
+        }
+    }
+}

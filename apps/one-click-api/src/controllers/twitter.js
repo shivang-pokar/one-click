@@ -10,11 +10,8 @@ export const twitterPost = async (req, res) => {
         const post = await client.v1.tweet(req.body.message, {
             media_ids: mediaId,
         });
-        console.log(post);
         res.send(post);
     } catch (e) {
-        console.log(e);
-        console.log(e.data);
         res.status(e.code);
         res.send(e.data);
     }

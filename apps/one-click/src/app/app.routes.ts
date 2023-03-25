@@ -30,4 +30,8 @@ export const appRoutes: Route[] = [
         path: 'manage-account',
         loadChildren: () => import('./pages/manage-account/manage-account.module').then(m => m.ManageAccountModule)
     },
+    {
+        path: 'posts',
+        loadChildren: () => import('./pages/post-list/post-list.module').then(m => m.PostListModule)
+    },
 ];

@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="p-3 content-section">
-                <p class="text-center">View of a post on one platform may look different</p>
+                <p class="text-center">View of a post on the platform may look different</p>
                 <ng-container *ngFor="let connection of integrationList">
                     <ng-container
                         *ngIf="connection.is_selected && connection.type == 'FACEBOOK' && (selectedType == 'FACEBOOK' || selectedType == 'ALL') ">
@@ -72,8 +72,15 @@
         </div>
 
         <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-end">
-            <button mat-button color="primary">Save Draft</button>
-            <button mat-raised-button class="ml-2" (click)="postNow()" color="primary">Post Now</button>
+            <button [disabled]="isloading" mat-button color="primary">Save Draft</button>
+            <button mat-raised-button class="ml-2" (click)="postNow()" color="primary">
+                <ng-container *ngIf="!isloading">
+                    Post Now
+                </ng-container>
+                <ng-container *ngIf="isloading">
+                    <mat-spinner class="color-white button-loading"></mat-spinner>
+                </ng-container>
+            </button>
         </div>
 
     </div>
