@@ -51,7 +51,7 @@
                 </ng-container>
 
                 <div class="d-flex p-3 pt-2 pb-2 bottom-section border-top align-items-center">
-                    <div class="col-6 d-flex gap-10">
+                    <div class="col-6 d-flex gap-10 flex-wrap">
                         <ng-container *ngFor="let platform of post?.postContent; let platformIndex = index">
                             <one-click-social-chip
                                 [integration]="integration?.integrationList | getAccount:platform.user_id"
@@ -60,7 +60,7 @@
                         </ng-container>
                     </div>
                     <div class="col-6 d-flex align-items-center justify-content-end">
-                        <button mat-button color="warn">Delete</button>
+                        <button mat-button (click)="delete(post)" color="warn">Delete</button>
                         <button mat-button color="primary">Repost</button>
                     </div>
                 </div>

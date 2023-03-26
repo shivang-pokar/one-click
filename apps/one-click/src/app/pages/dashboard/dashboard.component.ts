@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   integration: IntegrationData;
   collName: string = 'integration';
   company_id = this.cookieService.get('company_id');
+  uid = this.cookieService.get('uid');
   destory$: Subject<void> = new Subject<void>();
   selectedAccountList: any[] = [];
   connectionList = ConnectionList;
@@ -103,10 +104,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let postContent: Array<PostContent> = this.createPostObj();
     if (postContent.length) {
       this.isloading = true;
-      this.crudService.createPost(postContent).subscribe((resp: any) => {
+      let obj = {
+        company_id: this.company_id,
+        uid: this.uid,
+        postContent: postContent
+      }
+      this.crudService.createPost(obj).subscribe((resp: any) => {
         this.alertService.success(resp.message);
-        this.setPostData(postContent, 'SUCESS', resp.post);
         this.formReset();
+        //this.setPostData(postContent, 'SUCESS', resp.post);
         this.isloading = false;
       }, er => {
         this.alertService.error(er.message);
@@ -130,7 +136,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
     postContainer.postContent = postContent;
-    this.crudService.add('postContainer', postContainer);
+    return this.crudService.add('postContainer', postContainer);
     //this.crudService.setRealTimeData(`postContainer/${postContainer.id}`, postContainer);
   }
 
@@ -265,6 +271,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destory$.next()
     this.destory$.complete()
+  }
+
+  async saveDraft() {
+    let postContent: Array<PostContent> = this.createPostObj();
+    try {
+      await this.setPostData(postContent, 'DRAFT', []);
+      this.alertService.success(messages.DRAFT_SAVE);
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+    }
+
+    this.formReset();
   }
 
 }

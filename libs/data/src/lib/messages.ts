@@ -7,6 +7,7 @@ export const messages = {
     INT_COMPLETED: 'Integration completed successfully',
     INT_DETAILS_UPDATED: 'Integration details updated successfully',
     ARE_YOU_SURE: 'Are you sure you want to disconnect?',
+    ARE_YOU_SURE_DELETE: 'Are you sure you want to delete?',
     INT_REMOVED: 'Account removed successfully',
     INI_ALREADY: 'Account already added',
     POST_REQUIRED: `Hold on there! You can't post nothing. Please add a message or media.`,
@@ -15,6 +16,7 @@ export const messages = {
     LIMITE_EXCE_TITLE: 'Oops! Character Limit Exceeded',
     ATTACH_REQUIRED_TITLE: 'Oops! Media required',
     IMG_RATION: 'Image aspect ratio not correct. Please adjust the dimensions to post image',
+    DRAFT_SAVE: 'Post added in draft'
 
 }
 

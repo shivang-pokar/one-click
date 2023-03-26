@@ -72,7 +72,7 @@
         </div>
 
         <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-end">
-            <button [disabled]="isloading" mat-button color="primary">Save Draft</button>
+            <button [disabled]="isloading" mat-button (click)="saveDraft()" color="primary">Save Draft</button>
             <button mat-raised-button class="ml-2" (click)="postNow()" color="primary">
                 <ng-container *ngIf="!isloading">
                     Post Now

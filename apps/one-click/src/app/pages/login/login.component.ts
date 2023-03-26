@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService, AuthService } from '@one-click/one-click-services';
+import { AlertService, AuthService, CommonServiceService } from '@one-click/one-click-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { messages } from '@one-click/data';
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private alertService: AlertService,
+    private commonServiceService: CommonServiceService,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['shivang.patel503@gmail.com', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
         if (userAuth?.emailVerified) {
           this.router.navigateByUrl('dashboard');
           this.isloading = false;
+          this.commonServiceService.getIntegration();
         } else {
           firebase.default.auth().currentUser?.sendEmailVerification();
           this.alertService.error(messages.NOT_VERIFIED);

@@ -13,12 +13,19 @@ import instagramrRouter from './routes/instagram.js';
 import facebookRouter from './routes/facebook.js';
 import post from './routes/post.js';
 import { environment } from './environments/environment.js';
+import firebaseAdmin from './controllers/firebaseAdmin';
+
 
 const app = express.default();
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors.default());
+
+app.use((req, res, next) => {
+  req.firebaseAdmin = firebaseAdmin;
+  next();
+});
 
 app.use('/auth', authRouter);
 app.use('/twitter', twitterRouter);

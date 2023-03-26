@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Connection, IntegrationData } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CrudService } from '../crud/crud.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { CrudService } from '../crud/crud.service';
 })
 export class CommonServiceService {
 
-  integration = new Subject();
+  integration = new BehaviorSubject<IntegrationData>(new IntegrationData());
 
   constructor(
     private cookieService: CookieService,

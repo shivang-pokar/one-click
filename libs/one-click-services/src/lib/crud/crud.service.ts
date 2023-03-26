@@ -156,7 +156,7 @@ export class CrudService {
   }
 
 
-  createPost(body: Array<PostContent>) {
+  createPost(body: any) {
     return this.http.post(`${this.env.API_BASE_URL}/post/create-post`, body);
   }
 
@@ -170,6 +170,12 @@ export class CrudService {
     obj = JSON.parse(JSON.stringify(obj));
 
     return this.database.ref(path).set(obj);
+  }
+
+  softRemove(obj: any, id: string) {
+    obj["deleteFlag"] = 'Y';
+    obj["updatedBy"] = window.localStorage.getItem('uid');
+    return this.angularFirestore.doc(id).update(obj);
   }
 
 }
