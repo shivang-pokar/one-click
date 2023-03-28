@@ -71,16 +71,46 @@
             </div>
         </div>
 
-        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-end">
-            <button [disabled]="isloading" mat-button (click)="saveDraft()" color="primary">Save Draft</button>
-            <button mat-raised-button class="ml-2" (click)="postNow()" color="primary">
-                <ng-container *ngIf="!isloading">
-                    Post Now
-                </ng-container>
-                <ng-container *ngIf="isloading">
-                    <mat-spinner class="color-white button-loading"></mat-spinner>
-                </ng-container>
-            </button>
+        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between">
+            <div class="position-relative">
+                <button [disabled]="isloading" (click)="picker.open()" mat-stroked-button color="primary">
+                    <ng-container *ngIf="scheduleDate">
+                        {{scheduleDate | date:'MM/dd/y, h:mm a, EEEE'}}
+                    </ng-container>
+                    <ng-container *ngIf="!scheduleDate">
+                        Schedule
+                    </ng-container>
+
+                </button>
+                <mat-form-field class="position-absolute opacity-0">
+                    <input matInput [(ngModel)]="scheduleDate" [ngxMatDatetimePicker]="picker"
+                        placeholder="Choose a date" [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker [color]="color">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </div>
+            <div class="d-flex align-items-center">
+                <button [disabled]="isloading" mat-button (click)="savePost('DRAFT')" color="primary">Save
+                    Draft</button>
+                <button mat-raised-button class="ml-2" (click)="postNow()" color="primary" [disabled]="isloading">
+                    <ng-container *ngIf="!isloading">
+
+                        <ng-container *ngIf="!scheduleDate">
+                            Post Now
+                        </ng-container>
+
+                        <ng-container *ngIf="scheduleDate">
+                            Schedule Now
+                        </ng-container>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="isloading">
+                        <mat-spinner class="color-white button-loading"></mat-spinner>
+                    </ng-container>
+                </button>
+            </div>
         </div>
 
     </div>

@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertService, CrudService } from '@one-click/one-click-services';
 import { Connection, ConnectionList, IntegrationData, messages, PostContainer, PostContent } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'one-click-dashboard',
@@ -28,6 +29,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   personalizedEv: boolean = false;
   noPersonalizedData: PostContent = new PostContent();
   isloading: boolean = false;
+
+
+  @ViewChild('picker') picker: any;
+  public minDate: Date = new Date();
+  public color: ThemePalette = 'primary';
+  scheduleDate: Date;
+
 
   constructor(
     public crudService: CrudService,
@@ -101,27 +109,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     }
 
-    let postContent: Array<PostContent> = this.createPostObj();
-    if (postContent.length) {
-      this.isloading = true;
-      let obj = {
-        company_id: this.company_id,
-        uid: this.uid,
-        postContent: postContent
+    if (this.scheduleDate) {
+      this.savePost('SCHEDULE')
+    } else {
+      let postContent: Array<PostContent> = this.createPostObj();
+      if (postContent.length) {
+        this.isloading = true;
+        let obj = {
+          company_id: this.company_id,
+          uid: this.uid,
+          postContent: postContent
+        }
+        this.crudService.createPost(obj).subscribe((resp: any) => {
+          this.alertService.success(resp.message);
+          this.formReset();
+          //this.setPostData(postContent, 'SUCESS', resp.post);
+          this.isloading = false;
+        }, er => {
+          this.alertService.error(er.message);
+        })
       }
-      this.crudService.createPost(obj).subscribe((resp: any) => {
-        this.alertService.success(resp.message);
-        this.formReset();
-        //this.setPostData(postContent, 'SUCESS', resp.post);
-        this.isloading = false;
-      }, er => {
-        this.alertService.error(er.message);
-      })
     }
+
 
   }
 
-  setPostData(postContent: Array<PostContent>, status: string, postResp: Array<any>) {
+  async setPostData(postContent: Array<PostContent>, status: string, postResp: Array<any>) {
     const postContainer = new PostContainer();
     postContainer.id = this.crudService.angularFirestore.createId();
     postContainer.company_id = this.company_id;
@@ -136,7 +149,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
     postContainer.postContent = postContent;
-    return this.crudService.add('postContainer', postContainer);
+    await this.crudService.add('postContainer', postContainer);
+    return postContainer;
     //this.crudService.setRealTimeData(`postContainer/${postContainer.id}`, postContainer);
   }
 
@@ -273,17 +287,35 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.destory$.complete()
   }
 
-  async saveDraft() {
+  async savePost(status: string) {
     let postContent: Array<PostContent> = this.createPostObj();
     try {
-      await this.setPostData(postContent, 'DRAFT', []);
-      this.alertService.success(messages.DRAFT_SAVE);
+      const setPostData = await this.setPostData(postContent, status, []);
+      let message = "";
+      if (status == "DRAFT") {
+        message = messages.DRAFT_SAVE;
+      }
+      if (status == "SCHEDULE") {
+        this.setSchdule(setPostData);
+      }
+      this.alertService.success(message);
     }
     catch (e: any) {
       this.alertService.error(e.message);
     }
 
     this.formReset();
+  }
+
+  setSchdule(setPostData: PostContainer) {
+    this.crudService.createSchedule({
+      time: this.scheduleDate,
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      id: setPostData.id
+    }).subscribe(() => {
+      this.scheduleDate = null;
+      this.alertService.success(messages.SCHEDULE_SAVE);
+    })
   }
 
 }

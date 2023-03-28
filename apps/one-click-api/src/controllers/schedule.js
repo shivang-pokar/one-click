@@ -1,6 +1,7 @@
 const axios = require('axios');
 import * as schedule from 'node-schedule';
-import firebaseAdmin from './controllers/firebaseAdmin';
+import { environment } from '../environments/environment';
+import firebaseAdmin from './firebaseAdmin';
 
 
 export const createSchedule = async (req, res) => {
@@ -11,12 +12,14 @@ export const createSchedule = async (req, res) => {
 
 
         schedule.scheduleJob(req.body.id, futureDate, function (body) {
-
+            console.log('------>' + body)
             firebaseAdmin.firestore().collection('postContainer').doc(body).get().then(post => {
                 axios.post(`${environment.LOCAL_URL}/post/create-post`, post.data());
             });
 
         }.bind(null, req.body.id));
+
+        res.send({})
 
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonServiceService, SocialConnectService } from '@one-click/one-click-services';
+import { AlertService, CommonServiceService, SocialConnectService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

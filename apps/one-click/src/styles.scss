@@ -286,3 +286,24 @@ body .slick-next {
 body .slick-prev {
     left: 0;
 }
+
+.mat-calendar-body-selected {
+    color: var(--white);
+}
+
+.mat-calendar-controls .mat-calendar-period-button,
+.mat-datepicker-toggle,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-datepicker-content .mat-calendar-previous-button {
+    background: none;
+}
+
+.mat-calendar-controls {
+    margin-top: 0;
+}
+
+.ngx-mat-timepicker form .ngx-mat-timepicker-table .ngx-mat-timepicker-tbody tr td .mat-icon-button {
+    width: 44px !important;
+    height: 44px !important;
+    background: none;
+}

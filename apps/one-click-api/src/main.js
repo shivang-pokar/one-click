@@ -12,6 +12,8 @@ import linkedinRouter from './routes/linkedin.js';
 import instagramrRouter from './routes/instagram.js';
 import facebookRouter from './routes/facebook.js';
 import post from './routes/post.js';
+import schedule from './routes/schedule.js';
+
 import { environment } from './environments/environment.js';
 import firebaseAdmin from './controllers/firebaseAdmin';
 
@@ -33,6 +35,8 @@ app.use('/linkedin', linkedinRouter);
 app.use('/instagramr', instagramrRouter);
 app.use('/facebook', facebookRouter);
 app.use('/post', post);
+app.use('/post', post);
+app.use('/schedule', schedule);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to one-click-api!' });

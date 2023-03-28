@@ -16,7 +16,8 @@ export const messages = {
     LIMITE_EXCE_TITLE: 'Oops! Character Limit Exceeded',
     ATTACH_REQUIRED_TITLE: 'Oops! Media required',
     IMG_RATION: 'Image aspect ratio not correct. Please adjust the dimensions to post image',
-    DRAFT_SAVE: 'Post added in draft'
+    DRAFT_SAVE: 'Post added in draft',
+    SCHEDULE_SAVE: 'Post schedule successfully'
 
 }
 

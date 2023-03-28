@@ -50,16 +50,16 @@ export const createPost = async (req, res) => {
 
 const addDataInPostContainer = async (req, posts) => {
     const db = req.firebaseAdmin.firestore();
-    
+
     let id = req.body.id || db.collection('postContainer').doc().id;
     let obj = {
         id: id,
         company_id: req.body.company_id,
         status: 'SUCESS',
         postContent: posts,
-        createdBy: req.body.uid,
+        createdBy: req?.body?.uid || req?.body?.createdBy,
         createdAt: new Date().getTime(),
-        updatedBy: req.body.uid,
+        updatedBy: req?.body?.uid || req?.body?.updatedBy,
         updatedAt: new Date().getTime(),
         deleteFlag: "N"
     }

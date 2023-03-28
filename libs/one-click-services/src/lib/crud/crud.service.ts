@@ -159,6 +159,9 @@ export class CrudService {
   createPost(body: any) {
     return this.http.post(`${this.env.API_BASE_URL}/post/create-post`, body);
   }
+  createSchedule(body: any) {
+    return this.http.post(`${this.env.API_BASE_URL}/schedule/create-schedule`, body);
+  }
 
   setRealTimeData(path: string, obj: any) {
 

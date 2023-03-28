@@ -22,7 +22,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { GetAccountPipe } from './pipes/get-account/get-account.pipe';
-
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
     imports: [
@@ -48,7 +49,11 @@ import { GetAccountPipe } from './pipes/get-account/get-account.pipe';
         MatAutocompleteModule,
         MatSlideToggleModule,
         SlickCarouselModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        MatDatepickerModule
     ],
     declarations: [
         GetSocialTypePipe,
@@ -77,7 +82,11 @@ import { GetAccountPipe } from './pipes/get-account/get-account.pipe';
         GetSocialTypePipe,
         MatSlideToggleModule,
         MatButtonToggleModule,
-        GetAccountPipe
+        GetAccountPipe,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
