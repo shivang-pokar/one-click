@@ -1,5 +1,4 @@
 const axios = require('axios');
-var { environment } = require('../environments/environment');
 import { TwitterApi } from 'twitter-api-v2';
 const fs = require('fs');
 
@@ -46,7 +45,7 @@ export const getTwitterPost = async (req, res, next) => {
         let header = createHeader(req);
         try {
             const twitter = await axios.get(
-                `${environment.twitter_url}/users/${req.body.id}/tweets?expansions=author_id,attachments.media_keys&media.fields=url&tweet.fields=created_at,entities&user.fields=url`,
+                `${process.env.TWITTER_URL}/users/${req.body.id}/tweets?expansions=author_id,attachments.media_keys&media.fields=url&tweet.fields=created_at,entities&user.fields=url`,
                 { headers: header }
             );
             res.send(twitter.data);
@@ -69,7 +68,7 @@ export const getUserId = async (req, res, next) => {
     let header = createHeader(req);
     try {
         const twitter = await axios.get(
-            `https://api.twitter.com/2/users?ids=364949543&user.fields=created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,url,username,verified`,
+            `${process.env.TWITTER_URL}/users?ids=364949543&user.fields=created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,url,username,verified`,
             {
                 headers: header,
             }
@@ -84,12 +83,12 @@ export const getUserId = async (req, res, next) => {
 function getTwitterToekFromV1ToV2() {
     return new Promise(async (resolve, reject) => {
         const client = new TwitterApi({
-            username: environment.twitter_app_key,
-            password: environment.twitter_app_secret,
+            username: process.env.TWITTER_APP_KEY,
+            password: process.env.TWITTER_APP_SECRET,
         });
         try {
             const twitter = await axios.post(
-                `https://api.twitter.com/oauth2/token?grant_type=client_credentials`,
+                `${process.env.TWITTER_AUTH_TOKEN_URL}?grant_type=client_credentials`,
                 { grant_type: 'client_credentials' },
                 {
                     headers: {
@@ -108,8 +107,8 @@ function getTwitterToekFromV1ToV2() {
 function createHeader(req) {
     let header = {
         Authorization: `Bearer ${req.body.access_token}`,
-        ConsumerKey: `${environment.twitterConsumerKey}`,
-        ConsumerSecret: `${environment.twitterConsumerSecret}`,
+        ConsumerKey: `${process.env.TWITTERCONSUMERKEY}`,
+        ConsumerSecret: `${process.env.TWITTERCONSUMERSECRET}`,
         'Content-type': `application/json`,
     };
     return header;
@@ -117,8 +116,8 @@ function createHeader(req) {
 
 function getTwitterClient(req) {
     const client = new TwitterApi({
-        appKey: environment.twitter_app_key,
-        appSecret: environment.twitter_app_secret,
+        appKey: process.env.TWITTER_APP_KEY,
+        appSecret: process.env.TWITTER_APP_SECRET,
         accessToken: req?.body?.oauth_token || req?.body?.access_token,
         accessSecret: req.body.oauth_token_secret,
     });

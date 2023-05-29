@@ -1,5 +1,4 @@
 const axios = require('axios');
-var { environment } = require('../environments/environment');
 
 
 
@@ -10,7 +9,7 @@ export const createPost = async (req, res) => {
         for (const [index, element] of posts.entries()) {
             if (element.type == "FACEBOOK") {
                 try {
-                    const fb = await axios.post(`${environment.LOCAL_URL}/facebook/create-post`, element);
+                    const fb = await axios.post(`${process.env.LOCAL_URL}/facebook/create-post`, element);
                     posts[index].post_id = fb.data.id;
                 }
                 catch (e) {
@@ -19,7 +18,7 @@ export const createPost = async (req, res) => {
             }
             if (element.type == "TWITTER") {
                 try {
-                    const twitter = await axios.post(`${environment.LOCAL_URL}/twitter/create-post`, element)
+                    const twitter = await axios.post(`${process.env.LOCAL_URL}/twitter/create-post`, element)
                     posts[index].post_id = twitter.data.id;
                 }
                 catch (e) {
@@ -28,7 +27,7 @@ export const createPost = async (req, res) => {
             }
             if (element.type == "INSTAGRAM") {
                 try {
-                    const insta = await axios.post(`${environment.LOCAL_URL}/instagramr/create-post`, element);
+                    const insta = await axios.post(`${process.env.LOCAL_URL}/instagramr/create-post`, element);
                     posts[index].post_id = insta.data.id;
                 }
                 catch (e) {

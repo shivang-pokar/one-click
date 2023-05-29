@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConnectionList, FileItem, PostContent } from '@one-click/data';
+import { Connection, ConnectionList, FileItem, IntegrationItem, PostContent } from '@one-click/data';
 import { AlertService, CommonServiceService } from '@one-click/one-click-services';
 
 @Component({
@@ -12,13 +12,13 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
 
   @Input() selectedAccountList: Array<any> = [];
   maxCharecterLimite: number = 0;
-  connectionList = ConnectionList;
+  connectionList: Array<Connection> = ConnectionList;
   typedCharecter: number = 0;
   type: string = "ALL";
-  connectionListSelected: Array<any> = [];
+  connectionListSelected: Array<Connection> = [];
   postForm: FormGroup;
   @Output() postFormValues = new EventEmitter();
-  @Input() singleAccount: any;
+  @Input() singleAccount: IntegrationItem;
   @Input() noPersonalizedData: PostContent;
 
   constructor(
@@ -32,6 +32,7 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       id: ['ALL'],
       type: ['ALL'],
       attachment: [''],
+      attachment_type_list: [[]],
       attachment_valid: [true]
     });
   }
@@ -98,7 +99,6 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       attach.is_valid = true;
       imageValidatorList.forEach(el => {
         let is_valid = this.commonServiceService.validateRationImage(attach.width, attach.height, el);
-
         if (!is_valid) {
           attach.is_valid = false;
           this.postForm.get('attachment_valid')?.setValue(false)
@@ -106,7 +106,21 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       });
     });
 
+
+    this.setAttachTypeList(attachment);
+
+
     this.postForm.get('attachment')?.setValue(attachment);
+  }
+
+
+  setAttachTypeList(attachment: Array<FileItem>) {
+    let attachTypeList: Array<any> = [];
+    attachment.forEach(element => {
+      attachTypeList.push(element.type);
+    })
+    attachTypeList = [...new Set(attachTypeList)];
+    this.postForm.get('attachment_type_list').setValue(attachTypeList);
   }
 
 

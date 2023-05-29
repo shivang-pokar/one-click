@@ -17,4 +17,27 @@ export class Connection {
     charecterLimite: number = -1;
     imageRationMin: number = 0;
     imageRationMax: number = 0;
+    videoLimite?: number = 1;
+}
+
+
+
+export class Integration {
+    id?: string;
+    company_id?: string;
+    integrationList?: Array<any> = [];
+}
+
+export class IntegrationItem {
+    id?: string;
+    access_token?: string;
+    created_at?: string;
+    date?: number;
+    img?: string;
+    is_selected?: boolean;
+    name?: string;
+    oauth_token_secret?: string;
+    screen_name?: string;
+    username?: string;
+    type?: string;
 }

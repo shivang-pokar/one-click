@@ -11,3 +11,7 @@ export * from './lib/common-dialog/common-dialog.component';
 export * from './lib/file-manager/file-manager.component';
 export * from './lib/loading/loading.component';
 export * from './lib/social-chip/social-chip.component';
+export * from './lib/profile-details/profile-details.component';
+export * from './lib/subscription/subscription.component';
+export * from './lib/common-components/button/button.component';
+export * from './lib/workspace/workspace.component';

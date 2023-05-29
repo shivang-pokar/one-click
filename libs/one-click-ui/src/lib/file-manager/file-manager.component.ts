@@ -78,6 +78,11 @@ export class FileManagerComponent implements OnInit {
   }
 
   selectItem(file: FileItem) {
+    let sameTypeListIndex = this.selectImages.findIndex(slectedFile => slectedFile.type == file.type);
+    if (sameTypeListIndex == -1) {
+      this.selectImages = [];
+    }
+
     let index = this.selectImages.findIndex(item => item.id == file.id);
     if (index == -1) {
       this.selectImages.push(file)

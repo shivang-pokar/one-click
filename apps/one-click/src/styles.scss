@@ -61,6 +61,7 @@ $theme: mat-light-theme($primary, $accent);
     --danger: #f44336;
     --danger-rgb: 244, 67, 54;
     --active: #f4f4f4;
+    --gray-background: #f4f4f4;
 }
 * {
     --bs-font-sans-serif: "Roboto", sans-serif;
@@ -82,6 +83,15 @@ body {
 h1 {
     font-size: 48px;
     line-height: normal;
+}
+
+.fz-34 {
+    font-size: 34px;
+}
+
+mat-icon.fz-34 {
+    width: 34px;
+    height: 34px;
 }
 
 .mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay,
@@ -306,4 +316,71 @@ body .slick-prev {
     width: 44px !important;
     height: 44px !important;
     background: none;
+}
+
+.common-title-section {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--white);
+    h3 {
+        padding-left: 25px;
+        margin: 0;
+        font-size: 17px;
+        line-height: 60px;
+    }
+}
+
+.filter-section {
+    ul {
+        li {
+            list-style: none;
+            position: relative;
+            &:after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 2px;
+                background: var(--primary);
+                left: 0;
+                bottom: 0;
+                opacity: 0;
+            }
+            &.active {
+                &:after {
+                    opacity: 1;
+                }
+            }
+            a {
+                display: block;
+                line-height: 42px;
+                font-size: 14px;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-decoration: none;
+                color: var(--primary);
+            }
+        }
+    }
+}
+
+.profile-details {
+    border: 1px solid var(--light-border);
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 8%);
+    .profile-section {
+        .image-section {
+            display: flex;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .image-detail-section {
+            width: calc(100% - 70px);
+        }
+    }
 }

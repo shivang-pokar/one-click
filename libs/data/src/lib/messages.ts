@@ -9,15 +9,21 @@ export const messages = {
     ARE_YOU_SURE: 'Are you sure you want to disconnect?',
     ARE_YOU_SURE_DELETE: 'Are you sure you want to delete?',
     INT_REMOVED: 'Account removed successfully',
-    INI_ALREADY: 'Account already added',
+    INI_ALREADY: 'This account has already been added.',
     POST_REQUIRED: `Hold on there! You can't post nothing. Please add a message or media.`,
     POST_REQUIRED_MAX_LENGTH: 'Hold on! Max limit is @number chars in @social. Please shorten your input.',
     ATTACH_REQUIRED: 'Hold on! Media is required in @social. Please add a media.',
     LIMITE_EXCE_TITLE: 'Oops! Character Limit Exceeded',
     ATTACH_REQUIRED_TITLE: 'Oops! Media required',
     IMG_RATION: 'Image aspect ratio not correct. Please adjust the dimensions to post image',
-    DRAFT_SAVE: 'Post added in draft',
-    SCHEDULE_SAVE: 'Post schedule successfully'
+    DRAFT_SAVE: 'Your post has been added to drafts.',
+    SCHEDULE_SAVE: 'Your post has been scheduled successfully.',
+    VIDEO_LIMITE: `You cannot post more than one video at a time.`,
+    BOTH_CANT: 'It is not possible to post images and video together',
+    BOTH_CANT_TITLE: 'Image/Video',
+    VIDEO_LIMITE_TITLE: 'Video Limit',
+    DETAILS_UPDATED: 'Details updated successfully',
+    NAME_TIMEZONE_REQUIRED: 'Workspace name and timezone required'
 
 }
 
@@ -34,7 +40,8 @@ export const ConnectionList: Array<Connection> = [
         charecterLimite: 0,
         imageRationMin: 0,
         imageRationMax: 0,
-        attachRequired: false
+        attachRequired: false,
+        videoLimite: 1
     },
     {
         id: 'INSTAGRAM',
@@ -48,7 +55,8 @@ export const ConnectionList: Array<Connection> = [
         charecterLimite: 2200,
         imageRationMin: 0.8,
         imageRationMax: 1.91,
-        attachRequired: true
+        attachRequired: true,
+        videoLimite: 1
     },
     {
         id: 'TWITTER',
@@ -62,7 +70,8 @@ export const ConnectionList: Array<Connection> = [
         charecterLimite: 280,
         imageRationMin: 0,
         imageRationMax: 0,
-        attachRequired: false
+        attachRequired: false,
+        videoLimite: 1
     },
     {
         id: 'LINKEDIN',

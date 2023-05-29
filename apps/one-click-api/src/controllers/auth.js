@@ -1,9 +1,8 @@
 const axios = require('axios');
-var { environment } = require('../environments/environment');
 import { TwitterApi } from 'twitter-api-v2';
 const client = new TwitterApi({
-  appKey: environment.twitter_app_key,
-  appSecret: environment.twitter_app_secret,
+  appKey: process.env.TWITTER_APP_KEY,
+  appSecret: process.env.TWITTER_APP_SECRET,
 });
 
 /* Twitter */
@@ -25,7 +24,7 @@ export const getTwitterAuthUrl = async (req, res) => {
 export const twitterAuth = async (req, res) => {
   try {
     const twitter = await axios.post(
-      `${environment.twitter_auth_url_v_1}?oauth_consumer_key=8COqs2uPcZZL20BNhFEObU711&oauth_token=${req.body.oauth_token}&oauth_verifier=${req.body.oauth_verifier}`
+      `${process.env.TWITTER_AUTH_URL_V_1}?oauth_consumer_key=${process.env.TWITTER_APP_KEY}&oauth_token=${req.body.oauth_token}&oauth_verifier=${req.body.oauth_verifier}`
     );
     res.send(Object.fromEntries(new URLSearchParams(twitter.data)));
   } catch (e) {
@@ -50,7 +49,7 @@ export const genrateTokenTwitter = async (req, res, next) => {
   };
   try {
     const twitter = await axios.post(
-      `${environment.twitter_auth_url}?refresh_token=${req.body.refresh_token}&grant_type=refresh_token&client_id=${environment.client_id_twitter}`,
+      `${process.env.TWITTER_AUTH_URL}?refresh_token=${req.body.refresh_token}&grant_type=refresh_token&client_id=${process.env.CLIENT_ID_TWITTER}`,
       { headers: header }
     );
     res.send(twitter.data);
@@ -64,7 +63,7 @@ export const genrateTokenTwitter = async (req, res, next) => {
 export const faceBookLiveLongToken = async (req, res, next) => {
   try {
     const fbTokenData = await axios.get(
-      `${environment.FB_AUTH_URL}/oauth/access_token?grant_type=fb_exchange_token&client_id=${environment.fb_app_id}&client_secret=${environment.fb_client_secret}&fb_exchange_token=${req.body.access_token}`
+      `${process.env.FB_AUTH_URL}/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.FB_APP_ID}&client_secret=${process.env.FB_CLIENT_SECRET}&fb_exchange_token=${req.body.access_token}`
     );
     res.send(fbTokenData.data);
   } catch (e) {
@@ -76,7 +75,7 @@ export const faceBookLiveLongToken = async (req, res, next) => {
 export const getInstagramPageId = async (req, res, next) => {
   try {
     const fbTokenData = await axios.get(
-      `${environment.FB_AUTH_URL}/${req.body.id}?fields=instagram_business_account&access_token=${req.body.access_token}`
+      `${process.env.FB_AUTH_URL}/${req.body.id}?fields=instagram_business_account&access_token=${req.body.access_token}`
     );
     res.send(fbTokenData.data);
   } catch (e) {
@@ -90,12 +89,12 @@ export const getUserId = async (req, res, next) => {
     /* 'Authorization': `Bearer ${req.body.access_token}`, */
 
     Authorization: `Bearer ${req.body.access_token}`,
-    ConsumerKey: `${environment.twitterConsumerKey}`,
-    ConsumerSecret: `${environment.twitterConsumerSecret}`,
+    ConsumerKey: `${process.env.TWITTERCONSUMERKEY}`,
+    ConsumerSecret: `${process.env.TWITTERCONSUMERSECRET}`,
     'Content-type': `application/json`,
   };
   try {
-    const twitter = await axios.get(`https://api.twitter.com/2/users/me`, {
+    const twitter = await axios.get(process.env.TWITTER_URL_USER, {
       headers: header,
     });
     res.send(twitter.data);
@@ -111,7 +110,7 @@ export const genrateTokenLinkedin = async (req, res, next) => {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     const linkedin = await axios.post(
-      `${environment.LINKEDIN}/oauth/v2/accessToken?grant_type=authorization_code&code=${req.body.code}&redirect_uri=${environment.redirect_uri}&client_id=${environment.linkedin_client_id}&client_secret=${environment.linkedin_client_secret}`,
+      `${process.env.LINKEDIN}/oauth/v2/accessToken?grant_type=authorization_code&code=${req.body.code}&redirect_uri=${process.env.REDIRECT_URI}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}`,
       { headers: header }
     );
     res.send(linkedin.data);

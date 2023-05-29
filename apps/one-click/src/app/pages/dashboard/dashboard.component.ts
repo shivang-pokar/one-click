@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertService, CrudService } from '@one-click/one-click-services';
-import { Connection, ConnectionList, IntegrationData, messages, PostContainer, PostContent } from '@one-click/data';
+import { Connection, ConnectionList, Integration, IntegrationItem, messages, PostContainer, PostContent } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'one-click-dashboard',
@@ -14,7 +15,7 @@ import { ThemePalette } from '@angular/material/core';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   integrationList: any[] = [];
-  integration: IntegrationData;
+  integration: Integration;
   collName: string = 'integration';
   company_id = this.cookieService.get('company_id');
   uid = this.cookieService.get('uid');
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public crudService: CrudService,
     public alertService: AlertService,
     private cookieService: CookieService,
+    public router: Router
   ) {
 
   }
@@ -50,21 +52,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getIntegration() {
-    this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).pipe(takeUntil(this.destory$)).subscribe((resp: Array<IntegrationData>) => {
+    this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).pipe(takeUntil(this.destory$)).subscribe((resp: Array<Integration>) => {
       if (resp[0]) {
         this.selectedAccountList = [];
-        resp[0].integrationList.forEach(account => {
+        resp[0]?.integrationList.forEach(account => {
           if (account.is_selected) {
             this.selectedAccountList.push(account);
           }
         });
 
         this.integration = resp[0];
-        if (resp[0].integrationList) {
+        console.log(this.integration);
+        if (resp[0]?.integrationList) {
           this.integrationList = JSON.parse(JSON.stringify(resp[0].integrationList));
         }
         this.isConnectionConnected();
       }
+    }, er => {
+      console.log(er)
     })
   }
 
@@ -79,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  async selectedAccount(event: Array<any>) {
+  async selectedAccount(event: Array<IntegrationItem>) {
     this.selectedAccountList = event;
     this.integration.integrationList.forEach(element => {
       let index = this.selectedAccountList.findIndex(integration => integration.id == element.id);
@@ -186,6 +191,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const errors = form.get('message').errors;
     const attachmentErrors = form.get('attachment')?.errors;
+    let index = this.connectionList.findIndex(connection => connection.id == form.get('type').value);
+    console.log(index);
+    console.log(form.get('type').value);
+
+
+    const attachment_type_list = form.get('attachment_type_list')?.value
 
     if (errors && errors['maxlength']) {
       let message = messages.POST_REQUIRED_MAX_LENGTH;
@@ -195,7 +206,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.alertService.openDialog(messages.LIMITE_EXCE_TITLE, message);
     }
     else if (attachmentErrors && attachmentErrors['required']) {
-
       const index = this.connectionList.findIndex(connection => connection.connected && connection.attachRequired == true);
       let message = messages.ATTACH_REQUIRED;
       message = message.replace('@social', this.connectionList[index].socialName);
@@ -203,6 +213,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     else if (form.get('attachment_valid').value == false) {
       this.alertService.openDialog('Image aspect ratio', messages.IMG_RATION);
+    }
+    else if (attachment_type_list && attachment_type_list[0] == "VIDEO" && form.get('attachment').value?.length > this.connectionList[index].videoLimite) {
+      this.alertService.openDialog(messages.VIDEO_LIMITE_TITLE, messages.VIDEO_LIMITE);
+    }
+    else if (index >= 0 && form.get('attachment_type_list')?.value?.length == 2) {
+      this.alertService.openDialog(messages.BOTH_CANT_TITLE, messages.BOTH_CANT);
     }
     else {
       this.alertService.openDialog('Your Post is Empty', messages.POST_REQUIRED);
@@ -212,7 +228,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   checkPostCondition(form: FormGroup) {
     return form.invalid
       || (!form.get('message').value && (!form.get('attachment').value || !form.get('attachment').value?.length))
-      || form.get('attachment_valid').value == false;
+      || form.get('attachment_valid').value == false
+      || form.get('attachment_type_list')?.value?.length == 2
+      || form.get('attachment_type_list')?.value[0] == "VIDEO" && form.get('attachment').value?.length > 1;
   }
 
   postFormValues(event: FormGroup) {
@@ -316,6 +334,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.scheduleDate = null;
       this.alertService.success(messages.SCHEDULE_SAVE);
     })
+  }
+
+  addChannels() {
+    this.router.navigateByUrl(`/channels`);
   }
 
 }

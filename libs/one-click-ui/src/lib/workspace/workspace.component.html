@@ -1,0 +1,25 @@
+<div class="profile-details p-4">
+    <h5>Workspace</h5>
+    <div class="user-detail-section d-flex mt-3 flex-wrap">
+        <div class="col-6">
+            <mat-form-field class="w-100 pr-2" appearance="fill">
+                <mat-label>Workspace Name</mat-label>
+                <input matInput [(ngModel)]="workspaceName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-6">
+            <mat-form-field class="w-100 pl-2">
+                <mat-label>Workspace Timezone</mat-label>
+                <mat-select [(ngModel)]="timeZone">
+                    <mat-option *ngFor="let timezone of timeZoneList" [value]="timezone">
+                        {{timezone}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <one-click-button (click)="saveCompany()" [buttonText]="'Update'"></one-click-button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IntegrationData, messages, PostContainer, PostContent } from '@one-click/data';
+import { Integration, messages, PostContainer, PostContent } from '@one-click/data';
 import { AlertService, CommonServiceService, CrudService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, take, takeUntil } from 'rxjs';
@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit {
   company_id = this.cookieService.get('company_id');
   destory$: Subject<void> = new Subject<void>();
   postList: Array<PostContainer> = [];
-  integration: IntegrationData;
+  integration: Integration;
   filterStatus: string = "SUCESS";
   statusList: Array<any> = [
     {

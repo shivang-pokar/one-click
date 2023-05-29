@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IntegrationData, ConnectionList, Connection, messages } from '@one-click/data';
 import { AlertService, CrudService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
@@ -22,6 +23,7 @@ export class ManageAccountComponent implements OnInit, OnDestroy {
     public crudService: CrudService,
     private cookieService: CookieService,
     private alertService: AlertService,
+    private router: Router,
   ) {
 
   }
@@ -67,6 +69,10 @@ export class ManageAccountComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destory$.next()
     this.destory$.complete()
+  }
+
+  addChannels() {
+    this.router.navigateByUrl(`/channels`);
   }
 
 }

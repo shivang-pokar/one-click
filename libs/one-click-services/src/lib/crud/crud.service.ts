@@ -9,6 +9,9 @@ import "firebase/compat/database"
 import "firebase/compat/firestore";
 import { CookieService } from 'ngx-cookie-service';
 
+const videoExtensions = ['video/mpg', 'video/mp2', 'video/mpeg', 'video/mpe', 'video/mpv', 'video/mp4'] //you can add more extensions
+const imageExtensions = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'] // you can add more extensions
+
 @Injectable({
   providedIn: 'root'
 })
@@ -93,11 +96,20 @@ export class CrudService {
       let dimentations: any = [];
 
       for (let i = 0; i < event.target.files.length; i++) {
-        let name = (preFix) ? preFix + '_' + event.target.files[i].name : event.target.files[i].name;
-        filesList.push(this.fileUpload(path + '/' + name, event.target.files[i]))
-        let dimentation: any = await this.getImageDimentation(event.target.files[i]);
-        dimentations.push({ width: dimentation.width, height: dimentation.height });
+
+        let name = preFix ? `${preFix}_${event.target.files[i].name}` : event.target.files[i].name;
+        filesList.push(this.fileUpload(`${path}/${name}`, event.target.files[i]));
+
+        if (this.isImage(event.target.files[i])) {
+          const { width, height } = await this.getImageDimentation(event.target.files[i]);
+          dimentations.push({ width: width, height: height, type: 'IMAGE' });
+        }
+        if (this.isVideo(event.target.files[i])) {
+          const { width, height } = await this.getVideoDimentation(event.target.files[i]);
+          dimentations.push({ width: width, height: height, type: 'VIDEO' });
+        }
       }
+
 
       forkJoin(filesList).subscribe((resp: any) => {
         let fileList: any = [];
@@ -117,11 +129,9 @@ export class CrudService {
         })
       });
     })
-
-
   }
 
-  getImageDimentation(file: any) {
+  getImageDimentation(file: any): Promise<{ width: number, height: number }> {
     return new Promise((resolve, reject) => {
       var img: any;
       var _URL = window.URL || window.webkitURL;
@@ -133,12 +143,27 @@ export class CrudService {
             width: img.width,
             height: img.height
           });
-          //alert(img.width + " " + img.height);
           _URL.revokeObjectURL(objectUrl);
         };
         img.src = objectUrl;
       }
     })
+  }
+
+  getVideoDimentation(file: any): Promise<{ width: number, height: number }> {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const $video = document.createElement("video");
+      $video.src = url;
+      $video.addEventListener("loadedmetadata", function () {
+        resolve({
+          width: this.videoWidth,
+          height: this.videoHeight
+        })
+        console.log("width:", this.videoWidth);
+        console.log("height:", this.videoHeight);
+      });
+    });
   }
 
   uploadFileStorage(resp: any) {
@@ -179,6 +204,30 @@ export class CrudService {
     obj["deleteFlag"] = 'Y';
     obj["updatedBy"] = window.localStorage.getItem('uid');
     return this.angularFirestore.doc(id).update(obj);
+  }
+
+
+  /* 
+  Check Is Image
+   */
+
+  isImage(file: any) {
+    const fileType = file['type'];
+    return imageExtensions.includes(fileType);
+  }
+
+  isVideo(file: any) {
+    const fileType = file['type'];
+    return videoExtensions.includes(fileType);
+  }
+
+  stripeCheckout() {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/checkout`, {});
+  }
+  stripeSession(session_id: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/session`, {
+      session_id: session_id
+    });
   }
 
 }

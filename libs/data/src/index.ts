@@ -6,3 +6,4 @@ export * from './lib/post-details';
 export * from './lib/post';
 export * from './lib/filemanager';
 export * from './lib/post-content';
+export * from './lib/company';

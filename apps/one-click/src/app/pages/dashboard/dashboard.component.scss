@@ -63,7 +63,7 @@
     border: 1px solid rgba(0, 0, 0, 0.12);
     //border-top: 1px solid rgba(0, 0, 0, 0.12);
     border-left: 0;
-    button{
+    button {
         min-width: 105px;
     }
 }
@@ -76,5 +76,17 @@ one-click-post-data-section {
         .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
             color: rgba(0, 0, 0, 0.6);
         }
+    }
+}
+
+.add-channels {
+    height: calc(100vh - 260px);
+    button {
+        mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+        font-size: 16px;
     }
 }

@@ -40,4 +40,9 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('./pages/post-list/post-list.module').then(m => m.PostListModule),
         canActivate: [AuthGardGuard]
     },
+    {
+        path: 'settings',
+        loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule),
+        canActivate: [AuthGardGuard]
+    },
 ];

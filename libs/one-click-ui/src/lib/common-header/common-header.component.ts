@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Company } from '@one-click/data';
+import { CommonServiceService } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-common-header',
@@ -34,14 +36,20 @@ export class CommonHeaderComponent implements OnInit {
       icon: 'settings',
       label: 'Settings'
     }
-  ]
+  ];
+  company: Company;
 
   constructor(
-    public router: Router
+    public router: Router,
+    public commonServiceService: CommonServiceService
   ) {
 
   }
   ngOnInit(): void {
+
+    this.commonServiceService.company.subscribe(company => {
+      this.company = company;
+    });
 
   }
 }

@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { MediaTypePipe } from './pipes/mediaType/media-type.pipe';
 
 
 
@@ -48,7 +49,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         SlickCarouselModule
     ],
     declarations: [
-        GetSocialTypePipe
+        GetSocialTypePipe,
+        MediaTypePipe
     ],
     exports: [
         MatBadgeModule,
@@ -66,6 +68,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         RouterModule,
         MatTooltipModule,
         GetSocialTypePipe,
+        MediaTypePipe,
         MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,

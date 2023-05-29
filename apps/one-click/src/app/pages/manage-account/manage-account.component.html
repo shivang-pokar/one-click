@@ -1,8 +1,22 @@
 <one-click-common-header></one-click-common-header>
 <section class="main-section">
-    <div class="card-section p-4">
-        <one-click-integration-card *ngFor="let connect of connectedConnectionList" [social]="connect"
-            (disconnect)="disconnect($event)">
-        </one-click-integration-card>
+    <!-- <div class="common-title-section">
+        <h3>Manage Account</h3>
+    </div> -->
+    <div class="card-section p-4 w-100">
+        <ng-container *ngIf="connectedConnectionList?.length">
+            <one-click-integration-card *ngFor="let connect of connectedConnectionList" [social]="connect"
+                (disconnect)="disconnect($event)">
+            </one-click-integration-card>
+        </ng-container>
     </div>
+
+    <ng-container *ngIf="!connectedConnectionList?.length">
+        <div class="w-100 text-center pt-5 no-connected">
+            <mat-icon class="material-icons-round">cable</mat-icon>
+            <h4>No Account Connected</h4>
+            <one-click-button (click)="addChannels()" [buttonText]="'Add Channels'"
+                [icon]="'add_circle'"></one-click-button>
+        </div>
+    </ng-container>
 </section>

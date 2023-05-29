@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { messages } from '@one-click/data';
-import { AlertService, AuthService } from '@one-click/one-click-services';
+import { Company, User, messages } from '@one-click/data';
+import { AlertService, AuthService, CommonServiceService, CrudService } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-signup',
@@ -17,7 +17,9 @@ export class SignupComponent {
     private formBuilder: FormBuilder,
     public authService: AuthService,
     private alertService: AlertService,
+    private crudService: CrudService,
     private router: Router,
+    private commonServiceService: CommonServiceService,
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['shivang.patel503@gmail.com', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
@@ -35,7 +37,14 @@ export class SignupComponent {
     }
     else {
       this.isloading = true;
-      this.authService.createUser(this.registerForm.value).then(res => {
+      this.authService.createUser(this.registerForm.value).then(async (res: User) => {
+        const company = new Company();
+        company.company_name = res.name
+        company.email = res.email
+        company.id = res.company_id;
+        company.masterId = this.crudService.angularFirestore.createId();
+        company.timeZone = this.commonServiceService.getTimeZone();
+        await this.crudService.add('company', company, company.id);
         this.registerForm.reset();
         this.isloading = false;
         this.router.navigateByUrl('login');

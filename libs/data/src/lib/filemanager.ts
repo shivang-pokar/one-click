@@ -15,4 +15,5 @@ export class FileItem {
     selected?: boolean;
     width?: any;
     height?: any;
+    type?: string;
 }

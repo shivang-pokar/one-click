@@ -12,6 +12,10 @@ import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
 import { LoadingComponent } from './loading/loading.component';
 import { SocialChipComponent } from './social-chip/social-chip.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { ButtonComponent } from './common-components/button/button.component';
+import { WorkspaceComponent } from './workspace/workspace.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -27,6 +31,10 @@ import { SocialChipComponent } from './social-chip/social-chip.component';
     FileManagerComponent,
     LoadingComponent,
     SocialChipComponent,
+    ProfileDetailsComponent,
+    SubscriptionComponent,
+    ButtonComponent,
+    WorkspaceComponent,
   ],
   exports: [
     IntegrationCardComponent,
@@ -38,7 +46,11 @@ import { SocialChipComponent } from './social-chip/social-chip.component';
     CommonDialogComponent,
     FileManagerComponent,
     LoadingComponent,
-    SocialChipComponent
+    SocialChipComponent,
+    ProfileDetailsComponent,
+    SubscriptionComponent,
+    ButtonComponent,
+    WorkspaceComponent
   ],
 })
 export class OneClickUiModule { }

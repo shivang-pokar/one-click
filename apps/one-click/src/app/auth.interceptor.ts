@@ -2,26 +2,32 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import * as firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private injector: Injector) { }
+
+    firebase = firebase.default;
+    constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const auth = this.injector.get(AngularFireAuth);
-        return from(auth.currentUser).pipe(
-            switchMap(user => {
-                if (user) {
-                    // Add the user's ID token to the authorization header
-                    request = request.clone({
-                        setHeaders: {
-                            Authorization: `Bearer ${user.getIdToken()}`
-                        }
-                    });
-                }
-                return next.handle(request);
-            })
-        );
+        if (request.url.search(environment.API_BASE_URL) >= 0) {
+            return from(this.firebase.auth().currentUser.getIdToken().then(token => {
+                return request.clone({
+                    setHeaders: {
+                        authorization: `${token}`
+                    }
+                });
+            }).catch(er => {
+                return request;
+            })).pipe(switchMap(req => {
+                return next.handle(req);
+            }))
+        }
+        else {
+            return next.handle(request);
+        }
     }
 }

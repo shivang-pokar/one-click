@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IntegrationData, messages } from '@one-click/data';
+import { Integration, IntegrationData, messages } from '@one-click/data';
 import { AlertService, CommonServiceService, CrudService, SocialConnectService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
 import { take } from 'rxjs';
@@ -14,7 +14,7 @@ export class AuthChannelComponent implements OnInit {
 
   collName: string = 'integration';
   company_id = this.cookieService.get('company_id');
-  integrationList: IntegrationData;
+  integrationList: Integration;
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -64,7 +64,7 @@ export class AuthChannelComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).pipe(take(1)).subscribe((integratipon: any) => {
         if (!integratipon[0]) {
-          this.integrationList = new IntegrationData();
+          this.integrationList = new Integration();
           this.integrationList.company_id = this.company_id;
         } else {
           this.integrationList = integratipon[0];

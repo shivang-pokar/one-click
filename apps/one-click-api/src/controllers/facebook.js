@@ -1,17 +1,28 @@
 const axios = require('axios');
-var { environment } = require('../environments/environment');
 
 
 export const facebookPost = async (req, res, next) => {
     try {
-        const allUrlList = createImageUrl(req.body.attachment, req.body.access_token, req.body.user_id);
-        const imageList = await getImagePerma(allUrlList);
-        const feed = await axios.post(`${environment.FB_AUTH_URL}/${req.body.user_id}/feed`, {
-            access_token: req.body.access_token,
-            message: req.body.message,
-            attached_media: imageList
-        })
-        res.send(feed.data);
+        if (req?.body?.attachment[0].type == "IMAGE") {
+            /* 
+            Post Image
+             */
+            const allUrlList = createImageUrl(req.body.attachment, req.body.access_token, req.body.user_id);
+            const mediaList = await getImagePerma(allUrlList);
+            const feed = await axios.post(`${process.env.FB_AUTH_URL}/${req.body.user_id}/feed`, {
+                access_token: req.body.access_token,
+                message: req.body.message,
+                attached_media: mediaList
+            });
+            res.send(feed.data);
+        } else {
+            /* 
+            Post Video
+             */
+            let attachment = req.body.attachment[0];
+            const feed = await axios.post(`${process.env.FB_AUTH_URL}/${req.body.user_id}/videos?file_url=${encodeURIComponent(attachment.url)}&published=true&description=${encodeURIComponent(req.body.message || '')}&access_token=${req.body.access_token}`, {});
+            res.send(feed.data);
+        }
     }
     catch (e) {
         res.status(e.response.status)
@@ -43,8 +54,13 @@ function createImageUrl(photolist, access_token, id) {
     let allImageUploadUrlList = []
     if (photolist && photolist.length) {
         photolist.forEach(element => {
-            allImageUploadUrlList.push(axios.post(`${environment.FB_AUTH_URL}/${id}/photos?url=${encodeURIComponent(element.url)}&published=false&access_token=${access_token}`, {}));
+            allImageUploadUrlList.push(axios.post(`${process.env.FB_AUTH_URL}/${id}/photos?url=${encodeURIComponent(element.url)}&published=false&access_token=${access_token}`, {}));
         });
     }
     return allImageUploadUrlList;
 }
+
+/* function createVideoUrl(mediaList, access_token, id) {
+    
+    return mediaUploadList;
+} */

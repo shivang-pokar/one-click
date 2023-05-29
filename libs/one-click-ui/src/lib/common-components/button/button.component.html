@@ -1,0 +1,9 @@
+<button class="mt-2" mat-raised-button [color]="color" [disabled]="isloading" [class.w-100]="fullWidth">
+    <mat-icon *ngIf="icon" class="m-0 mr-2">{{icon}}</mat-icon>
+    <ng-container *ngIf="!isloading">
+        {{buttonText}}
+    </ng-container>
+    <ng-container *ngIf="isloading">
+        <mat-spinner class="color-white button-loading"></mat-spinner>
+    </ng-container>
+</button>

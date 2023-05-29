@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         if (userAuth?.emailVerified) {
           this.router.navigateByUrl('dashboard');
           this.isloading = false;
-          this.commonServiceService.getIntegration();
+          this.commonServiceService.logedInInitSubscribe();
         } else {
           firebase.default.auth().currentUser?.sendEmailVerification();
           this.alertService.error(messages.NOT_VERIFIED);

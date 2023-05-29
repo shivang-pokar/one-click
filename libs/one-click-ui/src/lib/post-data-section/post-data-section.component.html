@@ -22,7 +22,12 @@
                 <ng-container *ngFor="let file of postForm.get('attachment').value">
                     <div class="attach-image-section position-relative">
                         <mat-icon (click)="removeAttach(file)" class="position-absolute cancel">cancel</mat-icon>
-                        <img [src]="file.url" alt="" class="w-100 h-100">
+                        <ng-container *ngIf="file.type == 'IMAGE'">
+                            <img [src]="file.url" alt="" class="w-100 h-100">
+                        </ng-container>
+                        <ng-container *ngIf="file.type == 'VIDEO'">
+                            <video [src]="file.url" poster class="w-100 h-100"></video>
+                        </ng-container>
                     </div>
                 </ng-container>
             </div>
@@ -31,6 +36,12 @@
         <div class="image-alert p-2 d-flex align-items-center" *ngIf="!postForm.get('attachment_valid').value">
             <mat-icon color="warn" class="material-icons-outlined mr-2">warning</mat-icon>
             Image should have ratio between 4:5 and 1.91:1.
+        </div>
+
+        <div class="image-alert p-2 d-flex align-items-center"
+            *ngIf="postForm.get('attachment_type_list')?.value?.length == 2">
+            <mat-icon color="warn" class="material-icons-outlined mr-2">warning</mat-icon>
+            It is not possible to post images and video together
         </div>
 
         <div class="post-media d-flex align-items-center justify-content-between">

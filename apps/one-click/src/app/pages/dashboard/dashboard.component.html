@@ -32,6 +32,15 @@
                     </ng-container>
 
                 </ng-container>
+                <ng-container *ngIf="!integrationList.length">
+                    <div class="d-flex flex-column justify-content-center align-items-center add-channels w-100">
+                        <one-click-button (click)="addChannels()" [buttonText]="'Add Channels'"
+                            [icon]="'add_circle'"></one-click-button>
+                        <!-- <mat-icon class="fz-34">add_circle</mat-icon>
+                        <h4>add channels</h4> -->
+                    </div>
+
+                </ng-container>
             </div>
         </div>
         <div class="right-section col-6">
@@ -71,7 +80,8 @@
             </div>
         </div>
 
-        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between">
+        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between"
+            *ngIf="integrationList.length">
             <div class="position-relative">
                 <button [disabled]="isloading" (click)="picker.open()" mat-stroked-button color="primary">
                     <ng-container *ngIf="scheduleDate">

@@ -48,7 +48,15 @@
 
                     <ng-container *ngFor="let file of fileManager?.fileList">
                         <div class="image-section position-relative" [class.selected]="isImageSelected(file)">
-                            <img [src]="file.url" alt="" class="w-100 h-100">
+                            <ng-container *ngIf="file.type == 'IMAGE'">
+                                <img [src]="file.url" alt="" class="w-100 h-100">
+                            </ng-container>
+                            <ng-container *ngIf="file.type == 'VIDEO'">
+                                <video [src]="file.url" poster></video>
+                                <mat-icon class="material-icons-outlined play_circle">
+                                    play_circle
+                                </mat-icon>
+                            </ng-container>
                             <div class="selected-section position-absolute d-flex align-items-end">
                                 <mat-icon color="warn" (click)="deleteFile(file)"
                                     class="position-absolute cancel">delete</mat-icon>

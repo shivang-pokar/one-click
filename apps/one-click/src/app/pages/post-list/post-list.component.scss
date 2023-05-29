@@ -34,23 +34,3 @@ mat-button-toggle-group {
         gap: 10px;
     }
 }
-
-.filter-section {
-    ul {
-        li {
-            list-style: none;
-            &.active {
-                background: var(--active);
-            }
-            a {
-                display: block;
-                line-height: 42px;
-                font-size: 14px;
-                padding-left: 20px;
-                padding-right: 20px;
-                text-decoration: none;
-                color: var(--primary);
-            }
-        }
-    }
-}

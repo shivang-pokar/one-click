@@ -101,6 +101,19 @@
         img {
             object-fit: cover;
         }
+
+        .play_circle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
         .cancel {
             right: 3px;
             z-index: 1111;

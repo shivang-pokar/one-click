@@ -1,5 +1,8 @@
 <one-click-common-header></one-click-common-header>
 <section class="main-section">
+    <!-- <div class="common-title-section">
+            <h3>Add Channels</h3>
+        </div> -->
     <div class="card-section p-4">
         <one-click-integration-card *ngFor="let connect of connectionList" [social]="connect"
             (connect)="socialConnect($event)" (disconnect)="disconnect($event)">

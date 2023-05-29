@@ -19,9 +19,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const company_id = this.cookieService.get('company_id')
+    const company_id: string = this.cookieService.get('company_id') || null;
     if (company_id) {
-      this.commonServiceService.getIntegration();
+      this.commonServiceService.logedInInitSubscribe();
     }
   }
 

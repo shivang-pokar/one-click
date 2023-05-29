@@ -1,6 +1,7 @@
 export class User {
     id?: string;
     company_id?: string;
+    url?: string;
     email?: string = '';
     password?: string = '';
     uid?: string;

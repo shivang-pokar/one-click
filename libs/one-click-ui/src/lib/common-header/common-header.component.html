@@ -1,17 +1,18 @@
 <header class="d-flex align-items-center justify-content-between">
-    <div class="chip-section d-flex align-items-center" [matMenuTriggerFor]="menu">
+    <!-- [matMenuTriggerFor]="menu" -->
+    <div class="chip-section d-flex align-items-center">
         <div class="avtar-name d-flex align-items-center justify-content-center">
             S
         </div>
         <div class="desk-name">
-            Shivang's Desk
+            {{company?.company_name}}'s Desk
         </div>
-        <mat-icon>expand_more</mat-icon>
+        <!-- <mat-icon>expand_more</mat-icon> -->
     </div>
 
     <mat-menu #menu="matMenu">
         <button mat-menu-item>
-            <span>Shivang's Desk</span>
+            <span>{{company?.company_name}}'s Desk</span>
         </button>
     </mat-menu>
 
