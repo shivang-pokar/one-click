@@ -17,5 +17,6 @@ export const environment = {
   twitter_app_secret: 'm7OewS57ByrNbnF8TdFyD05fMqLFnwSN7KRwrUEfmqL8WcXKET',
   LINKEDIN: 'https://www.linkedin.com',
   port: process.env.port || 3333,
-  LOCAL_URL: `http://localhost:${process.env.port || 3333}`
+  //LOCAL_URL: `http://localhost:${process.env.port || 3333}`
+  LOCAL_URL: `https://one-click-desk-staging.onrender.com`
 };
