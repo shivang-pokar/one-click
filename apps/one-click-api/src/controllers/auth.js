@@ -10,7 +10,7 @@ const client = new TwitterApi({
 export const getTwitterAuthUrl = async (req, res) => {
   try {
     const authLink = await client.generateAuthLink(
-      'http://localhost:4200/auth-channel?state=twitter',
+      `${process.env.WEB_DOMAIN}auth-channel?state=twitter`,
       { linkMode: 'authorize' }
     );
     res.send({ autlUrl: authLink.url });
