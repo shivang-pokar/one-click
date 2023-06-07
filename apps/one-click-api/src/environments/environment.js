@@ -4,7 +4,7 @@ export const environment = {
   twitter_auth_url: 'https://api.twitter.com/2/oauth2/token',
   twitter_url: 'https://api.twitter.com/2',
   client_id_twitter: 'eFlHTkNwVUZzUkN4RXRnQXFSSDY6MTpjaQ',
-  redirect_uri: 'https://localhost:4200/channels',
+  redirect_uri: 'https://one-click-desk-stage.web.app/channels',
   fb_app_id: '484004453229056',
   fb_client_secret: 'a29f96cc1b76aa2a9863604a89706e23',
   FB_AUTH_URL: 'https://graph.facebook.com/v13.0',
