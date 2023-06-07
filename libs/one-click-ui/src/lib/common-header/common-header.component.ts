@@ -32,6 +32,11 @@ export class CommonHeaderComponent implements OnInit {
       label: 'Manage Account'
     },
     {
+      url: '/content-writing',
+      icon: 'description',
+      label: 'Content Writing'
+    },
+    {
       url: '/settings',
       icon: 'settings',
       label: 'Settings'
@@ -52,4 +57,9 @@ export class CommonHeaderComponent implements OnInit {
     });
 
   }
+
+  signOut() {
+
+  }
+
 }

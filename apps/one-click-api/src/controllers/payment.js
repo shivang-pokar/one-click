@@ -52,11 +52,39 @@ export const createPortalSession = async (req, res, next) => {
     res.send(portalSession);
 }
 
+export const cancelSubscriptions = async (req, res, next) => {
+    try {
+        const { subscriptions_id } = req.body;
+        const subscriptions = await req.stripe.subscriptions.cancel(subscriptions_id);
+        console.log('subscriptions')
+        console.log(subscriptions)
+        res.send(subscriptions);
+    }
+    catch (e) {
+        next(e);
+    }
+    //console.log(subscriptions)
+}
+
+export const resumeSubscriptions = async (req, res, next) => {
+    try {
+        const { subscriptions_id } = req.body;
+        const subscriptions = await req.stripe.subscriptions.resume(subscriptions_id);
+        res.send(subscriptions);
+    }
+    catch (e) {
+        next(e);
+    }
+    //console.log(subscriptions)
+}
+
 
 /* Stripe Webhook */
 
 
 export const webHook = async (req, res, next) => {
+
+    console.log('webHook')
 
     let data;
     let eventType;
@@ -100,7 +128,7 @@ export const webHook = async (req, res, next) => {
             let subscriptions = await req.stripe.subscriptions.retrieve(compnayData.stripe_subscription_id);
             compnayData.stripe_expires_at = subscriptions.current_period_end * 1000;
             compnayData.stripe_created = subscriptions.current_period_start * 1000;
-            compnayData.status = data.object.status
+            compnayData.status = data?.object?.status?.toUpperCase();
             updateCompnay(compnayData);
             // Continue to provision the subscription as payments continue to be made.
             // Store the status in your database and check when a user accesses your service.
@@ -111,6 +139,11 @@ export const webHook = async (req, res, next) => {
             // The payment failed or the customer does not have a valid payment method.
             // The subscription becomes past_due. Notify your customer and send them to the
             // customer portal to update their payment information.
+            break;
+        case 'customer.subscription.deleted':
+            console.log('customer.subscription.deleted');
+            let compnayDataDelete = await getCompanyOnSubscriptionId(data.object.subscription);
+            compnayDataDelete.status = 'CANCELED';
             break;
         default:
         // Unhandled event type

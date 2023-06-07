@@ -22,12 +22,11 @@
         </div>
         <div class="menu-item position-absolute">
             <ul>
-                <li><a href="javascript:void(0)">Account</a></li>
-                <li><a routerLink="/channels">Integrations</a></li>
-                <li><a href="javascript:void(0)">Sign Out</a></li>
+                <li><a [routerLink]="'/settings'">Account</a></li>
+                <li><a (click)="signOut()" href="javascript:void(0)">Sign Out</a></li>
             </ul>
             <ul>
-                <li><a href="javascript:void(0)">Plan + billing</a></li>
+                <li><a [routerLink]="'/settings'" href="javascript:void(0)">Plan + billing</a></li>
             </ul>
         </div>
     </div>

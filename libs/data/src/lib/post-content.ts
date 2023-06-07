@@ -8,4 +8,8 @@ export class PostContent {
     attachment?: Array<any> = [];
     created_at?: number = new Date().getTime();
     showDesc?: boolean = false;
+
+    // POST or REEL
+    postType?: string;
+
 }

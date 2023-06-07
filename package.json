@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "build-staging": "nx build --configuration=staging"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +40,7 @@
     "ngx-stripe": "^15.6.0",
     "node-schedule": "^2.1.1",
     "npm": "^9.5.0",
+    "openai": "^3.2.1",
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",
     "stripe": "^12.0.0",

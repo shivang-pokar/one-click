@@ -16,7 +16,8 @@ export const instagramrPost = async (req, res, next) => {
                     post(req, res, instagram);
                 }
                 else {
-                    const instagram = await axios.post(`${process.env.FB_AUTH_URL}/${req.body.user_id}/media?media_type=VIDEO&video_url=${encodeURIComponent(req.body.attachment[0].url)}&caption=${req.body.message}&access_token=${req.body.access_token}`, {})
+                    let postType = (req?.body.postType == "POST") ? "VIDEO" : "REELS";
+                    const instagram = await axios.post(`${process.env.FB_AUTH_URL}/${req.body.user_id}/media?media_type=${postType}&video_url=${encodeURIComponent(req.body.attachment[0].url)}&caption=${req.body.message}&access_token=${req.body.access_token}`, {})
                     let interval = setInterval(async () => {
                         let status = await axios.get(`${process.env.FB_AUTH_URL}/${instagram.data.id}?fields=status_code&access_token=${req.body.access_token}`)
                         if (status.data.status_code != "IN_PROGRESS") {

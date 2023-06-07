@@ -1,5 +1,5 @@
 .title-section {
-    border-bottom: 1px solid rgb(0 0 0 / 12%);
+    border-bottom: 1px solid rgba(var(--border-1));
     background: var(--white);
     h3 {
         padding-left: 25px;
@@ -38,7 +38,7 @@
 .post-section {
     height: 100%;
     .left-section {
-        border-right: 1px solid rgb(0 0 0 / 12%);
+        border-right: 1px solid rgba(var(--border-1));
         height: 100%;
         overflow: auto;
         min-height: 100%;
@@ -46,7 +46,7 @@
     }
 
     .right-section {
-        background: #f4f4f4;
+        background: var(--gray-background);
         .content-section {
             max-height: calc(100% - 62px);
             overflow: auto;
@@ -60,7 +60,7 @@
     left: 0;
     box-shadow: 0px -6px 15px rgba(0, 0, 0, 0.08);
     background: var(--white);
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(var(--border-1));
     //border-top: 1px solid rgba(0, 0, 0, 0.12);
     border-left: 0;
     button {

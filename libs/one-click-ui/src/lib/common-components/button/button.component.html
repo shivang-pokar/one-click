@@ -1,4 +1,5 @@
-<button class="mt-2" mat-raised-button [color]="color" [disabled]="isloading" [class.w-100]="fullWidth">
+<button mat-raised-button [color]="color" [disabled]="isloading" [class.w-100]="fullWidth"
+    [class.type-small]="typeSmall">
     <mat-icon *ngIf="icon" class="m-0 mr-2">{{icon}}</mat-icon>
     <ng-container *ngIf="!isloading">
         {{buttonText}}

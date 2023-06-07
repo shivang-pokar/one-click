@@ -19,6 +19,7 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
   postForm: FormGroup;
   @Output() postFormValues = new EventEmitter();
   @Input() singleAccount: IntegrationItem;
+  @Input() reels: boolean;
   @Input() noPersonalizedData: PostContent;
 
   constructor(
@@ -62,7 +63,7 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('selectedAccountList' in changes || 'singleAccount' in changes) {
+    if ('selectedAccountList' in changes || 'singleAccount' in changes || 'reels' in changes) {
       this.filterConnectionListSelected()
       this.charecterValidateion();
       this.validateImages();
@@ -98,7 +99,16 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
     attachment.forEach(attach => {
       attach.is_valid = true;
       imageValidatorList.forEach(el => {
-        let is_valid = this.commonServiceService.validateRationImage(attach.width, attach.height, el);
+
+        let is_valid: boolean;
+
+        if (this.reels && el.shortVideo) {
+          is_valid = this.commonServiceService.validateRationReel(attach.width, attach.height, el)
+          console.log(is_valid)
+        } else {
+          is_valid = this.commonServiceService.validateRationImage(attach.width, attach.height, el)
+        }
+
         if (!is_valid) {
           attach.is_valid = false;
           this.postForm.get('attachment_valid')?.setValue(false)

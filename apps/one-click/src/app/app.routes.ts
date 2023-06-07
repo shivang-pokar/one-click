@@ -1,10 +1,11 @@
 import { Route } from '@angular/router';
 import { AuthGardGuard } from './services/auth-gard/auth-gard.guard';
+import { AuthSubscriptionService } from './services/auth-subscription/auth-subscription.service';
 
 export const appRoutes: Route[] = [
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
     },
     {
@@ -44,5 +45,10 @@ export const appRoutes: Route[] = [
         path: 'settings',
         loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule),
         canActivate: [AuthGardGuard]
+    },
+    {
+        path: 'content-writing',
+        loadChildren: () => import('./pages/content-writing/content-writing.module').then(m => m.ContentWritingModule),
+        canActivate: [AuthGardGuard, AuthSubscriptionService]
     },
 ];

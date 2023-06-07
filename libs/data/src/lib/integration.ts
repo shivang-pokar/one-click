@@ -18,6 +18,9 @@ export class Connection {
     imageRationMin: number = 0;
     imageRationMax: number = 0;
     videoLimite?: number = 1;
+    shortVideo?: boolean;
+    shortVideoRationMin?: number = 0;
+    shortVideoRationMax?: number = 0;
 }
 
 

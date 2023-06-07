@@ -15,3 +15,7 @@ export * from './lib/profile-details/profile-details.component';
 export * from './lib/subscription/subscription.component';
 export * from './lib/common-components/button/button.component';
 export * from './lib/workspace/workspace.component';
+export * from './lib/content-writing-ui/content-writing-ui.component';
+export * from './lib/content-writing-history/content-writing-history.component';
+
+export * from './lib/pipes/validation-message/validation-message.pipe';

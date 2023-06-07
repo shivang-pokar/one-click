@@ -24,7 +24,13 @@
                             <div class="img position-relative" *ngIf="i < 4"
                                 [class.w-100]="connection?.postContent?.attachment?.length == 1"
                                 [class.extra-height]="connection?.postContent?.attachment?.length == 2">
-                                <img [src]="attach.url" alt="">
+                                <!-- <img [src]="attach.url" alt=""> -->
+                                <ng-container *ngIf="attach.type == 'IMAGE'">
+                                    <img [src]="attach.url" alt="" width="100%">
+                                </ng-container>
+                                <ng-container *ngIf="attach.type == 'VIDEO'">
+                                    <video [src]="attach.url" poster class="w-100 h-100"></video>
+                                </ng-container>
                                 <span *ngIf="i == 3 && connection?.postContent?.attachment?.length > 4"
                                     class="extra-images position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
                                     +{{connection?.postContent?.attachment?.length - (i + 1)}}
@@ -34,11 +40,29 @@
                     </ng-container>
                     <ng-container *ngIf="connection?.postContent?.attachment?.length == 3">
                         <div class="img position-relative large-height">
-                            <img [src]="connection?.postContent?.attachment[0].url" alt="">
+                            <!-- <img [src]="connection?.postContent?.attachment[0].url" alt=""> -->
+                            <ng-container *ngIf="connection?.postContent?.attachment[0].type == 'IMAGE'">
+                                <img [src]="connection?.postContent?.attachment[0].url" alt="" width="100%">
+                            </ng-container>
+                            <ng-container *ngIf="connection?.postContent?.attachment[0].type == 'VIDEO'">
+                                <video [src]="connection?.postContent?.attachment[0].url" poster
+                                    class="w-100 h-100"></video>
+                            </ng-container>
                         </div>
                         <div class="img position-relative two-column-image d-flex">
-                            <img [src]="connection?.postContent?.attachment[1].url" alt="" class="d-block">
-                            <img [src]="connection?.postContent?.attachment[2].url" alt="" class="d-block">
+
+                            <ng-container *ngIf="connection?.postContent?.attachment[0].type == 'IMAGE'">
+                                <img [src]="connection?.postContent?.attachment[1].url" alt="" class="d-block">
+                                <img [src]="connection?.postContent?.attachment[2].url" alt="" class="d-block">
+                            </ng-container>
+                            <ng-container *ngIf="connection?.postContent?.attachment[0].type == 'VIDEO'">
+                                <video [src]="connection?.postContent?.attachment[1].url" poster
+                                    class="w-100 h-100"></video>
+                                <video [src]="connection?.postContent?.attachment[2].url" poster
+                                    class="w-100 h-100"></video>
+                            </ng-container>
+
+
                         </div>
                     </ng-container>
                 </div>

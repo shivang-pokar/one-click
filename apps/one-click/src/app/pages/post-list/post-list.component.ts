@@ -65,13 +65,12 @@ export class PostListComponent implements OnInit {
   }
 
   delete(post: PostContent) {
-    this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(resp => {
+    this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
       if (resp) {
-        this.crudService.softRemove(post, post.id).then(() => {
-          this.postList = this.postList.filter(item => item.id != post.id);
-        });
+        await this.crudService.softRemove(this.collName, post, post.id)
+        this.postList = this.postList.filter(item => item.id != post.id);
+        this.alertService.success(messages.DETAILS_UPDATED);
       }
     });
-    /* post */
   }
 }

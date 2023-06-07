@@ -35,8 +35,14 @@
                             <div class="col-4 p-3">
                                 <mat-label class="mb-2 d-flex"><strong>Media</strong></mat-label>
                                 <div class="d-flex flex-wrap media">
-                                    <div class="image-section" *ngFor="let attach of socialPost?.attachment">
-                                        <img class="w-100 h-100" [src]="attach.url" alt="">
+                                    <div class="image-section" *ngFor="let file of socialPost?.attachment">
+                                        <ng-container *ngIf="file.type == 'IMAGE'">
+                                            <img [src]="file.url" alt="" class="w-100 h-100">
+                                        </ng-container>
+                                        <ng-container *ngIf="file.type == 'VIDEO'">
+                                            <video [src]="file.url" poster class="w-100 h-100"></video>
+                                        </ng-container>
+                                        <!-- <img class="w-100 h-100" [src]="attach.url" alt=""> -->
                                     </div>
                                 </div>
                             </div>

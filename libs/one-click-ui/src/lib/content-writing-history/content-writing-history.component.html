@@ -1,0 +1,20 @@
+<div class="common-title-section">
+    <h3>History</h3>
+</div>
+<div class="p-3 overflow-auto history-content">
+    <div class="keyword-content p-3 mt-3" *ngFor="let content of contentList">
+        <div class="key-word mb-2 pb-2 border-bottom">
+            <strong>{{content.messages[0].content}}</strong>
+        </div>
+        {{content.messages[1].content | slice:0:170}}
+        {{content.messages[1].content.length > 170 ? '...' : ''}}
+        <div class="border-top pt-1 mt-3 d-flex justify-content-end">
+            <one-click-button [typeSmall]="true" [buttonText]="'Open'"
+                (click)="openContent(content)"></one-click-button>
+        </div>
+    </div>
+</div>
+<div class="p-3">
+    <one-click-button [fullWidth]="true" [icon]="'add'" (click)="newContent()"
+        [buttonText]="'New Content'"></one-click-button>
+</div>

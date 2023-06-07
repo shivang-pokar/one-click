@@ -21,6 +21,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MediaTypePipe } from './pipes/mediaType/media-type.pipe';
+import { ValidationMessagePipe } from './pipes/validation-message/validation-message.pipe';
 
 
 
@@ -50,7 +51,8 @@ import { MediaTypePipe } from './pipes/mediaType/media-type.pipe';
     ],
     declarations: [
         GetSocialTypePipe,
-        MediaTypePipe
+        MediaTypePipe,
+        ValidationMessagePipe
     ],
     exports: [
         MatBadgeModule,
@@ -74,7 +76,8 @@ import { MediaTypePipe } from './pipes/mediaType/media-type.pipe';
         ReactiveFormsModule,
         MatSlideToggleModule,
         MatProgressSpinnerModule,
-        SlickCarouselModule
+        SlickCarouselModule,
+        ValidationMessagePipe
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

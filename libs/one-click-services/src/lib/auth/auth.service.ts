@@ -8,6 +8,7 @@ import { User } from '@one-click/data';
 import { CrudService } from '../crud/crud.service';
 import { AlertService } from '../alert/alert.service';
 import { Observable, of, switchMap, take } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -21,6 +22,7 @@ export class AuthService {
     private cookieService: CookieService,
     private crudService: CrudService,
     private alertService: AlertService,
+    public router: Router
   ) { }
 
   createUser(user: User): Promise<any> {
@@ -92,6 +94,13 @@ export class AuthService {
   async getAuthStatus() {
     const auth = await this.angularFireAuth.currentUser;
     return auth;
+  }
+
+  async signOut() {
+    await this.angularFireAuth.signOut();
+    this.cookieService.deleteAll();
+    window.localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 
 }

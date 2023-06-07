@@ -10,23 +10,25 @@
                     <one-click-select-account [integrationList]="integrationList"
                         (selectedAccount)="selectedAccount($event)"></one-click-select-account>
 
-                    <div class="mb-3">
-
+                    <div class="mb-3 d-flex justify-content-between">
                         <mat-slide-toggle [(ngModel)]="personalizedEv" color="primary" name="personalized"
                             (change)="putPersonalizedData($event)"><span class="ml-1">Personalized
                                 for each social
                                 account</span></mat-slide-toggle>
+
+                        <mat-slide-toggle color="primary" [(ngModel)]="reels" name="personalized"><span
+                                class="ml-1">Reels</span></mat-slide-toggle>
                     </div>
 
                     <ng-container *ngIf="!personalized">
                         <one-click-post-data-section [selectedAccountList]="selectedAccountList"
-                            [noPersonalizedData]="noPersonalizedData"
+                            [noPersonalizedData]="noPersonalizedData" [reels]="reels"
                             (postFormValues)="postFormValues($event)"></one-click-post-data-section>
                     </ng-container>
 
                     <ng-container *ngIf="personalized">
                         <div *ngFor="let account of selectedAccountList" class="mb-4">
-                            <one-click-post-data-section [singleAccount]="account"
+                            <one-click-post-data-section [singleAccount]="account" [reels]="reels"
                                 (postFormValues)="postFormValues($event)"></one-click-post-data-section>
                         </div>
                     </ng-container>
@@ -80,7 +82,7 @@
             </div>
         </div>
 
-        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between"
+        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between overflow-hidden"
             *ngIf="integrationList.length">
             <div class="position-relative">
                 <button [disabled]="isloading" (click)="picker.open()" mat-stroked-button color="primary">

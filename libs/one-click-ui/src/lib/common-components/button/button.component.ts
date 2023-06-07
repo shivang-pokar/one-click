@@ -8,6 +8,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@ang
 export class ButtonComponent {
 
   @Input() fullWidth: boolean = false;
+  @Input() typeSmall: boolean = false;
   @Input() color: string = 'primary';
   @Input() buttonText: string;
   @Input() isloading: boolean = false;

@@ -35,7 +35,7 @@
 
         <div class="image-alert p-2 d-flex align-items-center" *ngIf="!postForm.get('attachment_valid').value">
             <mat-icon color="warn" class="material-icons-outlined mr-2">warning</mat-icon>
-            Image should have ratio between 4:5 and 1.91:1.
+            <span>{{postForm.get('attachment').value | validationMessage:reels}}</span>
         </div>
 
         <div class="image-alert p-2 d-flex align-items-center"

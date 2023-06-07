@@ -1,0 +1,14 @@
+<one-click-common-header></one-click-common-header>
+<section class="main-section">
+    <div class="d-flex content-writing">
+        <div class="col-7 left-section">
+            <one-click-content-writing-ui [conversationObj]="conversationObj"
+                (conversationCreated)="conversationCreated()"></one-click-content-writing-ui>
+        </div>
+        <div class="col-5 right-section">
+            <one-click-content-writing-history [contentList]="contentList"
+                (selectConversation)="selectConversation($event)"></one-click-content-writing-history>
+
+        </div>
+    </div>
+</section>

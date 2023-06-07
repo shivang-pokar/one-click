@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
-import { PostContent } from '@one-click/data';
+import { ContentWrite, PostContent } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
 import * as firebase from 'firebase/compat/app';
 import "firebase/compat/database"
@@ -118,6 +118,7 @@ export class CrudService {
           meta.parent = fileItem.parent.name;
           let url = await fileItem.getDownloadURL()
           meta.url = url;
+          meta.type = dimentations[keyIndex].type;
           meta.width = dimentations[keyIndex].width;
           meta.height = dimentations[keyIndex].height;
           fileList.push(this.uploadFileStorage(meta))
@@ -177,6 +178,7 @@ export class CrudService {
     filesItem.parentFolder = resp.parent;
     filesItem.width = resp.width;
     filesItem.height = resp.height;
+    filesItem.type = resp.type;
     return filesItem;
   }
 
@@ -200,10 +202,14 @@ export class CrudService {
     return this.database.ref(path).set(obj);
   }
 
-  softRemove(obj: any, id: string) {
+  softRemove(path: string, obj: any, id: string) {
     obj["deleteFlag"] = 'Y';
-    obj["updatedBy"] = window.localStorage.getItem('uid');
-    return this.angularFirestore.doc(id).update(obj);
+    obj["updatedBy"] = this.uid;
+    return this.angularFirestore.collection(path).doc(id).update(obj);
+  }
+
+  getContentRealTimeOrderBy(path: string, orderBy: any) {
+    return this.database.ref(path).orderByChild(orderBy).get();
   }
 
 
@@ -226,7 +232,25 @@ export class CrudService {
   }
   stripeSession(session_id: string) {
     return this.http.post(`${this.env.API_BASE_URL}/payment/session`, {
-      session_id: session_id
+      session_id: session_id,
+    });
+  }
+
+  createContent(content: ContentWrite, UID: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/content-writing/writing`, {
+      content: content,
+      UID: UID
+    });
+  }
+
+  cancelSubscription(subscriptions_id: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/cancel`, {
+      subscriptions_id: subscriptions_id
+    });
+  }
+  resumeSubscription(subscriptions_id: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/resume`, {
+      subscriptions_id: subscriptions_id
     });
   }
 

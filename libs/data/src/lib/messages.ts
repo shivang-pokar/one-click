@@ -23,7 +23,11 @@ export const messages = {
     BOTH_CANT_TITLE: 'Image/Video',
     VIDEO_LIMITE_TITLE: 'Video Limit',
     DETAILS_UPDATED: 'Details updated successfully',
-    NAME_TIMEZONE_REQUIRED: 'Workspace name and timezone required'
+    NAME_TIMEZONE_REQUIRED: 'Workspace name and timezone required',
+    SUBSCRIBE_GPT: 'Subscribe for content write using AI',
+    SUBSCRIPTION_CANCELLED: 'Subscription cancelled successfully',
+    SUBSCRIPTION_CANCELLED_CONFIRM: 'Are you sure you want to cancel your subscription?',
+    ALREADY_CANCELLED: 'Subscription already cancelled'
 
 }
 
@@ -41,7 +45,8 @@ export const ConnectionList: Array<Connection> = [
         imageRationMin: 0,
         imageRationMax: 0,
         attachRequired: false,
-        videoLimite: 1
+        videoLimite: 1,
+        shortVideo: false
     },
     {
         id: 'INSTAGRAM',
@@ -56,7 +61,10 @@ export const ConnectionList: Array<Connection> = [
         imageRationMin: 0.8,
         imageRationMax: 1.91,
         attachRequired: true,
-        videoLimite: 1
+        videoLimite: 1,
+        shortVideo: true,
+        shortVideoRationMin: 0.56,
+        shortVideoRationMax: 0.56,
     },
     {
         id: 'TWITTER',

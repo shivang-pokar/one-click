@@ -1,0 +1,13 @@
+.main-section {
+    height: 100%;
+    .content-writing {
+        height: 100%;
+        .left-section {
+            border-right: 1px solid rgba(var(--border-1));
+        }
+        .right-section {
+            height: 100%;
+            background: var(--gray-background);
+        }
+    }
+}

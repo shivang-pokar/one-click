@@ -1,0 +1,25 @@
+.search-content {
+    height: calc(100% - 82px);
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.search-content-body {
+    height: calc(100% - 62px);
+}
+
+.send-button {
+    z-index: 9;
+    top: 4px;
+    right: -15px;
+    width: 48px;
+    height: 48px;
+}
+
+.keyword-content {
+    background: var(--gray-background);
+    border-radius: 5px;
+    /* &:first-child {
+        margin-top: auto !important;
+    } */
+}

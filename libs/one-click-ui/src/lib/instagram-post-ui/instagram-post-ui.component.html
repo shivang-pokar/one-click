@@ -22,7 +22,12 @@
         <ng-container *ngIf="connection?.postContent?.attachment?.length">
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem trackBy *ngFor="let attach of connection?.postContent?.attachment" class="slide">
-                    <img [src]="attach.url" alt="" width="100%">
+                    <ng-container *ngIf="attach.type == 'IMAGE'">
+                        <img [src]="attach.url" alt="" width="100%">
+                    </ng-container>
+                    <ng-container *ngIf="attach.type == 'VIDEO'">
+                        <video [src]="attach.url" poster class="w-100 h-100"></video>
+                    </ng-container>
                 </div>
             </ngx-slick-carousel>
         </ng-container>

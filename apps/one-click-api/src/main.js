@@ -16,6 +16,7 @@ import facebookRouter from './routes/facebook.js';
 import post from './routes/post.js';
 import schedule from './routes/schedule.js';
 import payment from './routes/payment.js';
+import contentWriting from './routes/content-writing.js';
 
 import { environment } from './environments/environment.js';
 import firebaseAdmin from './controllers/firebaseAdmin';
@@ -55,6 +56,7 @@ app.use('/facebook', facebookRouter);
 app.use('/post', post);
 app.use('/schedule', schedule);
 app.use('/payment', payment);
+app.use('/content-writing', contentWriting);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to one-click-api!' });

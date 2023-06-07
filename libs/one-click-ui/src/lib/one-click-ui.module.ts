@@ -16,6 +16,8 @@ import { ProfileDetailsComponent } from './profile-details/profile-details.compo
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ButtonComponent } from './common-components/button/button.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
+import { ContentWritingUiComponent } from './content-writing-ui/content-writing-ui.component';
+import { ContentWritingHistoryComponent } from './content-writing-history/content-writing-history.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -35,6 +37,8 @@ import { WorkspaceComponent } from './workspace/workspace.component';
     SubscriptionComponent,
     ButtonComponent,
     WorkspaceComponent,
+    ContentWritingUiComponent,
+    ContentWritingHistoryComponent,
   ],
   exports: [
     IntegrationCardComponent,
@@ -50,7 +54,9 @@ import { WorkspaceComponent } from './workspace/workspace.component';
     ProfileDetailsComponent,
     SubscriptionComponent,
     ButtonComponent,
-    WorkspaceComponent
+    WorkspaceComponent,
+    ContentWritingUiComponent,
+    ContentWritingHistoryComponent,
   ],
 })
 export class OneClickUiModule { }

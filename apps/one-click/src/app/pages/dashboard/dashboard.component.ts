@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public minDate: Date = new Date();
   public color: ThemePalette = 'primary';
   scheduleDate: Date;
+  reels: boolean = false;
 
 
   constructor(
@@ -62,7 +63,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
 
         this.integration = resp[0];
-        console.log(this.integration);
         if (resp[0]?.integrationList) {
           this.integrationList = JSON.parse(JSON.stringify(resp[0].integrationList));
         }
@@ -131,6 +131,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           //this.setPostData(postContent, 'SUCESS', resp.post);
           this.isloading = false;
         }, er => {
+          this.isloading = false;
           this.alertService.error(er.message);
         })
       }
@@ -177,6 +178,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (account.is_selected) {
         account.postContent.user_id = account.id;
         account.postContent.access_token = account.access_token;
+        let index = this.connectionList.findIndex(connection => connection.id == account.type);
+        if (this.connectionList[index].shortVideo && this.reels) {
+          account.postContent.postType = "REELS";
+        } else {
+          account.postContent.postType = "POST";
+        }
 
         if (account.oauth_token_secret) {
           account.postContent['oauth_token_secret'] = account.oauth_token_secret;
@@ -192,8 +199,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const errors = form.get('message').errors;
     const attachmentErrors = form.get('attachment')?.errors;
     let index = this.connectionList.findIndex(connection => connection.id == form.get('type').value);
-    console.log(index);
-    console.log(form.get('type').value);
 
 
     const attachment_type_list = form.get('attachment_type_list')?.value

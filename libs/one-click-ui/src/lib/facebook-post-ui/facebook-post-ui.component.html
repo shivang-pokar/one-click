@@ -16,8 +16,17 @@
                 <ng-container *ngIf="connection?.postContent?.attachment?.length != 3">
                     <ng-container *ngFor="let attach of connection?.postContent?.attachment; let i = index">
                         <div class="img position-relative" *ngIf="i < 4"
-                            [class.w-100]="connection?.postContent?.attachment?.length == 1" [class.extra-height]="connection?.postContent?.attachment?.length == 2">
-                            <img [src]="attach.url" alt="">
+                            [class.w-100]="connection?.postContent?.attachment?.length == 1"
+                            [class.extra-height]="connection?.postContent?.attachment?.length == 2">
+
+                            <ng-container *ngIf="attach.type == 'IMAGE'">
+                                <img [src]="attach.url" alt="">
+                            </ng-container>
+                            <ng-container *ngIf="attach.type == 'VIDEO'">
+                                <video [src]="attach.url" poster class="w-100 h-100"></video>
+                            </ng-container>
+
+
                             <span *ngIf="i == 3 && connection?.postContent?.attachment?.length > 4"
                                 class="extra-images position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
                                 +{{connection?.postContent?.attachment?.length - (i + 1)}}

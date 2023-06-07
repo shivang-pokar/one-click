@@ -1,0 +1,36 @@
+<div class="common-title-section">
+    <h3>
+        Content Writing
+    </h3>
+</div>
+<div class="p-3 search-content-body">
+    <div class="search-content">
+
+        <ng-container *ngFor="let message of conversationObj?.messages; let i = index">
+            <ng-container *ngIf="message.role == 'assistant'">
+                <div class="keyword-content p-3 mt-3">
+                    <div class="key-word mb-2 pb-2 border-bottom">
+                        <strong>{{conversationObj?.messages[i - 1].content}}</strong>
+                    </div>
+                    {{message.content}}
+                    <div class="border-top pt-1 mt-3 d-flex justify-content-end">
+                        <one-click-button [typeSmall]="true" [buttonText]="'Post'"></one-click-button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="search-section pt-3">
+        <form>
+            <mat-form-field class="w-100 position-relative">
+                <input matInput placeholder="Keywords" [(ngModel)]="content" name="content">
+                <div class="d-flex position-absolute send-button d-flex align-items-center justify-content-center">
+                    <mat-spinner *ngIf="isloading" class="black position-absolute button-loading"></mat-spinner>
+                    <button mat-icon-button class=" p-0" (click)="createContent()" *ngIf="!isloading">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
