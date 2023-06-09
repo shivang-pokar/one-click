@@ -49,7 +49,6 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
 
     this.filterConnectionListSelected()
 
-    this.charecterValidateion();
     this.postForm.valueChanges.subscribe(resp => {
       this.postFormValues.emit(this.postForm);
     })
@@ -67,6 +66,10 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
       this.filterConnectionListSelected()
       this.charecterValidateion();
       this.validateImages();
+
+      if (this.type == "ALL") {
+        this.postForm.get('type').setValue(this.type);
+      }
     }
   }
 
@@ -104,7 +107,6 @@ export class PostDataSectionComponent implements OnInit, OnChanges {
 
         if (this.reels && el.shortVideo) {
           is_valid = this.commonServiceService.validateRationReel(attach.width, attach.height, el)
-          console.log(is_valid)
         } else {
           is_valid = this.commonServiceService.validateRationImage(attach.width, attach.height, el)
         }
