@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "build-staging": "nx build --project=one-click --configuration=staging"
+    "build-staging": "nx build --project=one-click --configuration=staging",
+    "build-prod": "nx build --project=one-click"
   },
   "private": true,
   "dependencies": {
