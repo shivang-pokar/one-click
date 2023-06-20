@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
     private commonServiceService: CommonServiceService,
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['shivang.patel503@gmail.com', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
-      password: ['this.admin', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
     });
   }
 

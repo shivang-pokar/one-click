@@ -27,8 +27,7 @@ export class SubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.commonServiceService.company.subscribe(company => {
       this.company = company;
-      let diff = this.commonServiceService.diffTime(new Date().getTime(), company.stripe_expires_at) || 1;
-      console.log(diff)
+      let diff = this.commonServiceService.diffTime(new Date().getTime(), company?.stripe_expires_at) || 1;
 
       if (diff > 0 || this.company.status == 'CANCELED') {
         this.isSubscriptionActive = false;

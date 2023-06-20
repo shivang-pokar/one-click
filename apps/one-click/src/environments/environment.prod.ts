@@ -17,4 +17,5 @@ export const environment = {
   FB_GRAPH: 'https://graph.facebook.com/',
   DOMAIN_URL: 'https://localhost:4200',
   linkedin_client_id: '78mpkeccm3h7f8',
+  stripe_public_key: 'pk_test_51MuL1ZSC8SxbgeE6ulg9T6xnIIlry57vQXoQij7h7x24WCshf4013nngERLg21VknDNapgdChMddWnNWYXSwOVc200493wqtVG'
 };

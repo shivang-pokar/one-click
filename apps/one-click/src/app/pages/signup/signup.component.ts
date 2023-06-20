@@ -22,9 +22,9 @@ export class SignupComponent {
     private commonServiceService: CommonServiceService,
   ) {
     this.registerForm = this.formBuilder.group({
-      email: ['shivang.patel503@gmail.com', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
-      password: ['this.admin', Validators.compose([Validators.required])],
-      name: ['Shivang', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.compose([Validators.required])],
     });
   }
 
