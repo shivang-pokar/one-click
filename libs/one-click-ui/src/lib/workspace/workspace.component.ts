@@ -28,7 +28,6 @@ export class WorkspaceComponent implements OnInit {
         this.company = company;
         this.workspaceName = this.company.company_name;
         this.timeZone = this.company.timeZone;
-        console.log(this.company)
       }
     });
   }

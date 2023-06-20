@@ -70,9 +70,7 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-        this.crudService.collection$(this.userCollection, (qry: any) => {
-          return qry.where('id', '==', auth.user?.uid)
-        }).pipe(take(1)).subscribe((resp: Array<User>) => {
+        this.crudService.collection$(this.userCollection, (qry: any) => qry.where('id', '==', auth.user?.uid)).pipe(take(1)).subscribe((resp: Array<User>) => {
           if (auth.user?.emailVerified) {
             let uid: any = resp[0].id;
             this.cookieService.set('uid', uid);
@@ -97,10 +95,14 @@ export class AuthService {
   }
 
   async signOut() {
-    await this.angularFireAuth.signOut();
-    this.cookieService.deleteAll();
-    window.localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.alertService.confirmationDialog(`are you sure you want to logout?`).afterClosed().subscribe(async resp => {
+      if (resp) {
+        await this.angularFireAuth.signOut();
+        this.cookieService.deleteAll();
+        window.localStorage.clear();
+        this.router.navigateByUrl('/login');
+      }
+    })
   }
 
 }
