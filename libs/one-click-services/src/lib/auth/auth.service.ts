@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import * as firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
-import { User } from '@one-click/data';
+import { User, messages } from '@one-click/data';
 import { CrudService } from '../crud/crud.service';
 import { AlertService } from '../alert/alert.service';
 import { Observable, of, switchMap, take } from 'rxjs';
@@ -95,7 +95,7 @@ export class AuthService {
   }
 
   async signOut() {
-    this.alertService.confirmationDialog(`are you sure you want to logout?`).afterClosed().subscribe(async resp => {
+    this.alertService.confirmationDialog(messages.LOG_OUT).afterClosed().subscribe(async resp => {
       if (resp) {
         await this.angularFireAuth.signOut();
         this.cookieService.deleteAll();

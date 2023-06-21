@@ -27,7 +27,8 @@ export const messages = {
     SUBSCRIBE_GPT: 'Subscribe for content write using AI',
     SUBSCRIPTION_CANCELLED: 'Subscription cancelled successfully',
     SUBSCRIPTION_CANCELLED_CONFIRM: 'Are you sure you want to cancel your subscription?',
-    ALREADY_CANCELLED: 'Subscription already cancelled'
+    ALREADY_CANCELLED: 'Subscription already cancelled',
+    LOG_OUT: 'Are you sure you want to log out?'
 
 }
 
@@ -81,7 +82,7 @@ export const ConnectionList: Array<Connection> = [
         attachRequired: false,
         videoLimite: 1
     },
-    {
+    /* {
         id: 'LINKEDIN',
         image: 'linkedin.png',
         socialName: 'Linkedin',
@@ -94,5 +95,5 @@ export const ConnectionList: Array<Connection> = [
         imageRationMin: 0,
         imageRationMax: 0,
         attachRequired: false
-    }
+    } */
 ]

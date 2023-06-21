@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Company, Connection, ContentWrite, Integration } from '@one-click/data';
+import { Company, Connection, ContentWrite, Integration, User } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subject, Subscribable, Subscriber, Subscription } from 'rxjs';
 import { CrudService } from '../crud/crud.service';
@@ -11,7 +11,9 @@ export class CommonServiceService {
 
   integration = new BehaviorSubject<Integration>(new Integration());
   company = new BehaviorSubject<Company>(new Company());
+  user = new BehaviorSubject<Company>(new User());
   company$: Subscription;
+  user$: Subscription;
 
   constructor(
     private cookieService: CookieService,
@@ -47,6 +49,7 @@ export class CommonServiceService {
   logedInInitSubscribe() {
     this.getIntegration();
     this.getCompany();
+    this.getUser();
   }
 
   getIntegration() {
@@ -63,6 +66,15 @@ export class CommonServiceService {
       const company_id = this.cookieService.get('company_id');
       this.company$ = this.crudService.collection$('company', (req: any) => req.where('id', '==', company_id)).subscribe(res => {
         this.company.next(res[0]);
+      });
+    }
+  }
+
+  getUser() {
+    if (!this.user$) {
+      const uid = this.cookieService.get('uid');
+      this.user$ = this.crudService.collection$('users', (req: any) => req.where('id', '==', uid)).subscribe(res => {
+        this.user.next(res[0]);
       });
     }
   }

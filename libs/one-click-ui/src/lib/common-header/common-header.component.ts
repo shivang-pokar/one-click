@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Company } from '@one-click/data';
+import { Company, User } from '@one-click/data';
 import { AuthService, CommonServiceService } from '@one-click/one-click-services';
 
 @Component({
@@ -43,6 +43,8 @@ export class CommonHeaderComponent implements OnInit {
     }
   ];
   company: Company;
+  user: User;
+  profileUrl: string = "assets/147133.png";
 
   constructor(
     public router: Router,
@@ -55,6 +57,13 @@ export class CommonHeaderComponent implements OnInit {
 
     this.commonServiceService.company.subscribe(company => {
       this.company = company;
+    });
+
+    this.commonServiceService.user.subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.profileUrl = this.user.url;
+      }
     });
 
   }
