@@ -5,17 +5,16 @@ name: Deploy to Firebase Hosting on merge
 'on':
   push:
     branches:
-      - main
+      - prod
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm i --legacy-peer-deps
-      - run: npm run build-staging
+      - run: npm i --legacy-peer-deps && npm run build-prod
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ONE_CLICK_DESK_STAGE }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ONECLICK_SCH }}'
           channelId: live
-          projectId: one-click-desk-stage
+          projectId: oneclick-sch
