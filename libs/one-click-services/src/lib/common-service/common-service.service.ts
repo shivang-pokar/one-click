@@ -65,6 +65,7 @@ export class CommonServiceService {
     if (!this.company$) {
       const company_id = this.cookieService.get('company_id');
       this.company$ = this.crudService.collection$('company', (req: any) => req.where('id', '==', company_id)).subscribe(res => {
+        console.log(res[0]);
         this.company.next(res[0]);
       });
     }
@@ -91,7 +92,8 @@ export class CommonServiceService {
   getCompanyPromise(): Promise<Company> {
     return new Promise((resolve, reject) => {
       this.company.subscribe(resp => {
-        if (resp.id) {
+        console.log(resp)
+        if (resp?.id) {
           resolve(resp);
         } else {
           this.logedInInitSubscribe();
