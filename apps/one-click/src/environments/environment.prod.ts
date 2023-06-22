@@ -12,10 +12,10 @@ export const environment = {
   production: true,
   FB_APP_ID: '484004453229056',
   TWITTER_CLIENT_ID: 'eFlHTkNwVUZzUkN4RXRnQXFSSDY6MTpjaQ',
-  API_BASE_URL: 'http://localhost:3333',
+  API_BASE_URL: 'https://api.oneclickdesk.com',
   FB_AUTH_URL: 'https://graph.facebook.com/v13.0',
   FB_GRAPH: 'https://graph.facebook.com/',
-  DOMAIN_URL: 'https://localhost:4200',
+  DOMAIN_URL: 'https://app.oneclickdesk.com',
   linkedin_client_id: '78mpkeccm3h7f8',
-  stripe_public_key: 'pk_test_51MuL1ZSC8SxbgeE6ulg9T6xnIIlry57vQXoQij7h7x24WCshf4013nngERLg21VknDNapgdChMddWnNWYXSwOVc200493wqtVG'
+  stripe_public_key: 'pk_live_51MuL1ZSC8SxbgeE6GpgK1GV0jI8Z5czuoAjI5YiAVR6QwcvtvB0KyD9u9Ixs8NXZkcj65fbzMQr1DrRFdspFmmd100Ol5uqlxB'
 };
