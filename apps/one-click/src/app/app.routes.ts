@@ -17,6 +17,10 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupModule)
     },
     {
+        path: 'forgot-password',
+        loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+    },
+    {
         path: 'dashboard',
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGardGuard]
