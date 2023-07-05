@@ -8,3 +8,4 @@ export * from './lib/filemanager';
 export * from './lib/post-content';
 export * from './lib/company';
 export * from './lib/contentWrite';
+export * from './lib/activity-logs';

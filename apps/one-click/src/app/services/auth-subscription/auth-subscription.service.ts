@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { messages } from '@one-click/data';
 import { AlertService, CommonServiceService } from '@one-click/one-click-services';
 import { take } from 'rxjs';
@@ -8,7 +8,7 @@ import { take } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthSubscriptionService {
+export class AuthSubscriptionService implements CanActivate {
   MIN_DAYS: number = 15;
 
   constructor(
@@ -26,7 +26,7 @@ export class AuthSubscriptionService {
       if (user?.uid && this.commonServiceService.diffTime(new Date().getTime(), company.stripe_expires_at) < 0) {
         resolve(true)
       } else {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/settings');
         this.alertService.openDialog('Subscribe', messages.SUBSCRIBE_GPT)
       }
       resolve(false)

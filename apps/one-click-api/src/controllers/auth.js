@@ -119,3 +119,17 @@ export const genrateTokenLinkedin = async (req, res, next) => {
     res.send(e.response.data);
   }
 };
+
+export const customClaims = async (req, res, next) => {
+
+  try {
+    const idToken = req.headers.authorization;
+    const authService = req.firebaseAdmin.auth();
+    const resToken = await authService.verifyIdToken(idToken)
+    await authService.setCustomUserClaims(resToken.uid, { c_id: req.body.company_id })
+    res.send({ success: true })
+  }
+  catch (e) {
+    next(e);
+  }
+}

@@ -67,10 +67,16 @@
                     </div>
                     <div class="col-6 d-flex align-items-center justify-content-end">
                         <button mat-button (click)="delete(post)" color="warn">Delete</button>
-                        <button mat-button color="primary">Repost</button>
+                        <!-- <button mat-button color="primary">Repost</button> -->
+                        <!-- <one-click-button (click)="goToReport(post)" class="ml-1"
+                            [buttonText]="'Report'"></one-click-button> -->
                     </div>
                 </div>
             </div>
         </ng-container>
+        <ng-container *ngIf="!postList.length">
+            <h3 class="w-100 text-center h-50vh d-flex align-items-center justify-content-center">Nothing posted yet</h3>
+        </ng-container>
+
     </div>
 </section>

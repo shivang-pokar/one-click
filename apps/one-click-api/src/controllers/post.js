@@ -29,6 +29,7 @@ export const createPost = async (req, res) => {
                 try {
                     const insta = await axios.post(`${process.env.LOCAL_URL}/instagramr/create-post`, element);
                     posts[index].post_id = insta.data.id;
+                    posts[index].creation_id = insta?.data?.creation_id || '';
                 }
                 catch (e) {
                     posts[index].post_id = null;
@@ -62,6 +63,9 @@ const addDataInPostContainer = async (req, posts) => {
         updatedAt: new Date().getTime(),
         deleteFlag: "N"
     }
+
+    console.log(req.body)
+    console.log(obj)
 
     if (req.body.id) {
         await db.collection('postContainer').doc(id).update(obj);

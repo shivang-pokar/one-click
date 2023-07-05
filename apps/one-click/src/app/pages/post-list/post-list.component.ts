@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Integration, messages, PostContainer, PostContent } from '@one-click/data';
 import { AlertService, CommonServiceService, CrudService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
@@ -42,6 +43,7 @@ export class PostListComponent implements OnInit {
     private cookieService: CookieService,
     private commonServiceService: CommonServiceService,
     private alertService: AlertService,
+    private router: Router,
   ) {
 
   }
@@ -64,13 +66,20 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  delete(post: PostContent) {
+  delete(post: PostContainer) {
     this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
       if (resp) {
+        if (post.status == 'SCHEDULE') {
+          this.crudService.cancelSchedule(post).toPromise();
+        }
         await this.crudService.softRemove(this.collName, post, post.id)
         this.postList = this.postList.filter(item => item.id != post.id);
         this.alertService.success(messages.DETAILS_UPDATED);
       }
     });
+  }
+
+  goToReport(report: PostContainer) {
+    this.router.navigateByUrl(`post-report/${report.id}`);
   }
 }

@@ -11,6 +11,7 @@ export class CommonServiceService {
 
   integration = new BehaviorSubject<Integration>(new Integration());
   company = new BehaviorSubject<Company>(new Company());
+  companyData: Company;
   user = new BehaviorSubject<Company>(new User());
   company$: Subscription;
   user$: Subscription;
@@ -53,7 +54,7 @@ export class CommonServiceService {
   }
 
   getIntegration() {
-    if (!this.company$) {
+    if (!this.companyData?.id) {
       const company_id = this.cookieService.get('company_id')
       this.crudService.collection$('integration', (req: any) => req.where('company_id', '==', company_id)).subscribe(res => {
         this.integration.next(res[0]);
@@ -62,10 +63,10 @@ export class CommonServiceService {
   }
 
   getCompany() {
-    if (!this.company$) {
+    if (!this.companyData?.id) {
       const company_id = this.cookieService.get('company_id');
       this.company$ = this.crudService.collection$('company', (req: any) => req.where('id', '==', company_id)).subscribe(res => {
-        console.log(res[0]);
+        this.companyData = res[0];
         this.company.next(res[0]);
       });
     }
@@ -92,7 +93,6 @@ export class CommonServiceService {
   getCompanyPromise(): Promise<Company> {
     return new Promise((resolve, reject) => {
       this.company.subscribe(resp => {
-        console.log(resp)
         if (resp?.id) {
           resolve(resp);
         } else {
@@ -127,6 +127,15 @@ export class CommonServiceService {
       content: resp.choices[0].message.content
     });
     return conversationObj;
+  }
+
+  stripePercentOffAmount(percent_off: number, packageAmount: number) {
+    return packageAmount / 100 * percent_off;
+  }
+
+
+  getSubscriptionPlans() {
+    return this.crudService.subscriptionPlans().toPromise();
   }
 
 }

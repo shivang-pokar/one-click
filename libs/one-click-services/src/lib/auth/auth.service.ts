@@ -53,8 +53,9 @@ export class AuthService {
   }
 
 
-  private storeUserInFireStore(user: any): Promise<any> {
+  private storeUserInFireStore(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
+      this.crudService.authUser(user.company_id).subscribe();
       var userData: any = JSON.parse(JSON.stringify(user));
       this.crudService.add(this.userCollection, userData, userData.uid).then(usersRes => {
         this.alertService.success('Registration successfully completed');

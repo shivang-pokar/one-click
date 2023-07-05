@@ -3,7 +3,7 @@ import serviceAccount from '../one-click-desk-stage-firebase-adminsdk-wymg0-9ee2
 import serviceAccountProd from '../oneclick-sch-firebase-adminsdk-vrx59-a40db4b4b6.json';
 
 admin.initializeApp({
-    credential: admin.credential.cert((process.env.IS_PROD) ? serviceAccountProd : serviceAccount),
+    credential: admin.credential.cert((process.env.IS_PROD == 'true') ? serviceAccountProd : serviceAccount),
     databaseURL: process.env.DATABASEURL
 });
 

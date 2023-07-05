@@ -62,7 +62,9 @@ export class CommonHeaderComponent implements OnInit {
     this.commonServiceService.user.subscribe(user => {
       if (user) {
         this.user = user;
-        this.profileUrl = this.user.url;
+        if (this.user?.url) {
+          this.profileUrl = this.user.url;
+        }
       }
     });
 
