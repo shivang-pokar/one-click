@@ -106,4 +106,16 @@ export class AuthService {
     })
   }
 
+  async resetPassword(email: string) {
+    try {
+      await this.angularFireAuth.sendPasswordResetEmail(email);
+      this.alertService.success(messages.EMAIL_SEND);
+
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+    }
+    return;
+  }
+
 }

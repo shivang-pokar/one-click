@@ -9,6 +9,7 @@ export class ButtonComponent {
 
   @Input() fullWidth: boolean = false;
   @Input() typeSmall: boolean = false;
+  @Input() largeBtn: boolean = false;
   @Input() color: string = 'primary';
   @Input() buttonText: string;
   @Input() isloading: boolean = false;
