@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getIntegration() {
-    this.crudService.collection$(this.collName, (qry: any) => { return qry.where('company_id', '==', this.company_id) }).pipe(takeUntil(this.destory$)).subscribe((resp: Array<Integration>) => {
+    this.crudService.collection$(this.collName, (qry: any) => qry.where('company_id', '==', this.company_id)).pipe(takeUntil(this.destory$)).subscribe((resp: Array<Integration>) => {
       if (resp[0]) {
         this.selectedAccountList = [];
         resp[0]?.integrationList.forEach(account => {
@@ -127,8 +127,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
         this.crudService.createPost(obj).subscribe((resp: any) => {
           this.alertService.success(resp.message);
-          this.formReset();
           //this.setPostData(postContent, 'SUCESS', resp.post);
+          this.formReset();
           this.isloading = false;
         }, er => {
           this.isloading = false;
@@ -149,7 +149,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     postResp.forEach(post => {
       const index = postContent.findIndex(element => element.type == post.type);
       if (index >= 0) {
-        postContent[index].post_id = post?.data?.id
+        postContent[index].post_id = post?.data?.id;
+        postContent[index].creation_id = post?.data?.creation_id;
+
       }
     });
 

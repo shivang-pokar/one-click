@@ -5,7 +5,6 @@ const db = admin.firestore();
 export const createCheckoutSession = async (req, res, next) => {
 
     const user = await getUserDetails(req.headers.authorization);
-    console.log(user)
 
     try {
         const session = await req.stripe.checkout.sessions.create({
@@ -20,6 +19,11 @@ export const createCheckoutSession = async (req, res, next) => {
                 {
                     price: process.env.STRIPE_SUBSCRIPTION_PLAN,
                     quantity: 1,
+                },
+            ],
+            discounts: [
+                {
+                    coupon: req?.body?.couponCode || "",
                 },
             ],
             success_url: `${process.env.STRIPE_RETURN_URL}?session_id={CHECKOUT_SESSION_ID}`,
@@ -76,6 +80,40 @@ export const resumeSubscriptions = async (req, res, next) => {
         next(e);
     }
     //console.log(subscriptions)
+}
+
+export const validateCoupon = async (req, res, next) => {
+    const { couponCode } = req.body;
+    try {
+        const coupon = await req.stripe.coupons.retrieve(couponCode);
+        res.send(coupon);
+    } catch (error) {
+        next(error);
+        res.status(400);
+        if (error.code === 'resource_missing') {
+            res.send({ message: `Invalid coupon code: ${couponCode}` });
+        } else {
+            res.send({ message: `Error validating coupon: ${error.message}` });
+        }
+    }
+}
+
+/* retrieveAllPlans */
+
+export const retrieveAllPlans = async (req, res, next) => {
+    try {
+        const plans = await req.stripe.plans.list();
+
+        for (const plan of plans.data) {
+            const product = await req.stripe.products.retrieve(plan.product);
+            plan.product = product;
+        }
+
+        res.send(plans.data)
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 

@@ -14,6 +14,11 @@ export class SubscriptionComponent implements OnInit {
   isloading: boolean = false;
   isSubscriptionActive: boolean = true;
   company: Company;
+  couponCode: string;
+  couponCodeResp: any;
+  packageAmount: number = 10;
+  packageAmountInit: number = 10;
+  /* plansData: Array<any> = []; */
 
   constructor(
     public crudService: CrudService,
@@ -35,11 +40,16 @@ export class SubscriptionComponent implements OnInit {
         this.isSubscriptionActive = true;
       }
 
-    })
+    });
+
+    /* this.commonServiceService.getSubscriptionPlans().then((resp: any) => {
+      this.plansData = resp;
+    }) */
   }
 
   checkout() {
-    this.crudService.stripeCheckout()
+
+    this.crudService.stripeCheckout((this.couponCodeResp) ? this.couponCode : '')
       .pipe(switchMap((session: any) => {
         console.log(session)
         return this.stripeService.redirectToCheckout({ sessionId: session.sessionId })
@@ -76,6 +86,28 @@ export class SubscriptionComponent implements OnInit {
     this.crudService.resumeSubscription(this.company?.stripe_subscription_id).subscribe(resp => {
       console.log(resp)
     })
+  }
+
+  validateCoupon() {
+    if (this.couponCode) {
+      this.crudService.validateCoupon(this.couponCode).subscribe((resp: any) => {
+        if (resp.valid) {
+          this.couponCodeResp = resp;
+          let offAmount = this.commonServiceService.stripePercentOffAmount(this.couponCodeResp.percent_off, this.packageAmount);
+          this.packageAmount = this.packageAmount - offAmount;
+          this.alertService.success(messages.COUPON_SUCESS);
+        } else {
+          this.alertService.success(messages.COUPON_FAIL);
+        }
+      }, er => {
+        this.alertService.error(er.error.message);
+      })
+    }
+  }
+
+  removeCoupon() {
+    this.couponCodeResp = null;
+    this.packageAmount = this.packageAmountInit;
   }
 
 }

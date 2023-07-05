@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
-import { ContentWrite, PostContent } from '@one-click/data';
+import { ActivityLogs, ContentWrite, PostContent } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
 import * as firebase from 'firebase/compat/app';
 import "firebase/compat/database"
@@ -11,6 +11,11 @@ import { CookieService } from 'ngx-cookie-service';
 
 const videoExtensions = ['video/mpg', 'video/mp2', 'video/mpeg', 'video/mpe', 'video/mpv', 'video/mp4'] //you can add more extensions
 const imageExtensions = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'] // you can add more extensions
+
+enum Type {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE'
+}
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +41,7 @@ export class CrudService {
     obj["deleteFlag"] = "N";
     obj["updatedAt"] = new Date().getTime();
     obj = JSON.parse(JSON.stringify(obj));
+    this.createLog(collName, obj, Type.UPDATE)
     return this.angularFirestore.collection<any>(collName).doc(id).update(obj);
   }
 
@@ -50,6 +56,7 @@ export class CrudService {
     obj["updatedAt"] = new Date().getTime();
     obj["deleteFlag"] = "N";
     obj = JSON.parse(JSON.stringify(obj));
+    this.createLog(collName, obj, Type.CREATE)
     return this.angularFirestore.collection<any>(collName).doc(id).set(obj, { merge: true });
   }
 
@@ -189,6 +196,9 @@ export class CrudService {
   createSchedule(body: any) {
     return this.http.post(`${this.env.API_BASE_URL}/schedule/create-schedule`, body);
   }
+  cancelSchedule(body: any) {
+    return this.http.post(`${this.env.API_BASE_URL}/schedule/cancel-schedule`, body);
+  }
 
   setRealTimeData(path: string, obj: any) {
 
@@ -227,8 +237,8 @@ export class CrudService {
     return videoExtensions.includes(fileType);
   }
 
-  stripeCheckout() {
-    return this.http.post(`${this.env.API_BASE_URL}/payment/checkout`, {});
+  stripeCheckout(couponCode: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/checkout`, { couponCode: couponCode });
   }
   stripeSession(session_id: string) {
     return this.http.post(`${this.env.API_BASE_URL}/payment/session`, {
@@ -252,6 +262,56 @@ export class CrudService {
     return this.http.post(`${this.env.API_BASE_URL}/payment/resume`, {
       subscriptions_id: subscriptions_id
     });
+  }
+
+  validateCoupon(couponCode: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/coupon`, {
+      couponCode: couponCode
+    });
+
+  }
+
+  subscriptionPlans() {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/plans`, {});
+
+  }
+
+
+  getInstagramReport(postContent: PostContent) {
+    return this.http.post(`${this.env.API_BASE_URL}/report/instagram`, postContent);
+  }
+
+  getFbReport(postContent: PostContent) {
+    return this.http.post(`${this.env.API_BASE_URL}/report/facebook`, postContent);
+  }
+
+  authUser(company_id: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/auth/user`, { company_id });
+
+  }
+
+  createLog(collName: string, obj: any, type: Type) {
+    const company_id = this.cookieService.get('company_id');
+    const activityLogs = this.createLogObj(collName, obj, type);
+    let path = `activity-logs/${company_id}/${activityLogs.id}`;
+    this.setRealTimeData(path, activityLogs);
+  }
+
+  createLogObj(collName: string, obj: any, type: Type) {
+    let activityLogs = new ActivityLogs();
+    activityLogs.id = this.angularFirestore.createId();
+    activityLogs.collection = collName;
+    activityLogs.collectionId = obj.id;
+    activityLogs.type = type;
+    if (type == Type.UPDATE && this.isDataRequiredCollection().includes('collName')) {
+      activityLogs.data = JSON.stringify(obj);
+    }
+    return activityLogs;
+
+  }
+
+  isDataRequiredCollection() {
+    return ['postContainer', 'users', 'company']
   }
 
 }

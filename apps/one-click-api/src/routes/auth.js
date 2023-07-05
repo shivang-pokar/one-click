@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { faceBookLiveLongToken, genrateTokenLinkedin, genrateTokenTwitter, getInstagramPageId, getTwitterAuthUrl, getUserId, twitterAuth } from '../controllers/auth'
+import { customClaims, faceBookLiveLongToken, genrateTokenLinkedin, genrateTokenTwitter, getInstagramPageId, getTwitterAuthUrl, getUserId, twitterAuth } from '../controllers/auth'
 
 const router = express.Router();
 
@@ -14,5 +14,6 @@ router.post('/linkedin-genrate-token', genrateTokenLinkedin);
 router.post('/twitter-user', getUserId);
 router.post('/fb-life-long-token', faceBookLiveLongToken)
 router.post('/insagram-id', getInstagramPageId)
+router.post('/user', customClaims)
 
 export default router;

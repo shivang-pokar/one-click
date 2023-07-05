@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AuthService, CommonServiceService } from '@one-click/one-click-services';
+import { CanActivate, Router } from '@angular/router';
+import { CommonServiceService } from '@one-click/one-click-services';
 import { CookieService } from 'ngx-cookie-service';
-import { map, Observable, take, tap } from 'rxjs';
+import { take } from 'rxjs';
 
 
 @Injectable({

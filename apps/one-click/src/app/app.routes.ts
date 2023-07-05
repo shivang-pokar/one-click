@@ -42,6 +42,11 @@ export const appRoutes: Route[] = [
         canActivate: [AuthGardGuard]
     },
     {
+        path: 'post-report/:id',
+        loadChildren: () => import('./pages/post-report/post-report.module').then(m => m.PostReportModule),
+        canActivate: [AuthGardGuard]
+    },
+    {
         path: 'settings',
         loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule),
         canActivate: [AuthGardGuard]

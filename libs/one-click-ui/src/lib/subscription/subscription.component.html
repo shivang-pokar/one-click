@@ -1,9 +1,11 @@
 <div class="profile-details p-4">
     <h5>Premium</h5>
-    <p>Awesome tools to help you write posts</p>
+    <p>Unlock all feature like calendar, content write
+        which helps you write posts</p>
+
     <div>
         <p class="m-0 price-section">
-            <strong>USD 10</strong> <span>/month</span>
+            <strong>USD {{packageAmount}}</strong> <span>/month</span>
         </p>
     </div>
     <div class="mt-3">
@@ -15,5 +17,25 @@
 
         <one-click-button *ngIf="isSubscriptionActive" [color]="'warn'" [fullWidth]="true" [isloading]="isloading"
             [buttonText]="'Cancel Subscription'" (click)="cancelSubscription()"></one-click-button>
+    </div>
+</div>
+
+
+<div class="profile-details p-4 mt-3">
+    <h5 class="mb-3">Coupon</h5>
+    <div>
+        <mat-form-field class="w-100 position-relative">
+            <input matInput placeholder="Coupon Code" name="content" [(ngModel)]="couponCode">
+        </mat-form-field>
+    </div>
+    <div class="mt-0">
+
+        <ng-container *ngIf="!couponCodeResp">
+            <one-click-button [fullWidth]="true" (click)="validateCoupon()" [buttonText]="'Apply'"></one-click-button>
+        </ng-container>
+        <ng-container *ngIf="couponCodeResp">
+            <one-click-button [fullWidth]="true" [color]="'warn'" (click)="removeCoupon()"
+                [buttonText]="'Remove'"></one-click-button>
+        </ng-container>
     </div>
 </div>
