@@ -17,6 +17,11 @@ export class CommonHeaderComponent implements OnInit {
       label: 'Post Content'
     },
     {
+      url: '/calendar',
+      icon: 'event',
+      label: 'Calendar'
+    },
+    {
       url: '/posts',
       icon: 'feed',
       label: 'Posts'

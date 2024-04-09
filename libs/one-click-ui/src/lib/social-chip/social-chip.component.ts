@@ -10,6 +10,7 @@ export class SocialChipComponent implements OnInit {
 
   @Input() social: PostContent;
   @Input() integration: any;
+  @Input() showName: boolean = true;
   @Input() selected: boolean = false;
   selectedIntegration: any;
   constructor() {

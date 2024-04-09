@@ -389,3 +389,58 @@ body .slick-prev {
 .h-50vh {
     height: 50vh;
 }
+
+* {
+    --bs-link-color: var(--primary);
+    --fc-today-bg-color: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    border-bottom: 2px solid var(--primary);
+}
+
+.fc .fc-col-header-cell-cushion {
+    padding: 8px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.fc th {
+    text-align: left;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 17px;
+}
+
+.fc .fc-button-primary:disabled,
+.fc .fc-button-primary {
+    background-color: transparent;
+    color: var(--mdc-outlined-button-label-text-color, inherit);
+    text-transform: capitalize;
+    border-color: var(--mdc-outlined-button-outline-color, rgba(0, 0, 0, 0.12));
+    outline: none;
+}
+
+.fc .fc-daygrid-day-top {
+    flex-direction: row;
+}
+.fc .fc-daygrid-day-number {
+    padding: 4px 15px;
+    font-size: 17px;
+}
+
+full-calendar {
+    a {
+        text-decoration: none;
+    }
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fc-header-toolbar .fc-toolbar-chunk > .fc-button-primary {
+    min-width: 105px;
+}

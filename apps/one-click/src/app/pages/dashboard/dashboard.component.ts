@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     postContainer.id = this.crudService.angularFirestore.createId();
     postContainer.company_id = this.company_id;
     postContainer.status = status;
+    postContainer.postDate = this.scheduleDate;
 
     postResp.forEach(post => {
       const index = postContent.findIndex(element => element.type == post.type);

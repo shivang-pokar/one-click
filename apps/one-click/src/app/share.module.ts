@@ -24,6 +24,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { GetAccountPipe } from './pipes/get-account/get-account.pipe';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        FullCalendarModule
     ],
     declarations: [
         GetSocialTypePipe,
@@ -87,6 +89,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
+        FullCalendarModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

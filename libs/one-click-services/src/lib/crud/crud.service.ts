@@ -237,8 +237,8 @@ export class CrudService {
     return videoExtensions.includes(fileType);
   }
 
-  stripeCheckout(couponCode: string) {
-    return this.http.post(`${this.env.API_BASE_URL}/payment/checkout`, { couponCode: couponCode });
+  stripeCheckout(customerId: string, couponCode: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/checkout`, { customerId, couponCode: couponCode });
   }
   stripeSession(session_id: string) {
     return this.http.post(`${this.env.API_BASE_URL}/payment/session`, {
@@ -273,7 +273,12 @@ export class CrudService {
 
   subscriptionPlans() {
     return this.http.post(`${this.env.API_BASE_URL}/payment/plans`, {});
+  }
 
+  createCustomer(email: string, name: string, id: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/create-customer`, {
+      email, name, id
+    });
   }
 
 

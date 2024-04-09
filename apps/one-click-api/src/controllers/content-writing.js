@@ -11,6 +11,7 @@ export const writingContent = async (req, res, next) => {
         res.send(completion.data);
     }
     catch (e) {
+        console.log(e);
         next(e);
     }
 }

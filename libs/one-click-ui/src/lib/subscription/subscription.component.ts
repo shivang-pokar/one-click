@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Company, messages } from '@one-click/data';
-import { AlertService, CommonServiceService, CrudService } from '@one-click/one-click-services';
-import { StripeService } from 'ngx-stripe';
+import { AlertService, CommonServiceService, CrudService, PaymentService } from '@one-click/one-click-services';
+/* import { StripeService } from 'ngx-stripe'; */
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -23,8 +23,9 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     public crudService: CrudService,
     public commonServiceService: CommonServiceService,
-    private stripeService: StripeService,
+    /* private stripeService: StripeService, */
     private alertService: AlertService,
+    public paymentService: PaymentService
   ) {
 
   }
@@ -32,6 +33,7 @@ export class SubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.commonServiceService.company.subscribe(company => {
       this.company = company;
+      console.log(this.company);
       let diff = this.commonServiceService.diffTime(new Date().getTime(), company?.stripe_expires_at) || 1;
 
       if (diff > 0 || this.company.status == 'CANCELED') {
@@ -48,18 +50,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   checkout() {
-
-    this.crudService.stripeCheckout((this.couponCodeResp) ? this.couponCode : '')
-      .pipe(switchMap((session: any) => {
-        console.log(session)
-        return this.stripeService.redirectToCheckout({ sessionId: session.sessionId })
-      }))
-      .subscribe(result => {
-        console.log(result)
-        if (result.error) {
-          alert(result.error.message);
-        }
-      })
+    this.paymentService.subscription(this.company.email, this.company.company_name, this.company.id, (this.couponCodeResp) ? this.couponCode : '');
   }
 
   stripeSession(date: string) {

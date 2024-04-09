@@ -13,3 +13,12 @@
         }
     }
 }
+
+.no-text {
+    background: none !important;
+    ::ng-deep {
+        .mat-mdc-chip-focus-overlay {
+            opacity: 0 !important;
+        }
+    }
+}

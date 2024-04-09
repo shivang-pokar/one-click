@@ -5,3 +5,5 @@ export * from './lib/crud/crud.service';
 export * from './lib/social-connect/social-connect.service';
 export * from './lib/common-service/common-service.service';
 export * from './lib/activity-logs/activity-logs.service';
+export * from './lib/calendar/calendar.service';
+export * from './lib/payment/payment.service';

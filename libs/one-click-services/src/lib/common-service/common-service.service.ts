@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Company, Connection, ContentWrite, Integration, User } from '@one-click/data';
+import { Company, Connection, ContentWrite, Integration, User, messages } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subject, Subscribable, Subscriber, Subscription } from 'rxjs';
 import { CrudService } from '../crud/crud.service';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class CommonServiceService {
   constructor(
     private cookieService: CookieService,
     private crudService: CrudService,
+    public alertService: AlertService
   ) { }
 
   manageIntegrationList(integrationList: Integration, connection: any): Integration {
@@ -136,6 +138,26 @@ export class CommonServiceService {
 
   getSubscriptionPlans() {
     return this.crudService.subscriptionPlans().toPromise();
+  }
+
+  convertArrayToMapObj(array: Array<any>, key: string = 'id') {
+    return array.reduce((map, obj) => {
+      if (obj[key] || typeof obj[key] === 'number') {
+        map[obj[key]] = obj;
+      }
+      return map;
+    }, {})
+  }
+
+  async updateCompnay(company: Company) {
+    try {
+      await this.crudService.update('company', company, company.id);
+      this.alertService.success(messages.DETAILS_UPDATED);
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+    }
+    return; 
   }
 
 }

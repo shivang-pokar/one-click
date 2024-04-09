@@ -7,32 +7,36 @@ export const createCheckoutSession = async (req, res, next) => {
     const user = await getUserDetails(req.headers.authorization);
 
     try {
-        const session = await req.stripe.checkout.sessions.create({
+
+        let sessionData = {
             mode: 'subscription',
-            customer_email: user.email,
+            customer: req.body.customerId,
             metadata: {
                 companyId: user.company_id,
                 uid: user.uid
             },
-            payment_method_types: [],
+            payment_method_types: ['card'],
             line_items: [
                 {
                     price: process.env.STRIPE_SUBSCRIPTION_PLAN,
                     quantity: 1,
                 },
             ],
-            discounts: [
-                {
-                    coupon: req?.body?.couponCode || "",
-                },
-            ],
             success_url: `${process.env.STRIPE_RETURN_URL}?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.STRIPE_RETURN_URL}?cancel`,
-        });
+        }
 
-        res.send({
-            sessionId: session.id,
-        });
+        if (req?.body?.couponCode) {
+            sessionData.discounts = [
+                {
+                    coupon: req.body.couponCode,
+                },
+            ];
+        }
+
+        const session = await req.stripe.checkout.sessions.create(sessionData);
+
+        res.send({ sessionId: session.id });
     } catch (e) {
         res.status(400);
         return res.send({
@@ -152,22 +156,13 @@ export const webHook = async (req, res, next) => {
     switch (eventType) {
         case 'checkout.session.completed':
             console.log('checkout.session.completed');
-            let compnay = await getCompany(data.object.metadata.companyId);
-            compnay.stripe_subscription_id = data.object.subscription;
-            compnay.stripe_customer_id = data.object.customer;
-            compnay.stripe_session_id = data.object.id;
-            updateCompnay(compnay);
+            setSubScriptionData(data.object.metadata.companyId, data.object.subscription, data.object.id, req.stripe)
             // Payment is successful and the subscription is created.
             // You should provision the subscription and save the customer ID to your database.
             break;
         case 'invoice.paid':
             console.log('invoice.paid')
-            let compnayData = await getCompanyOnSubscriptionId(data.object.subscription);
-            let subscriptions = await req.stripe.subscriptions.retrieve(compnayData.stripe_subscription_id);
-            compnayData.stripe_expires_at = subscriptions.current_period_end * 1000;
-            compnayData.stripe_created = subscriptions.current_period_start * 1000;
-            compnayData.status = data?.object?.status?.toUpperCase();
-            updateCompnay(compnayData);
+            setSubScriptionDataOnInvoicePaid(data.object.customer);
             // Continue to provision the subscription as payments continue to be made.
             // Store the status in your database and check when a user accesses your service.
             // This approach helps you avoid hitting rate limits.
@@ -180,7 +175,7 @@ export const webHook = async (req, res, next) => {
             break;
         case 'customer.subscription.deleted':
             console.log('customer.subscription.deleted');
-            let compnayDataDelete = await getCompanyOnSubscriptionId(data.object.subscription);
+            let compnayDataDelete = await getCompanyOnCustomerId(data.object.customer);
             compnayDataDelete.status = 'CANCELED';
             break;
         default:
@@ -188,6 +183,46 @@ export const webHook = async (req, res, next) => {
     }
 
     res.send();
+}
+
+
+const setSubScriptionData = async (companyId, subscriptionId, stripe_session_id, stripe) => {
+    let compnay = await getCompany(companyId);
+    let subscriptions = await stripe.subscriptions.retrieve(subscriptionId);
+    compnay = setSubscriptionDataInCompany(compnay, subscriptionId, subscriptions, stripe_session_id)
+    updateCompnay(compnay);
+}
+
+const setSubscriptionDataInCompany = (compnayData, subscriptionId, subscriptionData, stripe_session_id) => {
+    compnayData.stripe_subscription_id = subscriptionId;
+    compnayData.stripe_expires_at = subscriptionData.current_period_end * 1000;
+    compnayData.stripe_created = subscriptionData.current_period_start * 1000;
+    compnayData.status = data?.object?.status?.toUpperCase();
+    if (stripe_session_id) {
+        compnayData.stripe_session_id = stripe_session_id;
+    }
+    return stripe_session_id;
+}
+
+const setSubScriptionDataOnInvoicePaid = async (customerId) => {
+    let compnayData = await this.getCompanyOnCustomerId(customerId);
+    if (compnayData.stripe_subscription_id) {
+        let subscriptions = await stripe.subscriptions.retrieve(compnayData.stripe_subscription_id);
+        compnayData = setSubscriptionDataInCompany(compnayData, compnayData.stripe_subscription_id, subscriptions, null);
+        updateCompnay(compnayData);
+    }
+}
+
+
+export const createUserInStripe = async (req, res, next) => {
+    const customer = await req.stripe.customers.create({
+        email: req.body.email,
+        name: req.body.name,
+        metadata: {
+            company_id: req.body.id,
+        }
+    });
+    res.send(customer);
 }
 
 
@@ -212,6 +247,15 @@ const getCompany = async (companyId) => {
 const getCompanyOnSubscriptionId = async (subscriptionId) => {
     return new Promise(async (resolve, reject) => {
         const companyReq = await db.collection("company").where('stripe_subscription_id', '==', subscriptionId).get();
+        companyReq.forEach(company => {
+            resolve(company.data());
+        });
+    });
+}
+
+const getCompanyOnCustomerId = async (customerId) => {
+    return new Promise(async (resolve, reject) => {
+        const companyReq = await db.collection("company").where('stripe_customer_id', '==', customerId).get();
         companyReq.forEach(company => {
             resolve(company.data());
         });

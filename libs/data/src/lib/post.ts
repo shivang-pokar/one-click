@@ -33,5 +33,6 @@ export class PostContainer {
     status?: string;
     keyIndex?: number;
     createdAt?: any;
+    postDate?: any;
 
 }

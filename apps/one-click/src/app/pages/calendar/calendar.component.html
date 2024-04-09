@@ -1,0 +1,22 @@
+<one-click-common-header></one-click-common-header>
+<section class="main-section h-100">
+    <div class="p-4 h-100">
+        <full-calendar #calendar [options]="calendarOptions">
+            <ng-template #eventContent let-event>
+                <!-- <b>{{ event.event.title }}</b> -->
+                <!-- <b>{{ event.event.id }}</b> -->
+                <ng-container *ngIf="postListMapObj && postListMapObj[event.event.id]">
+                    <ng-container
+                        *ngFor="let platform of postListMapObj[event.event.id]?.postContent; let platformIndex = index">
+                        <one-click-social-chip [showName]="false"
+                            [integration]="integration?.integrationList | getAccount:platform.user_id"
+                            (click)="postListMapObj[event.event.id].keyIndex = platformIndex"
+                            [selected]="postListMapObj[event.event.id].keyIndex == platformIndex">
+                        </one-click-social-chip>
+                    </ng-container>
+                </ng-container>
+
+            </ng-template>
+        </full-calendar>
+    </div>
+</section>

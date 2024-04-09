@@ -59,6 +59,7 @@ const addDataInPostContainer = async (req, posts) => {
         postContent: posts,
         createdBy: req?.body?.uid || req?.body?.createdBy,
         createdAt: new Date().getTime(),
+        postDate: new Date().getTime(),
         updatedBy: req?.body?.uid || req?.body?.updatedBy,
         updatedAt: new Date().getTime(),
         deleteFlag: "N"

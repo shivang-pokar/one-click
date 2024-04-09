@@ -58,6 +58,12 @@ export const appRoutes: Route[] = [
     {
         path: 'content-writing',
         loadChildren: () => import('./pages/content-writing/content-writing.module').then(m => m.ContentWritingModule),
-        canActivate: [AuthGardGuard, AuthSubscriptionService]
+        canActivate: [AuthGardGuard]
+        /* AuthSubscriptionService */
+    },
+    {
+        path: 'calendar',
+        loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule),
+        canActivate: [AuthGardGuard]
     },
 ];
