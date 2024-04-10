@@ -105,7 +105,11 @@
             <div class="d-flex align-items-center">
                 <button [disabled]="isloading" mat-button (click)="savePost('DRAFT')" color="primary">Save
                     Draft</button>
-                <button mat-raised-button class="ml-2" (click)="postNow()" color="primary" [disabled]="isloading">
+
+                <one-click-button class="ml-2" [buttonText]="(!scheduleDate) ? 'Post Now' : 'Schedule Now' " (click)="postNow()"
+                    [isloading]="isloading"></one-click-button>
+
+                <!-- <button mat-raised-button class="ml-2" (click)="postNow()" color="primary" [disabled]="isloading">
                     <ng-container *ngIf="!isloading">
 
                         <ng-container *ngIf="!scheduleDate">
@@ -121,7 +125,7 @@
                     <ng-container *ngIf="isloading">
                         <mat-spinner class="color-white button-loading"></mat-spinner>
                     </ng-container>
-                </button>
+                </button> -->
             </div>
         </div>
 

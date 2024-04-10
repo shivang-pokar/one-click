@@ -66,14 +66,14 @@ export class AlertService {
   selector: 'alert-success',
   template: `
   <div class="d-flex align-items-center">
-  <span class="material-icons d-block success">check_circle</span> {{msg}}
+  <span class="material-icons-outlined d-block success">check_circle</span> {{msg}}
   </div>
   `,
   styles: [
     `
     .success {
       margin-right:10px;
-      color: #00bfa5;
+      //color: #00bfa5;
       font-size:26px;
     }
   `,
@@ -89,7 +89,7 @@ export class AlertComponent {
   selector: 'alert-error',
   template: `
   <div class="d-flex align-items-center">
-  <span class="material-icons error">
+  <span class="material-icons-outlined error">
 cancel
 </span> {{msg}}
   </div>
@@ -98,7 +98,7 @@ cancel
     `
     .error {
       margin-right:10px;
-      color: #e04055;
+      //color: #e04055;
       font-size:26px;
     }
   `,

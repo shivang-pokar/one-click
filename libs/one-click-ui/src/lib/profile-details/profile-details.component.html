@@ -1,36 +1,65 @@
-<div class="profile-details p-4 w-100">
-    <h5 class="m-0 mb-3">Profile Details</h5>
-    <div class="profile-section">
-        <div class="profile-image-section d-flex align-items-center">
-            <div class="image-section">
-                <img *ngIf="!user?.url" src="assets/147133.png" alt="">
-                <img *ngIf="user?.url" [src]="user.url" alt="">
-            </div>
-            <div class="image-detail-section pl-4 position-relative">
-                <input type="file" #file class="position-absolute w-100 h-100 opacity-0 d-none"
-                    (change)="uploadFiles($event)">
-
-                <one-click-button (click)="file.click()" [buttonText]="'Upload Profile Photo'"></one-click-button>
-
-                <button mat-stroked-button class="ml-3" (click)="deletePhoto()" color="primary">Delete</button>
-            </div>
-        </div>
-        <form class="user-detail-section d-flex mt-3 flex-wrap" [formGroup]="profileForm" (ngSubmit)="updateUser()">
-            <div class="col-6">
-                <mat-form-field class="w-100 pr-2" appearance="fill">
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName='name'>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field class="w-100 pl-2" appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput [value]="user?.email" disabled>
-                </mat-form-field>
-            </div>
-            <div class="col-12 d-flex align-items-center justify-content-end">
-                <one-click-button [buttonText]="'Save'"></one-click-button>
-            </div>
-        </form>
+<div class="profile-image">
+    <div class="image w-100 h-100">
+        <img class="w-100 h-100" *ngIf="!user?.url" src="assets/147133.png" alt="">
+        <img class="w-100 h-100" *ngIf="user?.url" [src]="user.url" alt="">
+        <input type="file" #file class="position-absolute w-100 h-100 file-section"
+            accept="image/png, image/gif, image/jpeg" (change)="uploadFiles($event)">
+        <span class="material-icons-outlined file_upload position-absolute">
+            file_upload
+        </span>
     </div>
+</div>
+
+<div>
+    <div class="mt-4">
+        <h3 class="title">General information</h3>
+    </div>
+    <form class="user-detail-section d-flex mt-3 flex-wrap" [formGroup]="profileForm" (ngSubmit)="updateUser()">
+        <div class="col-12">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName='name'>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput [value]="user?.email" disabled>
+            </mat-form-field>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <one-click-button [buttonText]="'Save changes'"></one-click-button>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <div class="mt-4">
+        <h3 class="title">Workspace information</h3>
+    </div>
+
+    <div class="user-detail-section d-flex mt-3 flex-wrap">
+        <div class="col-12">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Workspace Name</mat-label>
+                <input matInput [(ngModel)]="workspaceName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-12">
+            <mat-form-field class="w-100">
+                <mat-label>Workspace Timezone</mat-label>
+                <mat-select [(ngModel)]="timeZone">
+                    <mat-option *ngFor="let timezone of timeZoneList" [value]="timezone">
+                        {{timezone}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <one-click-button (click)="saveCompany()" [buttonText]="'Save changes'"></one-click-button>
+        </div>
+    </div>
+
 </div>

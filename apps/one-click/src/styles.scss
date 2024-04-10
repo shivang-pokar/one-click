@@ -30,8 +30,8 @@ $mat-blue: (
         A100: #000000,
         A200: #000000,
         A400: #ffffff,
-        A700: #ffffff,
-    ),
+        A700: #ffffff
+    )
 );
 
 $mat-orange: (
@@ -41,8 +41,8 @@ $mat-orange: (
     contrast: (
         100: #fff,
         200: #fff,
-        700: #fff,
-    ),
+        700: #fff
+    )
 );
 
 $primary: mat-palette($mat-blue, 200);
@@ -79,6 +79,7 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-weight: 400;
+    /* background: #f5f5f5; */
 }
 
 h1 {
@@ -106,7 +107,7 @@ mat-icon.fz-34 {
 .mat-form-field-appearance-fill .mdc-text-field {
     border: 1px solid rgba(var(--primary-rgb), 0.5);
     border-radius: 12px !important;
-    background-color: transparent;
+    background-color: var(--white);
 }
 
 .mat-form-field-appearance-fill.light-border .mdc-text-field {
@@ -330,6 +331,10 @@ body .slick-prev {
     }
 }
 
+h3.title {
+    font-size: 17px;
+}
+
 .filter-section {
     ul {
         li {
@@ -415,7 +420,7 @@ body .slick-prev {
 
 .fc .fc-button-primary:disabled,
 .fc .fc-button-primary {
-    background-color: transparent;
+    background-color: var(--white);
     color: var(--mdc-outlined-button-label-text-color, inherit);
     text-transform: capitalize;
     border-color: var(--mdc-outlined-button-outline-color, rgba(0, 0, 0, 0.12));
@@ -439,8 +444,30 @@ full-calendar {
 .fc-theme-standard .fc-scrollgrid {
     border-radius: 8px;
     overflow: hidden;
+    background: var(--white);
 }
 
 .fc-header-toolbar .fc-toolbar-chunk > .fc-button-primary {
     min-width: 105px;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    min-width: auto !important;
+}
+.mdc-snackbar__label {
+    padding-left: 12px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.mat-mdc-snack-bar-container {
+    margin: 8px 8px 0 !important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+button {
+    letter-spacing: 1px;
 }
