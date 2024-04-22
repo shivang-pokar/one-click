@@ -24,6 +24,7 @@ export const createCheckoutSession = async (req, res, next) => {
             ],
             success_url: `${process.env.STRIPE_RETURN_URL}?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.STRIPE_RETURN_URL}?cancel`,
+            allow_promotion_codes: true
         }
 
         if (req?.body?.couponCode) {
@@ -64,14 +65,11 @@ export const cancelSubscriptions = async (req, res, next) => {
     try {
         const { subscriptions_id } = req.body;
         const subscriptions = await req.stripe.subscriptions.cancel(subscriptions_id);
-        console.log('subscriptions')
-        console.log(subscriptions)
         res.send(subscriptions);
     }
     catch (e) {
         next(e);
     }
-    //console.log(subscriptions)
 }
 
 export const resumeSubscriptions = async (req, res, next) => {
@@ -264,4 +262,24 @@ const getCompanyOnCustomerId = async (customerId) => {
 
 const updateCompnay = async (company) => {
     db.collection('company').doc(company.id).update(company);
+}
+
+
+export const getSubscriptionPaymentHistory = async (req, res, next) => {
+    const invoices = await req.stripe.invoices.list({
+        subscription: req.body.subscriptionId,
+        limit: 10
+    })
+
+    const paymentPromises = invoices.data.map(async invoice => {
+        const plan = await req.stripe.plans.retrieve(invoice.lines.data[0].plan.id);
+        return {
+            ...invoice,
+            planName: plan.nickname || 'One Click Basic'
+        };
+    });
+
+    const payments = await Promise.all(paymentPromises);
+
+    res.send(payments || []);
 }

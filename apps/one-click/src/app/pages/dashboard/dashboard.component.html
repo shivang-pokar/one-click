@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div class="col-6 footer-post-section p-3 d-flex align-items-center justify-content-between overflow-hidden"
+        <div class="col-6 footer-post-section p-2 d-flex align-items-center justify-content-between overflow-hidden"
             *ngIf="integrationList.length">
             <div class="position-relative">
                 <button [disabled]="isloading" (click)="picker.open()" mat-stroked-button color="primary">
@@ -108,24 +108,6 @@
 
                 <one-click-button class="ml-2" [buttonText]="(!scheduleDate) ? 'Post Now' : 'Schedule Now' " (click)="postNow()"
                     [isloading]="isloading"></one-click-button>
-
-                <!-- <button mat-raised-button class="ml-2" (click)="postNow()" color="primary" [disabled]="isloading">
-                    <ng-container *ngIf="!isloading">
-
-                        <ng-container *ngIf="!scheduleDate">
-                            Post Now
-                        </ng-container>
-
-                        <ng-container *ngIf="scheduleDate">
-                            Schedule Now
-                        </ng-container>
-                    </ng-container>
-
-
-                    <ng-container *ngIf="isloading">
-                        <mat-spinner class="color-white button-loading"></mat-spinner>
-                    </ng-container>
-                </button> -->
             </div>
         </div>
 

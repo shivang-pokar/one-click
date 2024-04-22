@@ -1,8 +1,7 @@
 <one-click-common-header></one-click-common-header>
 <section class="main-section">
-    <div class="p-4">
-
-        <div class="d-flex mb-4 filter-section border-bottom">
+    <div class="">
+        <div class="d-flex mb-4 filter-section border-bottom sticky">
             <ul class="p-0 m-0 d-flex">
                 <li *ngFor="let status of statusList;" [class.active]="status.value == filterStatus"
                     (click)="filterStatus = status.value; getData()">
@@ -12,70 +11,73 @@
         </div>
 
         <ng-container *ngIf="postList.length && integration">
-            <div class="post-box mb-3" *ngFor="let post of postList;">
-                <ng-container *ngFor="let socialPost of post?.postContent; let i = index">
-                    <ng-container *ngIf="i == post.keyIndex">
-                        <div class="d-flex">
-                            <div class="col-4 p-3">
-                                <mat-label class="mb-2 d-flex"><strong>Description</strong></mat-label>
-                                <p class="m-0">
-                                    <ng-container *ngIf="!socialPost?.showDesc">
-                                        {{socialPost.message | slice:0:100}}
-                                    </ng-container>
+            <div class="pl-4 pr-4">
+                <div class="post-box mb-3" *ngFor="let post of postList;">
+                    <ng-container *ngFor="let socialPost of post?.postContent; let i = index">
+                        <ng-container *ngIf="i == post.keyIndex">
+                            <div class="d-flex">
+                                <div class="col-4 p-3">
+                                    <mat-label class="mb-2 d-flex"><strong>Description</strong></mat-label>
+                                    <p class="m-0">
+                                        <ng-container *ngIf="!socialPost?.showDesc">
+                                            {{socialPost.message | slice:0:100}}
+                                        </ng-container>
 
-                                    <ng-container *ngIf="socialPost?.showDesc">
-                                        {{socialPost.message}}
-                                    </ng-container>
-                                </p>
-                                <a href="javascript:void(0)" *ngIf="socialPost?.message.length > 100"
-                                    (click)="socialPost.showDesc = !socialPost?.showDesc">
-                                    {{ socialPost?.showDesc ? 'Read less' : 'Read more' }}
-                                </a>
-                            </div>
-                            <div class="col-4 p-3">
-                                <mat-label class="mb-2 d-flex"><strong>Media</strong></mat-label>
-                                <div class="d-flex flex-wrap media">
-                                    <div class="image-section" *ngFor="let file of socialPost?.attachment">
-                                        <ng-container *ngIf="file.type == 'IMAGE'">
-                                            <img [src]="file.url" alt="" class="w-100 h-100">
+                                        <ng-container *ngIf="socialPost?.showDesc">
+                                            {{socialPost.message}}
                                         </ng-container>
-                                        <ng-container *ngIf="file.type == 'VIDEO'">
-                                            <video [src]="file.url" poster class="w-100 h-100"></video>
-                                        </ng-container>
-                                        <!-- <img class="w-100 h-100" [src]="attach.url" alt=""> -->
+                                    </p>
+                                    <a href="javascript:void(0)" *ngIf="socialPost?.message.length > 100"
+                                        (click)="socialPost.showDesc = !socialPost?.showDesc">
+                                        {{ socialPost?.showDesc ? 'Read less' : 'Read more' }}
+                                    </a>
+                                </div>
+                                <div class="col-4 p-3">
+                                    <mat-label class="mb-2 d-flex"><strong>Media</strong></mat-label>
+                                    <div class="d-flex flex-wrap media">
+                                        <div class="image-section" *ngFor="let file of socialPost?.attachment">
+                                            <ng-container *ngIf="file.type == 'IMAGE'">
+                                                <img [src]="file.url" alt="" class="w-100 h-100">
+                                            </ng-container>
+                                            <ng-container *ngIf="file.type == 'VIDEO'">
+                                                <video [src]="file.url" poster class="w-100 h-100"></video>
+                                            </ng-container>
+                                            <!-- <img class="w-100 h-100" [src]="attach.url" alt=""> -->
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-4 p-3">
+                                    <mat-label class="mb-2 d-flex"><strong>Posted At</strong></mat-label>
+                                    <p>
+                                        {{post.createdAt | date:'MM/dd/y, h:mm a, EEEE'}}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="col-4 p-3">
-                                <mat-label class="mb-2 d-flex"><strong>Posted At</strong></mat-label>
-                                <p>
-                                    {{post.createdAt | date:'MM/dd/y, h:mm a, EEEE'}}
-                                </p>
-                            </div>
-                        </div>
-                    </ng-container>
-                </ng-container>
-
-                <div class="d-flex p-3 pt-2 pb-2 bottom-section border-top align-items-center">
-                    <div class="col-6 d-flex gap-10 flex-wrap">
-                        <ng-container *ngFor="let platform of post?.postContent; let platformIndex = index">
-                            <one-click-social-chip
-                                [integration]="integration?.integrationList | getAccount:platform.user_id"
-                                (click)="post.keyIndex = platformIndex" [selected]="post.keyIndex == platformIndex">
-                            </one-click-social-chip>
                         </ng-container>
-                    </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <button mat-button (click)="delete(post)" color="warn">Delete</button>
-                        <!-- <button mat-button color="primary">Repost</button> -->
-                        <!-- <one-click-button (click)="goToReport(post)" class="ml-1"
-                            [buttonText]="'Report'"></one-click-button> -->
+                    </ng-container>
+
+                    <div class="d-flex p-3 pt-2 pb-2 bottom-section border-top align-items-center">
+                        <div class="col-6 d-flex gap-10 flex-wrap">
+                            <ng-container *ngFor="let platform of post?.postContent; let platformIndex = index">
+                                <one-click-social-chip
+                                    [integration]="integration?.integrationList | getAccount:platform.user_id"
+                                    (click)="post.keyIndex = platformIndex" [selected]="post.keyIndex == platformIndex">
+                                </one-click-social-chip>
+                            </ng-container>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-end">
+                            <button mat-button (click)="delete(post)" color="warn">Delete</button>
+                            <!-- <button mat-button color="primary">Repost</button> -->
+                            <!-- <one-click-button (click)="goToReport(post)" class="ml-1"
+                                [buttonText]="'Report'"></one-click-button> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </ng-container>
         <ng-container *ngIf="!postList.length">
-            <h3 class="w-100 text-center h-50vh d-flex align-items-center justify-content-center">Nothing posted yet</h3>
+            <h3 class="w-100 text-center h-50vh d-flex align-items-center justify-content-center">Nothing posted yet
+            </h3>
         </ng-container>
 
     </div>

@@ -6,3 +6,20 @@
     .price-section {
     }
 }
+
+.profile-details {
+    &.no-box-shadow {
+        box-shadow: none;
+    }
+}
+.payment-history {
+    .item {
+        border: 1px solid rgba(var(--border-1));
+        border-radius: 8px;
+        padding: 10px 12px;
+        a {
+            text-decoration: none;
+            color: var(--light-font);
+        }
+    }
+}

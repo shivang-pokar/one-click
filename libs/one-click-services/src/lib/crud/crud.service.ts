@@ -281,6 +281,12 @@ export class CrudService {
     });
   }
 
+  getSubscriptionPaymentHistory(subscriptionId: string) {
+    return this.http.post(`${this.env.API_BASE_URL}/payment/payment-history`, {
+      subscriptionId
+    });
+  }
+
 
   getInstagramReport(postContent: PostContent) {
     return this.http.post(`${this.env.API_BASE_URL}/report/instagram`, postContent);

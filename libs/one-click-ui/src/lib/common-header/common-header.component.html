@@ -1,5 +1,5 @@
-<header class="d-flex align-items-center justify-content-between">
-    <!-- [matMenuTriggerFor]="menu" -->
+<!-- <header class="d-flex align-items-center justify-content-between">
+    
     <div class="chip-section d-flex align-items-center">
         <div class="avtar-name d-flex align-items-center justify-content-center">
             S
@@ -7,7 +7,7 @@
         <div class="desk-name">
             {{company?.company_name}}'s Desk
         </div>
-        <!-- <mat-icon>expand_more</mat-icon> -->
+        
     </div>
 
     <mat-menu #menu="matMenu">
@@ -30,9 +30,18 @@
             </ul>
         </div>
     </div>
-</header>
+</header> -->
 <nav>
-    <ul>
+    <div class="chip-section d-flex align-items-center">
+        <div class="avtar-name d-flex align-items-center justify-content-center">
+            S
+        </div>
+        <div class="desk-name">
+            {{company?.company_name}}'s Desk
+        </div>
+        <!-- <mat-icon>expand_more</mat-icon> -->
+    </div>
+    <ul class="pt-4">
         <li [class.active]="router.url == route.url" *ngFor="let route of routerList">
             <a [routerLink]="route.url" class="d-flex align-items-center">
                 <mat-icon>{{route.icon}}</mat-icon>
@@ -40,4 +49,21 @@
             </a>
         </li>
     </ul>
+
+
+    <div class="nav-bottom-user-profile position-absolute d-flex align-items-center" [matMenuTriggerFor]="menu">
+        <div class="circle-menu">
+            <img [src]="profileUrl" alt="">
+        </div>
+        <div class="content-section">
+            <p class="m-0 fz-12"><strong>{{user?.name}}</strong></p>
+            <p class="m-0 fz-10">{{user?.email}}</p>
+        </div>
+    </div>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Account</button>
+        <button mat-menu-item>Sign Out</button>
+    </mat-menu>
+
 </nav>

@@ -36,11 +36,11 @@ export class CommonHeaderComponent implements OnInit {
       icon: 'manage_accounts',
       label: 'Manage Account'
     },
-    {
+    /* {
       url: '/content-writing',
       icon: 'description',
       label: 'Content Writing'
-    },
+    }, */
     {
       url: '/settings',
       icon: 'settings',
@@ -67,6 +67,7 @@ export class CommonHeaderComponent implements OnInit {
     this.commonServiceService.user.subscribe(user => {
       if (user) {
         this.user = user;
+        this.user.email
         if (this.user?.url) {
           this.profileUrl = this.user.url;
         }

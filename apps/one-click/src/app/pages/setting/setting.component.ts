@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Company } from '@one-click/data';
 import { CommonServiceService, CrudService } from '@one-click/one-click-services';
 import { StripeService } from 'ngx-stripe';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'one-click-setting',
@@ -13,24 +12,23 @@ import { switchMap } from 'rxjs';
 export class SettingComponent implements OnInit {
 
   company: Company;
+  activeTabIndex: number = 0;
 
   constructor(
     public crudService: CrudService,
-    private stripeService: StripeService,
-    private activatedRoute: ActivatedRoute,
     private commonServiceService: CommonServiceService,
   ) {
 
   }
 
   ngOnInit(): void {
-
     this.commonServiceService.company.subscribe(company => {
       this.company = company;
-    })
+    });
 
-    /* this.activatedRoute.queryParams.subscribe(params => {
-      let date = params['session_id'];
-    }); */
+  }
+
+  activeTab(index: number) {
+    this.activeTabIndex = index;
   }
 }

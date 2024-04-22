@@ -14,11 +14,12 @@ export class SubscriptionComponent implements OnInit {
   isloading: boolean = false;
   isSubscriptionActive: boolean = true;
   company: Company;
-  couponCode: string;
-  couponCodeResp: any;
+  /* couponCode: string;
+  couponCodeResp: any; */
   packageAmount: number = 10;
   packageAmountInit: number = 10;
   /* plansData: Array<any> = []; */
+  paymentHistoryList: Array<any> = [];
 
   constructor(
     public crudService: CrudService,
@@ -33,7 +34,7 @@ export class SubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.commonServiceService.company.subscribe(company => {
       this.company = company;
-      console.log(this.company);
+      this.getSubscriptionPaymentHistory();
       let diff = this.commonServiceService.diffTime(new Date().getTime(), company?.stripe_expires_at) || 1;
 
       if (diff > 0 || this.company.status == 'CANCELED') {
@@ -41,7 +42,6 @@ export class SubscriptionComponent implements OnInit {
       } else {
         this.isSubscriptionActive = true;
       }
-
     });
 
     /* this.commonServiceService.getSubscriptionPlans().then((resp: any) => {
@@ -50,7 +50,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   checkout() {
-    this.paymentService.subscription(this.company.email, this.company.company_name, this.company.id, (this.couponCodeResp) ? this.couponCode : '');
+    this.paymentService.subscription(this.company.email, this.company.company_name, this.company.id);
   }
 
   stripeSession(date: string) {
@@ -79,7 +79,7 @@ export class SubscriptionComponent implements OnInit {
     })
   }
 
-  validateCoupon() {
+  /* validateCoupon() {
     if (this.couponCode) {
       this.crudService.validateCoupon(this.couponCode).subscribe((resp: any) => {
         if (resp.valid) {
@@ -94,11 +94,19 @@ export class SubscriptionComponent implements OnInit {
         this.alertService.error(er.error.message);
       })
     }
-  }
+  } */
 
-  removeCoupon() {
+  /* removeCoupon() {
     this.couponCodeResp = null;
     this.packageAmount = this.packageAmountInit;
+  } */
+
+  getSubscriptionPaymentHistory() {
+    if (this.company?.stripe_subscription_id) {
+      this.crudService.getSubscriptionPaymentHistory(this.company.stripe_subscription_id).subscribe((resp: any) => {
+        this.paymentHistoryList = resp;
+      })
+    }
   }
 
 }
