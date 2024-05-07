@@ -27,6 +27,7 @@ import { requiresAuth } from './auth-middleware.js';
 import { listSchedule, reschduleAfterRestart } from './controllers/schedule.js';
 const stripe = new Stripe(process.env.STRIPE_SCREAT_KEY);
 
+global.stripe = stripe;
 
 const app = express.default();
 

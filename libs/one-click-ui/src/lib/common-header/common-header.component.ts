@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Company, User } from '@one-click/data';
-import { AuthService, CommonServiceService } from '@one-click/one-click-services';
+import { AuthService, CommonServiceService, menuList } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-common-header',
@@ -10,46 +10,13 @@ import { AuthService, CommonServiceService } from '@one-click/one-click-services
 })
 export class CommonHeaderComponent implements OnInit {
 
-  routerList = [
-    {
-      url: '/dashboard',
-      icon: 'post_add',
-      label: 'Post Content'
-    },
-    {
-      url: '/calendar',
-      icon: 'event',
-      label: 'Calendar'
-    },
-    {
-      url: '/posts',
-      icon: 'feed',
-      label: 'Posts'
-    },
-    {
-      url: '/channels',
-      icon: 'add_circle',
-      label: 'Add Channels'
-    },
-    {
-      url: '/manage-account',
-      icon: 'manage_accounts',
-      label: 'Manage Account'
-    },
-    /* {
-      url: '/content-writing',
-      icon: 'description',
-      label: 'Content Writing'
-    }, */
-    {
-      url: '/settings',
-      icon: 'settings',
-      label: 'Settings'
-    }
-  ];
+  routerList: Array<any> = [];
   company: Company;
   user: User;
   profileUrl: string = "assets/147133.png";
+
+  @Input() menuAttr: any;
+  menuList: any = menuList;
 
   constructor(
     public router: Router,
@@ -59,6 +26,9 @@ export class CommonHeaderComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    if (this.menuAttr) {
+      this.routerList = this.menuList[this.menuAttr];
+    }
 
     this.commonServiceService.company.subscribe(company => {
       this.company = company;

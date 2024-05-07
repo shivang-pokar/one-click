@@ -1,0 +1,18 @@
+<div class="d-flex filter-section position-relative">
+    <ul class="p-0 m-0 d-flex">
+        <ng-container *ngFor="let item of tabList; let i = index;">
+            <li class="active" [class.active]="selectedIndex == i" (click)="changeTab(i)">
+                <a href="javascript:void(0)">{{item}}</a>
+            </li>
+        </ng-container>
+        <!-- <li>
+            <a href="javascript:void(0)">Completed</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Trashed</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Template</a>
+        </li> -->
+    </ul>
+</div>

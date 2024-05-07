@@ -1,0 +1,570 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/theming";
+@include mat-core();
+$mat-blue: (
+    50: #e0e0e0,
+    100: #b3b3b3,
+    200: #000000,
+    300: #4d4d4d,
+    400: #262626,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #a6a6a6,
+    A200: #8c8c8c,
+    A400: #737373,
+    A700: #666666,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #ffffff,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #ffffff,
+        A700: #ffffff
+    )
+);
+
+$mat-orange: (
+    100: #4facfe,
+    200: #4facfe,
+    700: #4facfe,
+    contrast: (
+        100: #fff,
+        200: #fff,
+        700: #fff
+    )
+);
+
+$primary: mat-palette($mat-blue, 200);
+$accent: mat-palette($mat-orange, 200);
+$theme: mat-light-theme($primary, $accent);
+@include angular-material-theme($theme);
+
+:root {
+    --yesevaOne: "Yeseva One", cursive;
+    --primary: #000;
+    --white: #fff;
+    --primary-rgb: 0, 0, 0;
+    --light-font: #a5a5a5;
+    --light-border: #e0e0e0;
+    --facebook: #4267b2;
+    --danger: #f44336;
+    --danger-rgb: 244, 67, 54;
+    --active: #f4f4f4;
+    --gray-background: #f4f4f4;
+    --border-1: 0, 0, 0, 0.12;
+}
+* {
+    --bs-font-sans-serif: "Roboto", sans-serif;
+}
+
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    /* background: #f5f5f5; */
+}
+
+h1 {
+    font-size: 48px;
+    line-height: normal;
+}
+
+.fz-34 {
+    font-size: 34px;
+}
+
+.fz-12 {
+    font-size: 12px;
+}
+.fz-10 {
+    font-size: 10px;
+}
+.fz-14 {
+    font-size: 14px !important;
+}
+
+mat-icon.fz-34 {
+    width: 34px;
+    height: 34px;
+}
+
+.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay,
+.mat-mdc-form-field-focus-overlay {
+    opacity: 0 !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple {
+    display: none !important;
+}
+.mat-form-field-appearance-fill .mdc-text-field {
+    border: 1px solid rgba(var(--primary-rgb), 0.5);
+    border-radius: 12px !important;
+    background-color: var(--white);
+}
+
+.mat-form-field-appearance-fill.light-border .mdc-text-field {
+    border: 1px solid var(--light-border);
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-form-field-appearance-fill:not(.mat-form-field-disabled)
+    .mat-form-field-flex:hover
+    ~ .mat-form-field-underline
+    .mat-form-field-ripple {
+    display: none !important;
+}
+.mat-form-field-label {
+    color: rgb(0 0 0 / 45%) !important;
+}
+.mat-mdc-button-base {
+    height: 42px;
+    box-shadow: none !important;
+    /* font-weight: 300; */
+    &.border-round {
+        border-radius: 23px;
+    }
+    &.large-btn {
+        height: 55px;
+        width: 235px;
+        border-radius: 28px;
+        font-size: 18px;
+    }
+}
+
+.mat-form-field-underline {
+    .mat-form-field-ripple {
+        display: none !important;
+    }
+}
+
+.mat-form-field-invalid {
+    .mdc-text-field {
+        border-color: var(--danger) !important;
+    }
+}
+
+body .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+body .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: var(--white, #fff);
+}
+body .mat-mdc-progress-spinner.black .mdc-circular-progress__determinate-circle,
+body .mat-mdc-progress-spinner.black .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: var(--primary, #000);
+}
+
+.button-loading {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+body .mat-mdc-raised-button[disabled][disabled] {
+    --mdc-protected-button-disabled-container-color: rgb(0 0 0 / 68%);
+}
+
+.main-section {
+    padding-top: 0;
+    padding-left: 250px;
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.pr-0 {
+    padding-right: 0 !important;
+}
+
+.pl-1 {
+    padding-left: 0.25rem !important;
+}
+
+.pr-1 {
+    padding-right: 0.25rem !important;
+}
+
+.pl-2 {
+    padding-left: 0.5rem !important;
+}
+
+.pr-2 {
+    padding-right: 0.5rem !important;
+}
+
+.pl-3 {
+    padding-left: 1rem !important;
+}
+
+.pr-3 {
+    padding-right: 1rem !important;
+}
+
+.pl-4 {
+    padding-left: 1.5rem !important;
+}
+
+.pr-4 {
+    padding-right: 1.5rem !important;
+}
+
+.pl-5 {
+    padding-left: 3rem !important;
+}
+
+.pr-5 {
+    padding-right: 3rem !important;
+}
+
+.ml-1 {
+    margin-left: 0.25rem !important;
+}
+
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.ml-3 {
+    margin-left: 1rem !important;
+}
+
+.mr-3 {
+    margin-right: 1rem !important;
+}
+
+.ml-4 {
+    margin-left: 1.5rem !important;
+}
+
+.mr-4 {
+    margin-right: 1.5rem !important;
+}
+
+.ml-5 {
+    margin-left: 3rem !important;
+}
+
+.mr-5 {
+    margin-right: 3rem !important;
+}
+
+.select-account {
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+        .mat-mdc-form-field-infix {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}
+
+.account-autocomplete {
+    &.mat-mdc-autocomplete-panel {
+        img {
+            border-radius: 50%;
+        }
+        .type-image {
+            right: 6px;
+            bottom: -2px;
+        }
+    }
+}
+
+button {
+    min-height: 42px;
+}
+
+.slick-slider {
+    width: 100%;
+    margin: auto;
+}
+
+body .slick-prev,
+body .slick-next {
+    height: 45px;
+    width: 40px;
+    z-index: 11;
+}
+
+body .slick-next {
+    right: 0;
+}
+
+body .slick-prev {
+    left: 0;
+}
+
+.mat-calendar-body-selected {
+    color: var(--white);
+}
+
+.mat-calendar-controls .mat-calendar-period-button,
+.mat-datepicker-toggle,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-datepicker-content .mat-calendar-previous-button {
+    background: none;
+}
+
+.mat-calendar-controls {
+    margin-top: 0;
+}
+
+.ngx-mat-timepicker form .ngx-mat-timepicker-table .ngx-mat-timepicker-tbody tr td .mat-icon-button {
+    width: 44px !important;
+    height: 44px !important;
+    background: none;
+}
+
+.common-title-section {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--white);
+    h3 {
+        padding-left: 25px;
+        margin: 0;
+        font-size: 17px;
+        line-height: 60px;
+    }
+}
+
+h3.title {
+    font-size: 20px;
+}
+
+.filter-section {
+    &.sticky {
+        position: sticky;
+        top: 0;
+        z-index: 11;
+        background-color: var(--white);
+    }
+    ul {
+        li {
+            list-style: none;
+            position: relative;
+            &:after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 2px;
+                background: var(--primary);
+                left: 0;
+                bottom: 0;
+                opacity: 0;
+            }
+            &.active {
+                &:after {
+                    opacity: 1;
+                }
+            }
+            a {
+                display: block;
+                line-height: 60px;
+                font-size: 14px;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-decoration: none;
+                color: var(--primary);
+            }
+        }
+    }
+}
+
+.profile-details {
+    border: 1px solid var(--light-border);
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 8%);
+    .profile-section {
+        .image-section {
+            display: flex;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .image-detail-section {
+            width: calc(100% - 70px);
+        }
+    }
+}
+
+.h-50vh {
+    height: 50vh;
+}
+
+* {
+    --bs-link-color: var(--primary);
+    --fc-today-bg-color: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    border-bottom: 2px solid var(--primary);
+}
+
+.fc .fc-col-header-cell-cushion {
+    padding: 8px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.fc th {
+    text-align: left;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 17px;
+}
+
+.fc .fc-button-primary:disabled,
+.fc .fc-button-primary {
+    background-color: var(--white);
+    color: var(--mdc-outlined-button-label-text-color, inherit);
+    text-transform: capitalize;
+    border-color: var(--mdc-outlined-button-outline-color, rgba(0, 0, 0, 0.12));
+    outline: none;
+}
+
+.fc .fc-daygrid-day-top {
+    flex-direction: row;
+}
+.fc .fc-daygrid-day-number {
+    padding: 4px 15px;
+    font-size: 17px;
+}
+
+full-calendar {
+    a {
+        text-decoration: none;
+    }
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+}
+
+.fc-header-toolbar .fc-toolbar-chunk > .fc-button-primary {
+    min-width: 105px;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    min-width: auto !important;
+}
+.mdc-snackbar__label {
+    padding-left: 12px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.mat-mdc-snack-bar-container {
+    margin: 8px 8px 10px !important;
+}
+
+button {
+    letter-spacing: 1px;
+}
+
+.mat-mdc-menu-content {
+    padding: 0 !important;
+}
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+    box-shadow: none;
+    border: 1px solid rgba(var(--border-1));
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item .mdc-list-item__primary-text {
+    font-size: 13px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.mat-mdc-menu-item.mdc-list-item {
+    min-height: 42px;
+}
+
+.codex-editor--narrow .codex-editor__redactor {
+    padding-bottom: 260px !important;
+}
+
+.cdx-block {
+    padding: 0.1em 0;
+}
+
+.mdc-list-item.mdc-list-item--with-one-line {
+    height: 34px !important;
+}
+
+.border-withshadow {
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 1px #edeae9,
+        0 1px 4px 0 rgba(109, 110, 111, 0.08);
+}
+
+.small-height {
+    font-size: 14px;
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .mat-mdc-form-field-infix {
+        min-height: 40px;
+    }
+    &.mat-form-field-appearance-fill {
+        .mdc-text-field {
+            border-radius: 5px !important;
+        }
+    }
+}
+
+.small-height {
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    &.mat-form-field-appearance-fill .mdc-text-field {
+        border-radius: 5px !important;
+    }
+}
+
+.dailog-header {
+    h2 {
+        margin: 0;
+        font-size: 19px;
+        height: 60px;
+        padding-left: 24px;
+        padding-right: 20px;
+    }
+}

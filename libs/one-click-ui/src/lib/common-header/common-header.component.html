@@ -51,7 +51,8 @@
     </ul>
 
 
-    <div class="nav-bottom-user-profile position-absolute d-flex align-items-center" [matMenuTriggerFor]="menu">
+    <div class="nav-bottom-user-profile position-absolute d-flex align-items-center cursor-pointer"
+        [matMenuTriggerFor]="menu">
         <div class="circle-menu">
             <img [src]="profileUrl" alt="">
         </div>
@@ -62,8 +63,8 @@
     </div>
 
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>Account</button>
-        <button mat-menu-item>Sign Out</button>
+        <button [routerLink]="'/settings'" style="width: 220px;" class="border-bottom" mat-menu-item>Account</button>
+        <button (click)="signOut()" style="width: 220px;" mat-menu-item>Sign Out</button>
     </mat-menu>
 
 </nav>

@@ -18,6 +18,15 @@ import { ButtonComponent } from './common-components/button/button.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
 import { ContentWritingUiComponent } from './content-writing-ui/content-writing-ui.component';
 import { ContentWritingHistoryComponent } from './content-writing-history/content-writing-history.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { HomePresentationComponent } from './task/home-presentation/home-presentation.component';
+import { PrivateNotepadComponent } from './task/private-notepad/private-notepad.component';
+import { DashboardTaskComponent } from './task/dashboard-task/dashboard-task.component';
+import { TaskProjectListComponent } from './task/task-project-list/task-project-list.component';
+import { TaskProjectBlockComponent } from './task/task-project-block/task-project-block.component';
+import { TabSectionComponent } from './tab-section/tab-section.component';
+import { CreateProjectComponent } from './task/create-project/create-project.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -39,6 +48,15 @@ import { ContentWritingHistoryComponent } from './content-writing-history/conten
     WorkspaceComponent,
     ContentWritingUiComponent,
     ContentWritingHistoryComponent,
+    LoginComponent,
+    SignupComponent,
+    HomePresentationComponent,
+    PrivateNotepadComponent,
+    DashboardTaskComponent,
+    TaskProjectListComponent,
+    TaskProjectBlockComponent,
+    TabSectionComponent,
+    CreateProjectComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -57,6 +75,15 @@ import { ContentWritingHistoryComponent } from './content-writing-history/conten
     WorkspaceComponent,
     ContentWritingUiComponent,
     ContentWritingHistoryComponent,
+    LoginComponent,
+    SignupComponent,
+    HomePresentationComponent,
+    PrivateNotepadComponent,
+    DashboardTaskComponent,
+    TaskProjectListComponent,
+    TaskProjectBlockComponent,
+    TabSectionComponent,
+    CreateProjectComponent
   ],
 })
 export class OneClickUiModule { }

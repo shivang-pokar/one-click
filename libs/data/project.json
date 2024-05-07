@@ -1,24 +1,19 @@
 {
-  "root": "libs/data",
+  "name": "data",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/data/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/data/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/data"
-      ],
+      "outputs": ["coverage/libs/data"],
       "options": {
         "jestConfig": "libs/data/jest.config.js",
         "passWithNoTests": true

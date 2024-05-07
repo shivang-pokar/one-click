@@ -6,9 +6,9 @@ import { CrudService } from '../crud/crud.service';
 
 const loginParams: LoginOptions = {
   auth_type: 'rerequest',
-  /* pages_read_user_content,pages_manage_engagement,pages_manage_metadata */
+  /* pages_read_user_content,pages_manage_engagement,pages_manage_metadata, publish_to_groups, */
   /* publish_video */
-  scope: 'public_profile,email,pages_show_list,pages_manage_posts,publish_video,publish_to_groups,pages_read_engagement,pages_manage_metadata',
+  scope: 'public_profile,email,pages_show_list,pages_manage_posts,publish_video,pages_read_engagement,pages_manage_metadata',
   return_scopes: true,
 }
 

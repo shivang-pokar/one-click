@@ -152,15 +152,25 @@ export const webHook = async (req, res, next) => {
     }
 
     switch (eventType) {
+        case 'payment_method.updated':
+            console.log('payment_method.updated');
+            // Then define and call a function to handle the event customer.subscription.created
+            setPaymentMethodId(data.object)
+            break;
+        case 'payment_method.attached':
+            console.log('payment_method.attached');
+            setPaymentMethodId(data.object)
+            // Then define and call a function to handle the event customer.subscription.created
+            break;
         case 'checkout.session.completed':
             console.log('checkout.session.completed');
-            setSubScriptionData(data.object.metadata.companyId, data.object.subscription, data.object.id, req.stripe)
+            setSubScriptionData(data.object.metadata.companyId, data.object.subscription, data.object.id)
             // Payment is successful and the subscription is created.
             // You should provision the subscription and save the customer ID to your database.
             break;
         case 'invoice.paid':
             console.log('invoice.paid')
-            setSubScriptionDataOnInvoicePaid(data.object.customer);
+            setSubScriptionDataOnInvoicePaid(data.object.customer, data.object.subscription);
             // Continue to provision the subscription as payments continue to be made.
             // Store the status in your database and check when a user accesses your service.
             // This approach helps you avoid hitting rate limits.
@@ -184,10 +194,10 @@ export const webHook = async (req, res, next) => {
 }
 
 
-const setSubScriptionData = async (companyId, subscriptionId, stripe_session_id, stripe) => {
+const setSubScriptionData = async (companyId, subscriptionId, stripe_session_id) => {
     let compnay = await getCompany(companyId);
     let subscriptions = await stripe.subscriptions.retrieve(subscriptionId);
-    compnay = setSubscriptionDataInCompany(compnay, subscriptionId, subscriptions, stripe_session_id)
+    compnay = setSubscriptionDataInCompany(compnay, subscriptionId, subscriptions, stripe_session_id);
     updateCompnay(compnay);
 }
 
@@ -195,17 +205,18 @@ const setSubscriptionDataInCompany = (compnayData, subscriptionId, subscriptionD
     compnayData.stripe_subscription_id = subscriptionId;
     compnayData.stripe_expires_at = subscriptionData.current_period_end * 1000;
     compnayData.stripe_created = subscriptionData.current_period_start * 1000;
-    compnayData.status = data?.object?.status?.toUpperCase();
+    compnayData.status = subscriptionData?.status?.toUpperCase();
     if (stripe_session_id) {
         compnayData.stripe_session_id = stripe_session_id;
     }
-    return stripe_session_id;
+    return compnayData;
 }
 
-const setSubScriptionDataOnInvoicePaid = async (customerId) => {
-    let compnayData = await this.getCompanyOnCustomerId(customerId);
+const setSubScriptionDataOnInvoicePaid = async (customerId, stripe_subscription_id) => {
+    let compnayData = await getCompanyOnCustomerId(customerId);
     if (compnayData.stripe_subscription_id) {
         let subscriptions = await stripe.subscriptions.retrieve(compnayData.stripe_subscription_id);
+        compnayData.stripe_subscription_id = stripe_subscription_id;
         compnayData = setSubscriptionDataInCompany(compnayData, compnayData.stripe_subscription_id, subscriptions, null);
         updateCompnay(compnayData);
     }
@@ -273,6 +284,7 @@ export const getSubscriptionPaymentHistory = async (req, res, next) => {
 
     const paymentPromises = invoices.data.map(async invoice => {
         const plan = await req.stripe.plans.retrieve(invoice.lines.data[0].plan.id);
+        invoice.created = invoice.created * 1000;
         return {
             ...invoice,
             planName: plan.nickname || 'One Click Basic'
@@ -282,4 +294,10 @@ export const getSubscriptionPaymentHistory = async (req, res, next) => {
     const payments = await Promise.all(paymentPromises);
 
     res.send(payments || []);
+}
+
+const setPaymentMethodId = async (paymentMethod) => {
+    let compnayData = await getCompanyOnCustomerId(paymentMethod.customer);
+    compnayData.paymentMethodId = paymentMethod.id;
+    updateCompnay(compnay);
 }

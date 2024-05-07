@@ -1,0 +1,17 @@
+<one-click-common-header [menuAttr]="'task'"></one-click-common-header>
+<section class="main-section">
+    <div class="mb-4 d-flex justify-content-between border-bottom align-items-center">
+        <one-click-tab-section [tabList]="tabList"></one-click-tab-section>
+        <div class="pr-3">
+            <one-click-button [icon]="'add_circle'" (click)="openCreateProject()"
+                [buttonText]="'Make a new project'"></one-click-button>
+        </div>
+    </div>
+
+
+    <div class="pl-4 pr-4">
+        <one-click-task-project-list></one-click-task-project-list>
+    </div>
+
+
+</section>

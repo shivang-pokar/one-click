@@ -1,0 +1,92 @@
+.title-section {
+    border-bottom: 1px solid rgba(var(--border-1));
+    background: var(--white);
+    h3 {
+        padding-left: 25px;
+        margin: 0;
+        font-size: 17px;
+        line-height: 60px;
+    }
+    .social-tab-list {
+        padding-right: 25px;
+        display: flex;
+        a {
+            filter: grayscale(100%);
+            display: flex;
+            align-items: center;
+            img {
+                display: block;
+            }
+            text-decoration: none;
+
+            mat-icon {
+                font-size: 22px;
+                width: 22px;
+                height: 22px;
+            }
+
+            &.showActive {
+                filter: grayscale(0);
+            }
+        }
+    }
+}
+
+.main-section {
+    height: 100%;
+}
+.post-section {
+    height: 100%;
+    .left-section {
+        border-right: 1px solid rgba(var(--border-1));
+        height: 100%;
+        overflow: auto;
+        min-height: 100%;
+        padding-bottom: 60px;
+    }
+
+    .right-section {
+        background: var(--gray-background);
+        .content-section {
+            max-height: calc(100% - 62px);
+            overflow: auto;
+        }
+    }
+}
+
+.footer-post-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* box-shadow: 0px -6px 15px rgba(0, 0, 0, 0.08); */
+    background: var(--white);
+    border: 1px solid rgba(var(--border-1));
+    //border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 0;
+    button {
+        min-width: 105px;
+    }
+}
+
+one-click-post-data-section {
+    ::ng-deep {
+        .mat-form-field-invalid .mdc-text-field {
+            border-color: var(--light-border) !important;
+        }
+        .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
+}
+
+.add-channels {
+    height: calc(100vh - 260px);
+    button {
+        mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+        font-size: 16px;
+    }
+}

@@ -9,3 +9,5 @@ export * from './lib/post-content';
 export * from './lib/company';
 export * from './lib/contentWrite';
 export * from './lib/activity-logs';
+export * from './lib/task-module/project';
+export * from './lib/task-module/label';

@@ -14,4 +14,5 @@ export class Company {
     stripe_subscription_id?: string;
     stripe_created?: number;
     stripe_expires_at?: number;
+    labels?: Array<any> = [];
 }

@@ -1,0 +1,65 @@
+<div class="project-block border-withshadow d-flex flex-column position-relative">
+    <div class="card-head d-flex align-items-center justify-content-between mb-2">
+        <h5 class="m-0">{{project.projectName}}</h5>
+        <mat-icon [matMenuTriggerFor]="projectMenu">more_vert</mat-icon>
+
+        <mat-menu #projectMenu="matMenu">
+            <button mat-menu-item (click)="createProject()">
+                <mat-icon class="material-icons-outlined">edit_square</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon class="material-icons-outlined">folder_copy</mat-icon>
+                <span>Convert to Template</span>
+            </button>
+            <button mat-menu-item (click)="delete()">
+                <mat-icon class="material-icons-outlined">delete</mat-icon>
+                <span>Delete</span>
+            </button>
+        </mat-menu>
+
+    </div>
+    <div class="card-body overflow-hidden">
+        <p>{{project.projectDescription}}</p>
+    </div>
+    <div class="card-footer">
+        <div class="fz-12 active-date">
+            Active
+            <div>
+                {{date | date}}
+            </div>
+        </div>
+        <span class="lable position-absolute" [matMenuTriggerFor]="menu" [class.active]="project?.label"
+            [style.background-color]="labelMap[project.label]?.background">
+            <ng-container *ngIf="project?.label && labelMap">
+                {{labelMap[project.label].labelName}}
+            </ng-container>
+            <ng-container *ngIf="!project?.label">
+                + LABEL
+            </ng-container>
+        </span>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+    <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="label-menu">
+        <div class="p-2">
+            <mat-form-field class="w-100 small-height light-border border-top-0" appearance="fill">
+                <input matInput type="text" placeholder="Search Label" [(ngModel)]="labelListInput"
+                    (input)="filterLabels()">
+            </mat-form-field>
+        </div>
+        <ng-container *ngFor="let label of labels">
+            <button mat-menu-item (click)="setLabelInProject(label.id)">
+                <span class="d-flex align-items-center">
+                    <span class="circle-color mr-2" style="background-color: {{label.background}};"></span>
+                    {{label.labelName}}
+                </span>
+            </button>
+        </ng-container>
+        <button mat-menu-item *ngIf="labelListInput" (click)="createLabel()">
+            <mat-icon class="mr-1">add</mat-icon>
+            Add new
+        </button>
+    </div>
+</mat-menu>

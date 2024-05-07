@@ -1,0 +1,24 @@
+<div class="dailog-header">
+    <h2 class="d-flex align-items-center justify-content-between">
+        <span>Create a new project</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+        </button>
+    </h2>
+</div>
+<div mat-dialog-content class="pb-0" [formGroup]="projectForm">
+    <mat-label class="fz-14 d-flex mb-1">Project Name</mat-label>
+    <mat-form-field class="w-100 small-height light-border" appearance="fill">
+        <input matInput type="text" placeholder="Write Project Name" formControlName="projectName" cdkFocusInitial>
+    </mat-form-field>
+
+    <mat-label class="fz-14 d-flex mb-1">Project Description</mat-label>
+    <mat-form-field appearance="fill" class="light-border w-100 post-for-all small-height">
+        <textarea class="fz-14" formControlName="projectDescription" matInput
+            placeholder="Write Project Description"></textarea>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="pr-4 pb-3" align="end">
+    <one-click-button class="ml-2" (click)="createProject()"
+        [buttonText]="(data.project) ? 'Update Project' : 'Create Project'"></one-click-button>
+</div>

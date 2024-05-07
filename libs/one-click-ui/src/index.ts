@@ -17,5 +17,10 @@ export * from './lib/common-components/button/button.component';
 export * from './lib/workspace/workspace.component';
 export * from './lib/content-writing-ui/content-writing-ui.component';
 export * from './lib/content-writing-history/content-writing-history.component';
+export * from './lib/auth/login/login.component';
+export * from './lib/auth/signup/signup.component';
+export * from './lib/task/home-presentation/home-presentation.component';
+export * from './lib/task/private-notepad/private-notepad.component';
+export * from './lib/task/dashboard-task/dashboard-task.component';
 
 export * from './lib/pipes/validation-message/validation-message.pipe';

@@ -31,7 +31,10 @@ export const messages = {
     LOG_OUT: 'Are you sure you want to log out?',
     COUPON_SUCESS: "Coupon applied successfully",
     COUPON_FAIL: "Invalid coupon code",
-    EMAIL_SEND: 'Reset password email send successfully'
+    EMAIL_SEND: 'Reset password email send successfully',
+    PROJECT_CREATE: 'Project created successfully',
+    DELETED: 'Deleted successfully',
+    PROJECT_UPDATE: 'Project updated successfully'
 
 }
 

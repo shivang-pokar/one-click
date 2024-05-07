@@ -1,0 +1,90 @@
+.project-block {
+    width: auto;
+    height: 280px;
+    padding: 20px 24px;
+    background-color: var(--white);
+
+    .card-head {
+        mat-icon {
+            margin-right: -10px;
+        }
+    }
+
+    .card-body {
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        p {
+            color: var(--light-font);
+        }
+    }
+    .card-footer {
+        .active-date {
+            line-height: 15px;
+        }
+
+        .lable {
+            right: 0;
+            bottom: 20px;
+            border-radius: 999px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            font-size: 10px;
+            padding: 4px 10px;
+            line-height: 13px;
+            /* background-color: rgb(255, 156, 156); */
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: -2px;
+                top: -2px;
+                width: calc(100% + 1px);
+                height: calc(100% + 4px);
+                border-radius: 999px;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+                border: 1px solid var(--primary);
+                border-right: 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.5s ease all;
+            }
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 1px rgba(var(--primary-rgb), 0.1);
+        cursor: pointer;
+        .card-footer {
+            .lable {
+                opacity: 1;
+                &::after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+mat-form-field {
+    ::ng-deep {
+        .mat-mdc-form-field-subscript-wrapper {
+            display: none;
+        }
+    }
+}
+
+.label-menu {
+    .circle-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: block;
+    }
+}

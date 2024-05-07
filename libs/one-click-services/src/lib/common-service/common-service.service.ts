@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Company, Connection, ContentWrite, Integration, User, messages } from '@one-click/data';
+import { Company, Connection, ContentWrite, Integration, Label, User, messages } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subject, Subscribable, Subscriber, Subscription } from 'rxjs';
 import { CrudService } from '../crud/crud.service';
 import { AlertService } from '../alert/alert.service';
+// @ts-ignore
+import _ from 'lodash';
+import { labelList } from '../attr-list/attribute';
 
 @Injectable({
   providedIn: 'root'
@@ -157,7 +160,64 @@ export class CommonServiceService {
     catch (e: any) {
       this.alertService.error(e.message);
     }
-    return; 
+    return;
   }
 
+  getGreeting() {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 5 && hour < 12) {
+      return "Good morning";
+    } else if (hour >= 12 && hour < 18) {
+      return "Good afternoon";
+    } else if (hour >= 18 && hour < 22) {
+      return "Good evening";
+    } else {
+      return "Good night";
+    }
+  }
+
+  deepClose(obj: any) {
+    return _.cloneDeep(obj)
+  }
+
+  generateRandomColor() {
+    let excludeColors: any = labelList;
+
+    while (true) {
+      // Generate random RGB values
+      let randomColor = [
+        Math.floor(Math.random() * 256), // Red
+        Math.floor(Math.random() * 256), // Green
+        Math.floor(Math.random() * 256)  // Blue
+      ];
+
+      // Check if the generated color matches any of the excluded colors
+      let isExcluded = excludeColors.some((color: any) => {
+        let rgb = color.background.match(/\d+/g); // Extract RGB values from background string
+        return randomColor[0] == parseInt(rgb[0]) &&
+          randomColor[1] == parseInt(rgb[1]) &&
+          randomColor[2] == parseInt(rgb[2]);
+      });
+
+      // If not excluded, return the random color
+      if (!isExcluded) {
+        return `rgb(${randomColor.join(', ')})`;
+      }
+    }
+  }
+
+
+  async createLabel(labelString: string) {
+    if (labelString?.trim()) {
+      let label = new Label();
+      label.id = this.crudService.angularFirestore.createId()
+      label.labelName = labelString.trim();
+      label.background = this.generateRandomColor();
+      this.companyData.labels.push(label);
+      await this.updateCompnay(this.companyData);
+    }
+    return;
+  }
 }

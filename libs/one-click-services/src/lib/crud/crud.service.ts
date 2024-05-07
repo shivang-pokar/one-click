@@ -85,6 +85,19 @@ export class CrudService {
     );;
   }
 
+  getDataWhereCompany(collName: string) {
+    const company_id = this.cookieService.get('company_id');
+    return this.angularFirestore.collection<any>(collName, ref => ref.orderBy('updatedAt', 'desc').where("company_id", "==", company_id).where("deleteFlag", "==", "N")).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
   fileUpload(path: string, file: any) {
     let ref = this.angularFireStorage.ref(path)
     let task = ref.put(file);
