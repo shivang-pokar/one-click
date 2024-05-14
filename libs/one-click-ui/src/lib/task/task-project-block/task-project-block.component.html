@@ -1,7 +1,7 @@
-<div class="project-block border-withshadow d-flex flex-column position-relative">
+<div class="project-block border-withshadow d-flex flex-column position-relative" (click)="navigateToRoute()">
     <div class="card-head d-flex align-items-center justify-content-between mb-2">
         <h5 class="m-0">{{project.projectName}}</h5>
-        <mat-icon [matMenuTriggerFor]="projectMenu">more_vert</mat-icon>
+        <mat-icon (click)="$event.stopPropagation()" [matMenuTriggerFor]="projectMenu">more_vert</mat-icon>
 
         <mat-menu #projectMenu="matMenu">
             <button mat-menu-item (click)="createProject()">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <span class="lable position-absolute" [matMenuTriggerFor]="menu" [class.active]="project?.label"
-            [style.background-color]="labelMap[project.label]?.background">
+            [style.background-color]="labelMap[project.label]?.background" (click)="$event.stopPropagation()">
             <ng-container *ngIf="project?.label && labelMap">
                 {{labelMap[project.label].labelName}}
             </ng-container>
@@ -52,7 +52,7 @@
         <ng-container *ngFor="let label of labels">
             <button mat-menu-item (click)="setLabelInProject(label.id)">
                 <span class="d-flex align-items-center">
-                    <span class="circle-color mr-2" style="background-color: {{label.background}};"></span>
+                    <span class="circle-color mr-2" [style.background-color]="label.background"></span>
                     {{label.labelName}}
                 </span>
             </button>

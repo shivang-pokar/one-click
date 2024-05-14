@@ -1,0 +1,26 @@
+<section class="pl-4 pr-4">
+
+    <!-- <a href="javascript:void(0)" class="d-inline-flex align-item-center add-group">
+        <mat-icon>add</mat-icon>
+        
+    </a> -->
+    <div [matMenuTriggerFor]="menu">
+        <one-click-button [typeSmall]="true" [icon]="'add'" [buttonText]="'Add a group'"></one-click-button>
+    </div>
+</section>
+
+
+<mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+    <div class="label-menu">
+        <div class="p-2" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+            <mat-form-field class="w-100 small-height light-border border-top-0" appearance="fill">
+                <input matInput type="text" placeholder="Group Name"
+                    [(ngModel)]="groupName"><!-- (input)="filterLabels()" -->
+            </mat-form-field>
+        </div>
+        <button mat-menu-item *ngIf="groupName" (click)="addGroup()">
+            <mat-icon class="mr-1">add</mat-icon>
+            Add group
+        </button>
+    </div>
+</mat-menu>

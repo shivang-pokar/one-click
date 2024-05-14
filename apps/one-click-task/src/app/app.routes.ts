@@ -26,5 +26,10 @@ export const appRoutes: Route[] = [
         path: 'projects',
         loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsModule),
         canActivate: [AuthGardGuard]
+    },
+    {
+        path: 'projects/:id',
+        loadChildren: () => import('./pages/project-block/project-block.module').then(m => m.ProjectBlockModule),
+        canActivate: [AuthGardGuard]
     }
 ];

@@ -11,3 +11,4 @@ export * from './lib/contentWrite';
 export * from './lib/activity-logs';
 export * from './lib/task-module/project';
 export * from './lib/task-module/label';
+export * from './lib/task-module/task';

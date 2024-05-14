@@ -24,6 +24,10 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatListModule } from '@angular/material/list';
+import { ProjectHomeComponent } from './pages/project-block/project/project-home/project-home.component';
+import { ProjectHeaderComponent } from './pages/project-block/project/project-header/project-header.component';
+import { TaskListComponent } from './pages/project-block/project/task-list/task-list.component';
+import { TaskListViewComponent } from './pages/project-block/project/task-list-view/task-list-view.component';
 
 @NgModule({
     imports: [
@@ -58,7 +62,10 @@ import { MatListModule } from '@angular/material/list';
         MatListModule
     ],
     declarations: [
-
+        ProjectHomeComponent,
+        ProjectHeaderComponent,
+        TaskListComponent,
+        TaskListViewComponent
     ],
     exports: [
         FormsModule,
@@ -87,7 +94,11 @@ import { MatListModule } from '@angular/material/list';
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         FullCalendarModule,
-        MatListModule
+        MatListModule,
+        ProjectHomeComponent,
+        ProjectHeaderComponent,
+        TaskListComponent,
+        TaskListViewComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

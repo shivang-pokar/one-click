@@ -3,6 +3,10 @@
     height: 32px;
 }
 
-button{
+button {
     letter-spacing: 1px;
+}
+.move-left {
+    display: block;
+    margin-left: -3px !important;
 }

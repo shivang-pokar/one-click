@@ -7,6 +7,13 @@
     .card-head {
         mat-icon {
             margin-right: -10px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            &:hover {
+                background: var(--gray-background);
+                border-radius: 3px;
+            }
         }
     }
 

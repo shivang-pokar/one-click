@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Company, Project } from '@one-click/data';
 import { CommonServiceService, ProjectService, labelList } from '@one-click/one-click-services';
 
@@ -19,7 +20,8 @@ export class TaskProjectBlockComponent implements OnInit {
 
   constructor(
     public projectService: ProjectService,
-    public commonServiceService: CommonServiceService
+    public commonServiceService: CommonServiceService,
+    public router: Router
   ) {
   }
 
@@ -54,6 +56,10 @@ export class TaskProjectBlockComponent implements OnInit {
 
   delete() {
     this.projectService.deleteProject(this.project);
+  }
+
+  navigateToRoute() {
+    this.router.navigateByUrl(`projects/${this.project.id}`);
   }
 
 }

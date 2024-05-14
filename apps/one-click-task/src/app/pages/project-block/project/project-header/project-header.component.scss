@@ -1,0 +1,8 @@
+.project-header {
+    height: 60px;
+    .project-name {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

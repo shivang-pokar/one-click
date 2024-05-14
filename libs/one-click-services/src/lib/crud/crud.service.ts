@@ -22,7 +22,7 @@ enum Type {
 })
 export class CrudService {
 
-  firebase: any = firebase.default;
+  firebase = firebase.default;
   database = this.firebase.database();
   uid = this.cookieService.get('uid');
 
@@ -233,6 +233,10 @@ export class CrudService {
 
   getContentRealTimeOrderBy(path: string, orderBy: any) {
     return this.database.ref(path).orderByChild(orderBy).get();
+  }
+
+  getContentRealTimeOrderByEqualTo(path: string, orderBy: any, equalTo: any) {
+    return this.database.ref(path).orderByChild(orderBy).equalTo(equalTo);
   }
 
 
