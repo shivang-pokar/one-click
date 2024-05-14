@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
-import { ActivityLogs, ContentWrite, PostContent } from '@one-click/data';
+import { ActivityLogs, Company, ContentWrite, PostContent, User } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
 import * as firebase from 'firebase/compat/app';
 import "firebase/compat/database"
@@ -340,6 +340,27 @@ export class CrudService {
 
   isDataRequiredCollection() {
     return ['postContainer', 'users', 'company']
+  }
+
+  /* User */
+
+  createUser(user: User) {
+    return this.http.post<any>(`${this.env.API_BASE_URL}/common/users`, user);
+  }
+
+  getUserFromId(id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/common/users/${id}`);
+  }
+
+
+  /* Company */
+
+  createCompany(company: Company) {
+    return this.http.post<any>(`${this.env.API_BASE_URL}/common/company`, company);
+  }
+
+  getCompanyFromId(id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/common/company/${id}`);
   }
 
 }

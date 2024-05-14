@@ -33,25 +33,16 @@ export class LoginComponent {
   }
 
   async login() {
-    try {
-      this.isloading = true;
-      await this.authService.authUser(this.loginForm.value.email, this.loginForm.value.password);
-      let authStatus = this.authService.getAuthStatus();
-      authStatus.then(userAuth => {
-        if (userAuth?.emailVerified) {
-          this.router.navigateByUrl(this.successUrl);
-          this.isloading = false;
-          this.commonServiceService.logedInInitSubscribe();
-        } else {
-          firebase.default.auth().currentUser?.sendEmailVerification();
-          this.alertService.error(messages.NOT_VERIFIED);
-          this.isloading = false;
-        }
-      });
-    }
-    catch (e: any) {
-      this.isloading = false;
-      this.alertService.error(e.message);
+    if (this.loginForm.valid) {
+      try {
+        this.isloading = true;
+        await this.authService.loginUser(this.loginForm.value, this.successUrl);
+        this.isloading = false;
+      }
+      catch (e: any) {
+        this.isloading = false;
+        this.alertService.error(e.message);
+      }
     }
   }
 }

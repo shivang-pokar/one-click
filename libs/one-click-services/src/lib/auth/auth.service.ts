@@ -9,6 +9,7 @@ import { CrudService } from '../crud/crud.service';
 import { AlertService } from '../alert/alert.service';
 import { Observable, of, switchMap, take } from 'rxjs';
 import { Router } from '@angular/router';
+import { CommonServiceService } from '../common-service/common-service.service';
 
 
 @Injectable({
@@ -22,7 +23,8 @@ export class AuthService {
     private cookieService: CookieService,
     private crudService: CrudService,
     private alertService: AlertService,
-    public router: Router
+    public router: Router,
+    public commonServiceService: CommonServiceService
   ) { }
 
   createUser(user: User): Promise<any> {
@@ -32,17 +34,11 @@ export class AuthService {
         firebase.default.auth().currentUser?.sendEmailVerification().then((() => {
           createUser.uid = res.user.uid;
           createUser.company_id = this.crudService.angularFirestore.createId();
-          createUser.uid = res.user.uid;
+          createUser.id = res.user.uid;
           createUser.email = user.email;
           createUser.name = user.name;
-          this.storeUserInFireStore(createUser).then(userResp => {
-            resolve(createUser);
-            let uid: string = createUser.uid || '';
-            this.cookieService.set('uid', uid);
-          }).catch(er => {
-            resolve(er);
-            this.alertService.error(er.message);
-          });
+          this.crudService.createUser(createUser).subscribe(resp => { })
+          resolve(createUser);
         }))
 
       }).catch(error => {
@@ -71,20 +67,15 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const auth = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-        this.crudService.collection$(this.userCollection, (qry: any) => qry.where('id', '==', auth.user?.uid)).pipe(take(1)).subscribe((resp: Array<User>) => {
-          if (auth.user?.emailVerified) {
-            let uid: any = resp[0].id;
-            this.cookieService.set('uid', uid);
-            this.cookieService.set('company_id', resp[0].company_id || "");
-          }
-          resolve(resp[0])
-        }, er => {
-          console.log(er)
-        })
-
+        if (auth.user?.emailVerified) {
+          this.commonServiceService.logedInInitSubscribe(auth.user?.uid);
+          resolve("");
+        } else {
+          throw new Error('Email not verified');
+        }
       }
       catch (e: any) {
-        this.alertService.error(e.message)
+        this.alertService.error(e.message);
         reject(e);
       }
     })
@@ -116,6 +107,22 @@ export class AuthService {
       this.alertService.error(e.message);
     }
     return;
+  }
+
+  async loginUser(loginForm: any, successUrl: string) {
+    try {
+      let user = await this.authUser(loginForm.email, loginForm.password);
+      let userAuth = await this.getAuthStatus();
+      if (userAuth?.emailVerified) {
+        this.router.navigateByUrl(successUrl);
+      } else {
+        firebase.default.auth().currentUser?.sendEmailVerification();
+        this.alertService.error(messages.NOT_VERIFIED);
+      }
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+    }
   }
 
 }

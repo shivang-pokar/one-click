@@ -27,12 +27,15 @@ import { requiresAuth } from './auth-middleware.js';
 import { listSchedule, reschduleAfterRestart } from './controllers/schedule.js';
 const stripe = new Stripe(process.env.STRIPE_SCREAT_KEY);
 
+
+import commonRouter from './app/routes/commonRouter.js';
+import mongoose from './app/services/mongoose.js';
+
 global.stripe = stripe;
 
 const app = express.default();
 
 
-//app.use(bodyParser.json({ limit: '30mb', extended: true, }));
 app.use(bodyParser.json({
   limit: '30mb', extended: true,
   verify: (req, res, buf) => {
@@ -61,6 +64,8 @@ app.use('/schedule', schedule);
 app.use('/payment', payment);
 app.use('/content-writing', contentWriting);
 app.use('/report', report);
+
+app.use(commonRouter);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to one-click-api!' });

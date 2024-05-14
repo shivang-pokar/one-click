@@ -4,7 +4,7 @@ export const requiresAuth = async (req, res, next) => {
     const authService = admin.auth();
 
     if (!req.body.isInternal) {
-        const idToken = req?.headers?.authorization
+        const idToken = req?.headers?.authorization;
         let decodedIdToken;
         try {
             if (idToken)

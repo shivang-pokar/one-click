@@ -52,10 +52,10 @@ export class CommonServiceService {
     return Number((width / height).toFixed(2)) >= connection.shortVideoRationMin && Number((width / height).toFixed(2)) <= connection.shortVideoRationMax;
   }
 
-  logedInInitSubscribe() {
-    this.getIntegration();
+  async logedInInitSubscribe(userId?: string) {
+    await this.getUser(userId);
     this.getCompany();
-    this.getUser();
+    this.getIntegration();
   }
 
   getIntegration() {
@@ -70,20 +70,20 @@ export class CommonServiceService {
   getCompany() {
     if (!this.companyData?.id) {
       const company_id = this.cookieService.get('company_id');
-      this.company$ = this.crudService.collection$('company', (req: any) => req.where('id', '==', company_id)).subscribe(res => {
-        this.companyData = res[0];
-        this.company.next(res[0]);
+      this.crudService.getCompanyFromId(company_id).subscribe(resp => {
+        this.companyData = resp;
+        this.company.next(resp);
       });
     }
   }
 
-  getUser() {
-    if (!this.user$) {
-      const uid = this.cookieService.get('uid');
-      this.user$ = this.crudService.collection$('users', (req: any) => req.where('id', '==', uid)).subscribe(res => {
-        this.user.next(res[0]);
-      });
-    }
+  async getUser(userId?: string) {
+    const uid = userId || this.cookieService.get('uid');
+    let user = await this.crudService.getUserFromId(uid).toPromise();
+    this.cookieService.set('uid', user.id);
+    this.cookieService.set('company_id', user.company_id || "");
+    this.user.next(user);
+    return
   }
 
   getTimeZone() {
@@ -220,4 +220,15 @@ export class CommonServiceService {
     }
     return;
   }
+
+  async createCompany(company_id: string, company_name: string) {
+    const company = new Company();
+    company.company_name = company_name;
+    company.id = company_id;
+    company.labels = labelList;
+    company.masterId = this.crudService.angularFirestore.createId();
+    company.timeZone = this.getTimeZone();
+    return this.crudService.createCompany(company).toPromise()
+  }
+
 }

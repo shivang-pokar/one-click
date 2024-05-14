@@ -50,7 +50,8 @@ export class SubscriptionComponent implements OnInit {
   }
 
   checkout() {
-    this.paymentService.subscription(this.company.email, this.company.company_name, this.company.id);
+    //Set Here User Email
+    //this.paymentService.subscription(this.company.email, this.company.company_name, this.company.id);
   }
 
   stripeSession(date: string) {

@@ -1,12 +1,9 @@
 export class Company {
     id?: string;
-    email?: string = '';
     company_name?: string;
     timeZone?: string;
     createdBy?: string;
-    createdAt?: string;
     updatedBy?: string;
-    updatedAt?: string;
     deleteFlag?: string;
     masterId?: string;
     status?: string;

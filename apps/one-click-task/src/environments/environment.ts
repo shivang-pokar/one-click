@@ -15,6 +15,7 @@ export const environment = {
   FB_APP_ID: '484004453229056',
   TWITTER_CLIENT_ID: 'eFlHTkNwVUZzUkN4RXRnQXFSSDY6MTpjaQ',
   API_BASE_URL: 'http://localhost:3333',
+  API_BASE_URL_TASK: 'http://localhost:3333/task-desk',
   /* API_BASE_URL: 'https://one-click-desk-staging.onrender.com', */
   FB_AUTH_URL: 'https://graph.facebook.com/v13.0',
   FB_GRAPH: 'https://graph.facebook.com/',
