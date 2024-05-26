@@ -73,3 +73,48 @@ export const labelList = [
         labelName: "PAUSED"
     }
 ]
+
+export const taskRow = [
+    {
+        id: "description",
+        label: "Description",
+        width: "500px",
+        icon: "description"
+    },
+    {
+        id: "status",
+        label: "Status",
+        width: "170px",
+        icon: "radar"
+    },
+    {
+        id: "assignee",
+        label: "Assignee",
+        width: "170px",
+        icon: "group"
+    },
+    {
+        id: "due",
+        label: "Due",
+        width: "170px",
+        icon: "event"
+    },
+    {
+        id: "priority",
+        label: "Priority",
+        width: "170px",
+        icon: "arrow_drop_down_circle"
+    },
+    {
+        id: "summary",
+        label: "Summary",
+        width: "250px",
+        icon: "subject"
+    },
+    {
+        id: "label",
+        label: "Label",
+        width: "170px",
+        icon: "label"
+    }
+]

@@ -31,7 +31,7 @@
         </div>
         <span class="lable position-absolute" [matMenuTriggerFor]="menu" [class.active]="project?.label"
             [style.background-color]="labelMap[project.label]?.background" (click)="$event.stopPropagation()">
-            <ng-container *ngIf="project?.label && labelMap">
+            <ng-container *ngIf="project?.label && labelMap && labelMap[project.label]">
                 {{labelMap[project.label].labelName}}
             </ng-container>
             <ng-container *ngIf="!project?.label">

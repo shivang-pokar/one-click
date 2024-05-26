@@ -23,3 +23,18 @@ export enum TaskType {
     GROUP = "GROUP",
     TASK = "TASK"
 }
+
+export class Group {
+    id?: string;
+    company_id?: string;
+    project_id?: string;
+    groupName?: string;
+    status?: string;
+    createdBy?: string;
+    createdAt?: string;
+    updatedBy?: string;
+    updatedAt?: string;
+    deleteFlag: string = "N";
+    completed: boolean = false;
+    isOpen:boolean = true;
+}

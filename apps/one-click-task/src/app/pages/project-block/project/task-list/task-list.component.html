@@ -1,1 +1,22 @@
-<p>task-list works!</p>
+<div class="task">
+    <div class="d-flex align-items-center cell-section position-relative">
+        <ng-container *ngFor="let item of taskRow;let i = index;">
+            <div class="cell-item d-flex align-items-center {{item.id}}" style="min-width: {{item.width}};"
+                [class.pl-2]="item.id == 'description'" [class.border-0]="(taskRow?.length - 1) == i">
+                <ng-container *ngIf="item.id == 'description'">
+                    <span [style.width]="isSubTask ? '20px' : '0px'"></span>
+                    <span class="d-flex position-absolute checkbox">
+                        <mat-checkbox color="primary"></mat-checkbox>
+                    </span>
+                </ng-container>
+                {{ task[item.id] }}
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="sub-tasks" *ngIf="task.subTasks?.length">
+        <one-click-task-list *ngFor="let subTask of task.subTasks" [isSubTask]="true"
+            [task]="subTask"></one-click-task-list>
+    </div>
+
+</div>

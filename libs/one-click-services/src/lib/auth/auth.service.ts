@@ -68,7 +68,10 @@ export class AuthService {
       try {
         const auth = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
         if (auth.user?.emailVerified) {
-          this.commonServiceService.logedInInitSubscribe(auth.user?.uid);
+          let userAuth = await this.getAuthStatus();
+          let token = await userAuth.getIdToken();
+          this.cookieService.set('token', token);
+          await this.commonServiceService.logedInInitSubscribe(auth.user?.uid);
           resolve("");
         } else {
           throw new Error('Email not verified');
@@ -111,7 +114,7 @@ export class AuthService {
 
   async loginUser(loginForm: any, successUrl: string) {
     try {
-      let user = await this.authUser(loginForm.email, loginForm.password);
+      await this.authUser(loginForm.email, loginForm.password);
       let userAuth = await this.getAuthStatus();
       if (userAuth?.emailVerified) {
         this.router.navigateByUrl(successUrl);

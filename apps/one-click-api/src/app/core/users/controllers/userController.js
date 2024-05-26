@@ -1,6 +1,6 @@
 import User from '../models/userModel';
 
-exports.createUser = async (req, res) => {
+export const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(201).json({ message: 'User created successfully', user });
@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
 };
 
 
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const query = { id: id };
@@ -32,7 +32,7 @@ exports.updateUser = async (req, res) => {
 };
 
 
-exports.getUser = async (req, res) => {
+export const getUser = async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.findOne({ id: userId });

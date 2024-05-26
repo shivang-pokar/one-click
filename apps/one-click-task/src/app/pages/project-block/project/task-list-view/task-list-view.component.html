@@ -1,1 +1,41 @@
-<p>task-list-view works!</p>
+<div class="position-relative task-list-view mb-4" [class.w-100]="!group.isOpen">
+    <div class="d-flex align-item-center position-sticky group-head">
+        <span class="d-flex align-items-center position-sticky group-head-view">
+            <span class="mr-2 cursor-pointer icons-arrow d-flex" (click)="openCloseGroup()"
+                [class.is_open]="group.isOpen">
+                <span class="material-icons-outlined">
+                    arrow_right
+                </span>
+
+            </span>
+            <span class="d-flex align-items-center">
+                <span class="material-icons-outlined mr-2 group-icon">
+                    text_snippet
+                </span>
+                {{group.groupName}}
+            </span>
+        </span>
+    </div>
+    <div class="d-flex row-head position-sticky align-items-center" *ngIf="group.isOpen">
+        <ng-container *ngFor="let item of taskRow">
+            <div style="min-width: {{item.width}};" class="row-head-item d-flex align-items-center cursor-pointer">
+                <span class="material-icons-outlined mr-2">
+                    {{item.icon}}
+                </span>
+                {{item.label}}
+            </div>
+        </ng-container>
+    </div>
+
+    <one-click-task-list *ngFor="let task of tasks" [task]="task"></one-click-task-list>
+    <ng-container *ngIf="group.isOpen">
+        <div class="add-item border-bottom fz-14 cursor-pointer position-relative d-flex align-items-center">
+            <span class="d-flex align-items-center position-sticky add-item-child">
+                <span class="material-icons-outlined mr-2">
+                    add
+                </span>
+                New
+            </span>
+        </div>
+    </ng-container>
+</div>

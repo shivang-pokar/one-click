@@ -1,11 +1,14 @@
-<section class="pl-4 pr-4">
+<section>
+    <div class="w-100 overflow-auto position-relative group-view-list">
+        <ng-container *ngFor="let group of groupList;let i = index">
+            <one-click-task-list-view class="d-flex" [id]="'group_'+i" [group]="group"></one-click-task-list-view>
+        </ng-container>
 
-    <!-- <a href="javascript:void(0)" class="d-inline-flex align-item-center add-group">
-        <mat-icon>add</mat-icon>
-        
-    </a> -->
-    <div [matMenuTriggerFor]="menu">
-        <one-click-button [typeSmall]="true" [icon]="'add'" [buttonText]="'Add a group'"></one-click-button>
+        <div class="position-sticky left-position">
+            <div [matMenuTriggerFor]="menu">
+                <one-click-button [typeSmall]="true" [icon]="'add'" [buttonText]="'Add a group'"></one-click-button>
+            </div>
+        </div>
     </div>
 </section>
 

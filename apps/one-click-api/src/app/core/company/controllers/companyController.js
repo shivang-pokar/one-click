@@ -1,6 +1,6 @@
 import Company from '../models/companyModel';
 
-exports.createCompany = async (req, res) => {
+export const createCompany = async (req, res) => {
     try {
         const company = await Company.create(req.body);
         res.status(201).json({ message: 'Company created successfully', company });
@@ -12,7 +12,7 @@ exports.createCompany = async (req, res) => {
 
 
 
-exports.updateCompany = async (req, res) => {
+export const updateCompany = async (req, res) => {
     try {
         const { id } = req.params;
         const query = { id: id };
@@ -33,7 +33,7 @@ exports.updateCompany = async (req, res) => {
 };
 
 
-exports.getCompany = async (req, res) => {
+export const getCompany = async (req, res) => {
     try {
         const companyId = req.params.id;
         const company = await Company.findOne({ id: companyId });

@@ -29,7 +29,7 @@ export class CreateProjectComponent implements OnInit {
       createdAt: [''],
       updatedBy: [''],
       updatedAt: [''],
-      deleteFlag: [''],
+      deleteFlag: ['N'],
       label: [''],
       lastOpened: [''],
       company_id: [company_id],

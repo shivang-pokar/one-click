@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { messages } from '@one-click/data';
 import * as firebase from 'firebase/compat/app';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'one-click-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private commonServiceService: CommonServiceService,
+    private cookieService: CookieService,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],

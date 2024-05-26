@@ -1,0 +1,24 @@
+.cell-item {
+    height: 36px;
+    background-color: var(--white);
+    border-right: 1px solid var(--light-border);
+    font-size: 14px;
+    padding: 6px 8px;
+}
+
+.cell-section {
+    border-bottom: 1px solid var(--light-border);
+    padding-left: 50px;
+    .checkbox {
+        left: 0;
+        top: -2px;
+        opacity: 0;
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .description {
+        cursor: pointer;
+    }
+}

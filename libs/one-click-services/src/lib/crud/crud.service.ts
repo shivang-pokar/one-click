@@ -363,4 +363,7 @@ export class CrudService {
     return this.http.get<any>(`${this.env.API_BASE_URL}/common/company/${id}`);
   }
 
+
+  /* Project */
+
 }

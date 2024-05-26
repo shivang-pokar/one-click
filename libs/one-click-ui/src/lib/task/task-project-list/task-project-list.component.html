@@ -1,14 +1,15 @@
-<ng-container *ngIf="project$ | async as projects">
+<ng-container *ngIf="projects$ | async as projects">
     <div id="projects" [class.projects]="projects.length > 0">
         <ng-container *ngIf="projects != null && projects.length > 0; else noProjects">
-            <one-click-task-project-block *ngFor="let item of projects" [project]="item"></one-click-task-project-block>
+            <one-click-task-project-block *ngFor="let item of projects;trackBy: trackByIndex;"
+                [project]="item"></one-click-task-project-block>
         </ng-container>
     </div>
 </ng-container>
 
 <ng-template #noProjects>
-    <div class="no-project d-flex align-items-center justify-content-center flex-column">
-        <img src="assets/no-project.jpg" alt="">
-        <h4>There are no active projects.</h4>
+    <div class="no-project d-flex align-items-center justify-content-center flex-column pt-5">
+        <img src="assets/no-project.svg" alt="">
+        <h4 class="mt-5">There are no active projects.</h4>
     </div>
 </ng-template>

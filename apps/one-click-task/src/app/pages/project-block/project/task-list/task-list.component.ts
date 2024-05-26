@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { taskRow } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-task-list',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskListComponent implements OnInit {
 
+  @Input() task: any;
+  @Input() isSubTask: boolean = false;
+  taskRow = taskRow;
   constructor() {
 
   }

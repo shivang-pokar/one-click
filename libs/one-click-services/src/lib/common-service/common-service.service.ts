@@ -7,6 +7,7 @@ import { AlertService } from '../alert/alert.service';
 // @ts-ignore
 import _ from 'lodash';
 import { labelList } from '../attr-list/attribute';
+import { SocketService } from '../socket/socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class CommonServiceService {
   constructor(
     private cookieService: CookieService,
     private crudService: CrudService,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public socketService: SocketService
   ) { }
 
   manageIntegrationList(integrationList: Integration, connection: any): Integration {
@@ -53,14 +55,20 @@ export class CommonServiceService {
   }
 
   async logedInInitSubscribe(userId?: string) {
-    await this.getUser(userId);
-    this.getCompany();
-    this.getIntegration();
+    try {
+      await this.getUser(userId);
+      this.getCompany();
+      this.getIntegration();
+      return;
+    }
+    catch (e) {
+      throw e;
+    }
   }
 
   getIntegration() {
     if (!this.companyData?.id) {
-      const company_id = this.cookieService.get('company_id')
+      const company_id = this.cookieService.get('company_id');
       this.crudService.collection$('integration', (req: any) => req.where('company_id', '==', company_id)).subscribe(res => {
         this.integration.next(res[0]);
       })
@@ -78,12 +86,19 @@ export class CommonServiceService {
   }
 
   async getUser(userId?: string) {
-    const uid = userId || this.cookieService.get('uid');
-    let user = await this.crudService.getUserFromId(uid).toPromise();
-    this.cookieService.set('uid', user.id);
-    this.cookieService.set('company_id', user.company_id || "");
-    this.user.next(user);
-    return
+    try {
+      const uid = userId || this.cookieService.get('uid');
+      let user = await this.crudService.getUserFromId(uid).toPromise();
+      this.cookieService.set('uid', user.id);
+      this.cookieService.set('company_id', user.company_id || "");
+      this.socketService.triggerSocket();
+      this.socketService.joinCompany(user.company_id);
+      this.user.next(user);
+      return user;
+    }
+    catch (e) {
+      throw e;
+    }
   }
 
   getTimeZone() {

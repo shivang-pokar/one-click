@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Project } from '@one-click/data';
-import { ProjectService } from '@one-click/one-click-services';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Group, Project } from '@one-click/data';
+import { GroupTaskService, ProjectService } from '@one-click/one-click-services';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -13,23 +13,27 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
   groupName: string;
   project: Project;
   destory$: Subject<void> = new Subject<void>();
+  groupList: Array<Group> = [];
 
   constructor(
-    public projectService: ProjectService
+    public projectService: ProjectService,
+    public groupTaskService: GroupTaskService
   ) {
 
   }
 
   ngOnInit(): void {
     this.projectService.project.pipe(takeUntil(this.destory$)).subscribe(project => {
-      this.project = project;
+      if (project.id) {
+        this.project = project;
+        this.getGroupList();
+      }
     })
   }
 
   async addGroup() {
     if (this.groupName && this.project.id) {
-      await this.projectService.createGroup(this.groupName, this.project.id);
-      this.groupName = "";
+      this.groupTaskService.createGroup(this.groupName, this.project.id);
     }
   }
 
@@ -37,4 +41,23 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
     this.destory$.next();
     this.destory$.complete();
   }
+
+  getGroupList() {
+    this.groupTaskService.getGroups(this.project.id).subscribe(resp => {
+      this.groupList = resp;
+      console.log(this.groupList)
+    })
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    const scrollOffset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    console.log('Scroll Event:', scrollOffset);
+
+    // You can add your logic here based on scrollOffset
+    // For example, you might want to add a class to an element when scrolling past a certain point
+    // Or trigger lazy loading of images/content, etc.
+  }
+
+
 }

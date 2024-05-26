@@ -19,9 +19,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     public authService: AuthService,
-    private router: Router,
     private alertService: AlertService,
-    private commonServiceService: CommonServiceService,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.maxLength(70), Validators.email, Validators.required])],

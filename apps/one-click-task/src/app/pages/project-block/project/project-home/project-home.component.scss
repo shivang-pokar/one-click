@@ -11,3 +11,12 @@
         display: none !important;
     }
 }
+
+.group-view-list {
+    height: calc(100vh - 85px);
+}
+
+.left-position {
+    left: 0;
+    padding-left: 50px;
+}

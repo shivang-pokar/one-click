@@ -8,6 +8,7 @@ dotenv.config();
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import http from 'http';
 import authRouter from './routes/auth.js';
 import twitterRouter from './routes/twitter.js';
 import linkedinRouter from './routes/linkedin.js';
@@ -29,11 +30,15 @@ const stripe = new Stripe(process.env.STRIPE_SCREAT_KEY);
 
 
 import commonRouter from './app/routes/commonRouter.js';
+import taskRoutes from './app/routes/taskRoutes.js';
 import mongoose from './app/services/mongoose.js';
+import { connectSocket } from './app/services/socket.js';
 
 global.stripe = stripe;
+global.firebaseAdmin = firebaseAdmin;
 
 const app = express.default();
+const server = http.createServer(app);
 
 
 app.use(bodyParser.json({
@@ -45,6 +50,7 @@ app.use(bodyParser.json({
     }
   }
 }));
+
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors.default());
 
@@ -66,13 +72,15 @@ app.use('/content-writing', contentWriting);
 app.use('/report', report);
 
 app.use(commonRouter);
+app.use(taskRoutes);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to one-click-api!' });
 });
 
+
 const port = environment.port;
-const server = app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
   reschduleAfterRestart();
 });
@@ -80,8 +88,12 @@ server.on('error', console.error);
 
 
 process.on('SIGTERM', () => {
-  // Perform any necessary cleanup or execute your code here
   console.log('Application is restarting...');
   listSchedule();
   process.exit(0);
 });
+
+
+// Socket.IO
+
+connectSocket(server);

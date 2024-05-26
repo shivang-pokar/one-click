@@ -17,6 +17,6 @@ export class ProjectBlockComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectService.getProjectData(this.activatedRoute.snapshot.params['id']);
+    this.projectService.setProject(this.activatedRoute.snapshot.params['id']);
   }
 }

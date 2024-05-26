@@ -6,14 +6,18 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/one-click-api",
         "main": "apps/one-click-api/src/main.js",
         "tsConfig": "apps/one-click-api/tsconfig.app.json",
-        "assets": ["apps/one-click-api/src/assets"],
+        "assets": [
+          "apps/one-click-api/src/assets"
+        ],
         "isolatedConfig": true,
         "webpackConfig": "apps/one-click-api/webpack.config.js"
       },
@@ -28,7 +32,8 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "one-click-api:build"
+        "buildTarget": "one-click-api:build",
+        "port": 5001
       },
       "configurations": {
         "production": {
@@ -38,14 +43,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/one-click-api/**/*.js"]
+        "lintFilePatterns": [
+          "apps/one-click-api/**/*.js"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/one-click-api/jest.config.js",
         "passWithNoTests": true

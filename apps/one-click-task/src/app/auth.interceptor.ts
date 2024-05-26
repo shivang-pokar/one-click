@@ -13,8 +13,8 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (request.url.search(environment.API_BASE_URL) >= 0) {
-            return from(this.firebase.auth().currentUser.getIdToken().then(token => {
+        if (request.url.search(environment.API_BASE_URL) >= 0 && this.firebase?.auth()?.currentUser) {
+            return from(this.firebase?.auth()?.currentUser?.getIdToken().then(token => {
                 return request.clone({
                     setHeaders: {
                         authorization: `${token}`

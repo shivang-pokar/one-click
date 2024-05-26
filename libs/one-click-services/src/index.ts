@@ -9,3 +9,5 @@ export * from './lib/calendar/calendar.service';
 export * from './lib/payment/payment.service';
 export * from './lib/attr-list/attribute';
 export * from './lib/task-module/project/project.service';
+export * from './lib/socket/socket.service';
+export * from './lib/task-module/group-task/group-task.service';

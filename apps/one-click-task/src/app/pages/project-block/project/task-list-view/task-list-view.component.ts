@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Group } from '@one-click/data';
+import { GroupTaskService, taskRow } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-task-list-view',
@@ -7,12 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskListViewComponent implements OnInit {
 
-  constructor() {
+  @Input() group: Group;
+
+  taskRow = taskRow;
+  tasks: any[] = [];
+
+  constructor(
+    public groupTaskService: GroupTaskService
+  ) {
 
   }
 
   ngOnInit(): void {
 
+  }
+
+  async openCloseGroup() {
+    this.group = await this.groupTaskService.openCloseGroup(this.group);
   }
 
 }

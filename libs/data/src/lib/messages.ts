@@ -34,7 +34,9 @@ export const messages = {
     EMAIL_SEND: 'Reset password email send successfully',
     PROJECT_CREATE: 'Project created successfully',
     DELETED: 'Deleted successfully',
-    PROJECT_UPDATE: 'Project updated successfully'
+    PROJECT_UPDATE: 'Project updated successfully',
+    GROUP_CREAT: "Group created successfully",
+    GROUP_UPDATE: "Group updated successfully"
 
 }
 

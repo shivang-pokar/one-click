@@ -22,8 +22,8 @@ export class AuthGardGuard implements CanActivate {
 
   canActivate(): any {
     return new Promise(async (resolve, reject) => {
-      let company_id = this.cookieService.get('company_id')
-      let user = await this.angularFireAuth.authState.pipe(take(1)).toPromise()
+      let company_id = this.cookieService.get('company_id');
+      let user = await this.angularFireAuth.authState.pipe(take(1)).toPromise();
       if (user?.uid && company_id) {
         resolve(true)
       } else {

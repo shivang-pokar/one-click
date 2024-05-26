@@ -19,4 +19,22 @@ export const requiresAuth = async (req, res, next) => {
     next();
 }
 
+export const requiresAuthSocket = async (socket, next) => {
+
+    const authService = firebaseAdmin.auth();
+    const idToken = socket.handshake.auth.token;
+    let decodedIdToken;
+    try {
+        if (idToken) {
+            decodedIdToken = await authService.verifyIdToken(idToken);
+        }
+        else {
+            return next(res.status(401).send({ error: 'You are not authorized to make this request' }));
+        }
+    } catch (error) {
+        next(error);
+    }
+    next();
+}
+
 //module.exports = requiresAuth;

@@ -1,11 +1,11 @@
-// userRoutes.js
 const express = require('express');
 const router = express.Router();
-const companyController = require('../controllers/companyController');
+
+import { createCompany, getCompany, updateCompany } from '../controllers/companyController';
 
 // Route for updating a user
-router.get('/company/:id', companyController.getCompany);
-router.post('/company', companyController.createCompany);
-router.put('/company/:id', companyController.updateCompany);
+router.get('/company/:id', getCompany);
+router.post('/company', createCompany);
+router.put('/company/:id', updateCompany);
 
 export default router;

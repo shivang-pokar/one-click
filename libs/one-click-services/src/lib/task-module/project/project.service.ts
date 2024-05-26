@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AlertService } from '../../alert/alert.service';
 import { Project, Task, TaskType, messages } from '@one-click/data';
 import { CrudService } from '../../crud/crud.service';
 import { CommonServiceService } from '../../common-service/common-service.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
+import { SocketService } from '../../socket/socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,9 @@ export class ProjectService {
     public crudService: CrudService,
     public commonServiceService: CommonServiceService,
     private cookieService: CookieService,
+    @Inject('env') public env: any,
+    private http: HttpClient,
+    public socketService: SocketService
   ) { }
 
   /* Crete Project Popup */
@@ -43,12 +48,13 @@ export class ProjectService {
   async addUpdateProject(project: Project) {
     try {
       if (!project.id) {
-        await this.crudService.add('project', project);
+        await this.createProjectApi(project).toPromise();
         this.alertService.success(messages.PROJECT_CREATE);
       } else {
-        await this.crudService.update('project', project, project.id);
+        await this.updateProject(project).toPromise();
         this.alertService.success(messages.PROJECT_UPDATE);
       }
+      this.socketService.addProject(project);
     }
     catch (e: any) {
       this.alertService.error(e.message);
@@ -57,7 +63,25 @@ export class ProjectService {
 
   /* Get Project List */
   getProject() {
-    return this.crudService.getDataWhereCompany('project');
+    const company_id = this.cookieService.get('company_id')
+    return this.http.get<any>(`${this.env.API_BASE_URL}/task/projects/by-company/${company_id}`);
+  }
+
+  createProjectApi(project: Project) {
+    project.id = this.crudService.angularFirestore.createId();
+    return this.http.post<any>(`${this.env.API_BASE_URL}/task/project`, project);
+  }
+
+  updateProject(project: Project) {
+    return this.http.put<any>(`${this.env.API_BASE_URL}/task/project/${project.id}`, project);
+  }
+
+  deleteProjectApi(project_id: string) {
+    return this.http.delete<any>(`${this.env.API_BASE_URL}/task/project/${project_id}`);
+  }
+
+  getProjectById(project_id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/task/project/${project_id}`);
   }
 
   selectLabelInProject(project: Project, labelId: string) {
@@ -70,7 +94,9 @@ export class ProjectService {
     this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
       if (resp) {
         try {
-          await this.crudService.softRemove('project', project, project.id);
+          project.deleteFlag = "Y";
+          await this.deleteProjectApi(project.id).toPromise();
+          this.socketService.addProject(project);
           this.alertService.success(messages.DELETED);
         }
         catch (e: any) {
@@ -80,50 +106,26 @@ export class ProjectService {
     })
   }
 
-  getProjectQry(projectId: string): Observable<any> {
-    const company_id = this.cookieService.get('company_id')
-    return this.crudService.collection$('project', (req: any) => req.orderBy('updatedAt', 'desc').where("company_id", "==", company_id).where("id", "==", projectId).where("deleteFlag", "==", "N"))
-  }
-
-  getProjectData(projectId: string) {
-    this.project$ = this.getProjectQry(projectId).subscribe((resp: Array<Project>) => {
-      this.project.next(resp[0]);
-      this.projectData = resp[0];
-    })
-  }
-
-  createTaskObj(type: TaskType, description: string, project_id: string) {
-    let task = new Task();
-    task.id = this.crudService.angularFirestore.createId();
-    task.taskType = type;
-    task.description = description;
-    task.icon = (type == TaskType.GROUP) ? "description" : "sticky_note_2";
-    task.company_id = this.cookieService.get('company_id');
-    task.project_id = project_id;
-    return task;
-
-  }
-
-  createGroup(description: string, project_id: string) {
-    let task = this.createTaskObj(TaskType.GROUP, description, project_id);
-    this.createTask(task);
-  }
-
-  async createTask(task: Task) {
-    try {
-      await this.crudService.setRealTimeData(`task/${task.project_id}/${task.id}`, task);
-      return;
+  updateProjectList(recentProjects: Array<Project>, project: Project): Array<Project> {
+    let index = recentProjects.findIndex(el => el.id === project.id);
+    if (project.deleteFlag === "N") {
+      if (index > -1) {
+        recentProjects[index] = project;
+      } else {
+        recentProjects.push(project);
+      }
+    } else if (index > -1) {
+      recentProjects.splice(index, 1);
     }
-    catch (e: any) {
-      this.alertService.error(e.message)
-      throw e;
-    }
+
+    return recentProjects;
   }
 
-  getGroupList(project_id: string) {
-    this.crudService.getContentRealTimeOrderByEqualTo(`task/${project_id}`, 'taskType', TaskType.GROUP).on('value', snapData => {
-      /*  */
-    })
+  setProject(project_id: string) {
+    this.getProjectById(project_id).subscribe(resp => {
+      this.project.next(resp);
+      this.socketService.joinProject(project_id);
+    });
   }
 
 }
