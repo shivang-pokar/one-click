@@ -1,22 +1,28 @@
 .cell-item {
-    height: 36px;
+    height: 32px;
     background-color: var(--white);
     border-right: 1px solid var(--light-border);
     font-size: 14px;
-    padding: 6px 8px;
+    padding: 4px 8px;
+
+    input {
+        border-radius: 6px;
+        background: var(--white);
+        backdrop-filter: none;
+        position: relative;
+        box-shadow:
+            rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+            rgba(15, 15, 15, 0.1) 0px 3px 6px,
+            rgba(15, 15, 15, 0.2) 0px 9px 24px;
+        border: 0;
+        outline: none;
+        padding: 0px 9px;
+    }
 }
 
 .cell-section {
     border-bottom: 1px solid var(--light-border);
-    padding-left: 50px;
-    .checkbox {
-        left: 0;
-        top: -2px;
-        opacity: 0;
-        &:hover {
-            opacity: 1;
-        }
-    }
+    padding-left: 0;
 
     .description {
         cursor: pointer;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Company, Connection, ContentWrite, Integration, Label, User, messages } from '@one-click/data';
+import { Company, Connection, ContentWrite, Integration, Label, Project, User, messages } from '@one-click/data';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subject, Subscribable, Subscriber, Subscription } from 'rxjs';
 import { CrudService } from '../crud/crud.service';
@@ -20,6 +20,7 @@ export class CommonServiceService {
   user = new BehaviorSubject<Company>(new User());
   company$: Subscription;
   user$: Subscription;
+  projectData: Project;
 
   constructor(
     private cookieService: CookieService,
@@ -91,7 +92,7 @@ export class CommonServiceService {
       let user = await this.crudService.getUserFromId(uid).toPromise();
       this.cookieService.set('uid', user.id);
       this.cookieService.set('company_id', user.company_id || "");
-      this.socketService.triggerSocket();
+      await this.socketService.triggerSocket();
       this.socketService.joinCompany(user.company_id);
       this.user.next(user);
       return user;

@@ -45,19 +45,19 @@ export class ProjectHomeComponent implements OnInit, OnDestroy {
   getGroupList() {
     this.groupTaskService.getGroups(this.project.id).subscribe(resp => {
       this.groupList = resp;
-      console.log(this.groupList)
     })
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    const scrollOffset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    console.log('Scroll Event:', scrollOffset);
 
-    // You can add your logic here based on scrollOffset
-    // For example, you might want to add a class to an element when scrolling past a certain point
-    // Or trigger lazy loading of images/content, etc.
-  }
+  // @HostListener('window:scroll', ['$event'])
+  // onWindowScroll(event: Event) {
+  //   const scrollOffset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  //   console.log('Scroll Event:', scrollOffset);
+
+  //   // You can add your logic here based on scrollOffset
+  //   // For example, you might want to add a class to an element when scrolling past a certain point
+  //   // Or trigger lazy loading of images/content, etc.
+  // }
 
 
 }

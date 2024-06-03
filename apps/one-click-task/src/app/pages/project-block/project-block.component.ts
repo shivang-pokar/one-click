@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectService } from '@one-click/one-click-services';
+import { CommonServiceService, ProjectService } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-project-block',
@@ -11,12 +11,17 @@ export class ProjectBlockComponent implements OnInit {
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public projectService: ProjectService
+    public projectService: ProjectService,
+    public commonServiceService: CommonServiceService
   ) {
 
   }
 
   ngOnInit(): void {
-    this.projectService.setProject(this.activatedRoute.snapshot.params['id']);
+    this.commonServiceService.user.subscribe(user => {
+      if (user.id) {
+        this.projectService.setProject(this.activatedRoute.snapshot.params['id']);
+      }
+    })
   }
 }

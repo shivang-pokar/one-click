@@ -76,6 +76,12 @@ export const labelList = [
 
 export const taskRow = [
     {
+        id: "checkbox",
+        label: "",
+        width: "90px",
+        icon: ""
+    },
+    {
         id: "description",
         label: "Description",
         width: "500px",

@@ -5,7 +5,7 @@ import { CommonServiceService } from '../../common-service/common-service.servic
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { SocketService } from '../../socket/socket.service';
-import { Group, messages } from '@one-click/data';
+import { Group, Task, messages } from '@one-click/data';
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +75,103 @@ export class GroupTaskService {
     await this.addUpdateGroup(group, false);
     return group;
   }
+
+  async createTask(group_id: string) {
+    try {
+      let taskObj = this.createTaskObj(group_id);
+      let task = await this.addUpdateTask(taskObj, false);
+      return task;
+    }
+    catch (e) {
+      throw e;
+    }
+  }
+
+  createTaskObj(group_id: string) {
+    const company_id = this.cookieService.get('company_id');
+    const project_id = this.commonServiceService.projectData.id;
+    let task = new Task();
+    task.description = "Task";
+    task.company_id = company_id;
+    task.project_id = project_id;
+    task.group_id = group_id;
+    return task;
+  }
+
+  async addUpdateTask(task: Task, showAlert: boolean = true) {
+    try {
+      if (!task.id) {
+        await this.createTaskApi(task).toPromise();
+        if (showAlert) {
+          this.alertService.success(messages.TASK_CREAT);
+        }
+      } else {
+        await this.updateTaskApi(task).toPromise();
+        if (showAlert) {
+          this.alertService.success(messages.TASK_UPDATE);
+        }
+      }
+      this.socketService.addTodoTask(task);
+      return task;
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+      throw e;
+    }
+  }
+
+  createTaskApi(task: Task) {
+    task.id = this.crudService.angularFirestore.createId();
+    return this.http.post<any>(`${this.env.API_BASE_URL}/task/task-item`, task);
+  }
+
+  updateTaskApi(task: any) {
+    return this.http.put<any>(`${this.env.API_BASE_URL}/task/task-item/${task.id}`, task);
+  }
+
+  getTaskByGroup(group_id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/task/task-item/by-group/${group_id}`);
+  }
+
+  deleteTaskApi(task_id: string) {
+    return this.http.delete<any>(`${this.env.API_BASE_URL}/task/task-item/${task_id}`);
+  }
+
+  getUpdateTaskList(taskList: Array<any> = [], task: any) {
+    let index = taskList.findIndex(el => el.id == task.id);
+    if (index > -1) {
+      if (taskList[index].deleteFlag == "Y") {
+        taskList = taskList.filter(el => el.id != taskList[index].id);
+      } else {
+        Object.keys(task).forEach((key: string) => {
+          taskList[index][key] = task[key];
+        })
+      }
+    } else {
+      taskList.push(task);
+    }
+
+    return taskList;
+  }
+
+  deleteTask(task: Task) {
+    this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
+      if (resp) {
+        await this.deleteTaskApi(task.id).toPromise();
+        task.deleteFlag = "Y";
+        this.socketService.addTodoTask(task);
+        this.alertService.success(messages.DELETED);
+      }
+    })
+  }
+
+  async updateTaskDataOnly(data: any) {
+    if (data.id) {
+      await this.updateTaskApi(data).toPromise();
+      this.alertService.success(messages.TASK_UPDATE);
+    }
+  }
+
+
 
 }

@@ -17,6 +17,7 @@ export class Task {
     icon?: string;
     completed: boolean = false;
     project_id?: string;
+    group_id?: string;
 }
 
 export enum TaskType {
@@ -36,5 +37,5 @@ export class Group {
     updatedAt?: string;
     deleteFlag: string = "N";
     completed: boolean = false;
-    isOpen:boolean = true;
+    isOpen: boolean = true;
 }

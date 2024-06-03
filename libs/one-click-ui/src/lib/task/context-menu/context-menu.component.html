@@ -1,0 +1,36 @@
+<div class="right-menu-context-overlay">
+    <div [ngStyle]="{ 'top': contextMenuPosition.y, 'left': contextMenuPosition.x }" class="right-menu-context">
+        <ul class="d-flex flex-column">
+            <li class="d-flex align-item-center">
+                <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                    style="font-size: 18px;">
+                    check_box_outline_blank
+                </span>
+                <span class="d-flex align-items-center">Mark complete</span>
+            </li>
+            <li class="d-flex align-item-center">
+                <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                    style="font-size: 18px;">
+                    content_copy
+                </span>
+                <span class="d-flex align-items-center">Duplicate</span>
+            </li>
+            <li class="d-flex align-item-center">
+                <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                    style="font-size: 18px;">
+                    open_in_new
+                </span>
+                <span class="d-flex align-items-center">Open in side peek</span>
+            </li>
+
+            <li class="d-flex align-items-center cursor-pointer delete border-top" (click)="delete()">
+                <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center">
+                    delete
+                </span>
+                <span class="d-flex align-items-center">Delete</span>
+            </li>
+
+        </ul>
+    </div>
+
+</div>

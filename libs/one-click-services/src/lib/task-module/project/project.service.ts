@@ -124,6 +124,8 @@ export class ProjectService {
   setProject(project_id: string) {
     this.getProjectById(project_id).subscribe(resp => {
       this.project.next(resp);
+      this.projectData = resp;
+      this.commonServiceService.projectData = resp;
       this.socketService.joinProject(project_id);
     });
   }

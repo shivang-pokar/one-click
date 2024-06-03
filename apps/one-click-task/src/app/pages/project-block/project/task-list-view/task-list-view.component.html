@@ -27,10 +27,11 @@
         </ng-container>
     </div>
 
-    <one-click-task-list *ngFor="let task of tasks" [task]="task"></one-click-task-list>
     <ng-container *ngIf="group.isOpen">
+        <one-click-task-list *ngFor="let task of tasks" [task]="task"
+            [newAddedTaskId]="newAddedTaskId"></one-click-task-list>
         <div class="add-item border-bottom fz-14 cursor-pointer position-relative d-flex align-items-center">
-            <span class="d-flex align-items-center position-sticky add-item-child">
+            <span class="d-flex align-items-center position-sticky add-item-child" (click)="addNew()">
                 <span class="material-icons-outlined mr-2">
                     add
                 </span>

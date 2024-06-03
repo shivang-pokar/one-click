@@ -26,19 +26,25 @@ export const connectSocket = (server) => {
             console.log(`User joined project room: ${project_id}`);
         });
 
+        socket.on('joinGroup', (group_id) => {
+            socket.join(group_id);
+            console.log(`User joined group room: ${group_id}`);
+        });
+
         socket.on('addProject', (projectData) => {
             const { company_id } = projectData;
             io.to(company_id).emit('projectAdded', projectData);
         });
 
         socket.on('addTodoGroup', (groupData) => {
-            const { projectId } = groupData;
-            io.to(projectId).emit('todoGroupAdded', groupData);
+            const { project_id } = groupData;
+            io.to(project_id).emit('todoGroupAdded', groupData);
         });
 
         socket.on('addTodoTask', (taskData) => {
-            const { todoGroupId } = taskData;
-            io.to(todoGroupId).emit('todoTaskAdded', taskData);
+            const { group_id } = taskData;
+            console.log(group_id)
+            io.to(group_id).emit('todoTaskAdded', taskData);
         });
 
         socket.on('disconnect', () => {

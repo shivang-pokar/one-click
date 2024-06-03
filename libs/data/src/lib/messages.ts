@@ -36,7 +36,9 @@ export const messages = {
     DELETED: 'Deleted successfully',
     PROJECT_UPDATE: 'Project updated successfully',
     GROUP_CREAT: "Group created successfully",
-    GROUP_UPDATE: "Group updated successfully"
+    GROUP_UPDATE: "Group updated successfully",
+    TASK_CREAT: "Task created successfully",
+    TASK_UPDATE: "Task updated successfully"
 
 }
 

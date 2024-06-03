@@ -1,15 +1,36 @@
 <div class="task">
-    <div class="d-flex align-items-center cell-section position-relative">
+    <div class="d-flex align-items-center cell-section position-relative" (contextmenu)="onRightClick($event)">
         <ng-container *ngFor="let item of taskRow;let i = index;">
-            <div class="cell-item d-flex align-items-center {{item.id}}" style="min-width: {{item.width}};"
-                [class.pl-2]="item.id == 'description'" [class.border-0]="(taskRow?.length - 1) == i">
-                <ng-container *ngIf="item.id == 'description'">
-                    <span [style.width]="isSubTask ? '20px' : '0px'"></span>
-                    <span class="d-flex position-absolute checkbox">
-                        <mat-checkbox color="primary"></mat-checkbox>
+            <div class="cell-item d-flex align-items-center {{item.id}} position-relative"
+                style="width: {{item.width}};" [class.pl-2]="item.id == 'description'"
+                [class.border-0]="(taskRow?.length - 1) == i">
+
+                <!-- Checkbox -->
+                <ng-container *ngIf="item.id == 'checkbox'">
+                    <span class="d-flex">
+                        <span class="material-icons-outlined">
+                            arrow_right
+                        </span>
+                    </span>
+                    <span class="d-flex checkbox">
+                        <mat-checkbox [(ngModel)]="task.completed" (change)="completeTask($event)"
+                            color="primary"></mat-checkbox>
                     </span>
                 </ng-container>
-                {{ task[item.id] }}
+
+                <!-- Description -->
+                <ng-container *ngIf="item.id == 'description'">
+                    <span [style.width]="isSubTask ? '20px' : '0px'"></span>
+
+                    <span class="position-absolute w-100 h-100" style="left: 0; top: 0;" *ngIf="showDescriptionInput">
+                        <input #myInput type="text" class="w-100 h-100" [value]="task[item.id]"
+                            [(ngModel)]="task.description" (keyup.enter)="blurDescription()" (blur)="blurDescription()">
+                    </span>
+
+                    <span *ngIf="!showDescriptionInput" (click)="focusInput()">
+                        {{ task[item.id] }}
+                    </span>
+                </ng-container>
             </div>
         </ng-container>
     </div>
@@ -20,3 +41,7 @@
     </div>
 
 </div>
+
+<ng-container *ngIf="contextMenuVisible">
+    <one-click-context-menu [task]="task" [contextMenuPosition]="contextMenuPosition"></one-click-context-menu>
+</ng-container>

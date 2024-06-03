@@ -1,13 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { io } from 'socket.io-client';
+import * as firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
+
   public socket: any;
+  firebase = firebase.default;
   constructor(
     @Inject('env') public env: any,
     private cookieService: CookieService,
@@ -15,13 +19,15 @@ export class SocketService {
 
   }
 
-  triggerSocket() {
+  async triggerSocket() {
+    let token = await this.firebase?.auth()?.currentUser?.getIdToken()
     this.socket = io(this.env.API_BASE_URL, {
       auth: {
-        token: this.cookieService.get('token'),
+        token: token,
         userid: this.cookieService.get('uid')
       }
     });
+    return;
   }
 
   joinCompany(companyId: string) {
@@ -30,6 +36,10 @@ export class SocketService {
 
   joinProject(projectId: string) {
     this.socket.emit('joinProject', projectId);
+  }
+
+  joinGroup(groupId: string) {
+    this.socket.emit('joinGroup', groupId);
   }
 
   onProjectAdded(callback: (data: any) => void) {

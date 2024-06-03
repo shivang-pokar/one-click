@@ -38,7 +38,7 @@
     top: 42px;
     background-color: var(--white);
     border-bottom: 1px solid var(--light-border);
-    padding-left: 40px;
+    padding-left: 0;
     z-index: 1;
     color: var(--light-font);
 
@@ -60,7 +60,7 @@
     height: 32px;
     color: var(--light-font);
     .add-item-child {
-        left: 0;
+        left: 50px;
     }
     .material-icons-outlined {
         font-size: 18px;

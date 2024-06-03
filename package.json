@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start-task": "nx serve --project=one-click-task --open",
+    "start-api": "nx serve --project=one-click-api",
     "build": "nx build",
     "test": "nx test",
     "build-staging": "nx build --project=one-click --configuration=staging",
