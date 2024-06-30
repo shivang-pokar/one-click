@@ -514,7 +514,7 @@ button {
 }
 
 .mat-mdc-menu-item.mdc-list-item {
-    min-height: 42px;
+    min-height: 32px;
 }
 
 .codex-editor--narrow .codex-editor__redactor {
@@ -570,5 +570,22 @@ button {
         height: 60px;
         padding-left: 24px;
         padding-right: 20px;
+    }
+}
+
+.viability-hidden {
+    visibility: hidden;
+}
+
+.status-drop-button {
+    min-width: 167px;
+    min-height: 37px !important;
+    .status-drop-item {
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
     }
 }

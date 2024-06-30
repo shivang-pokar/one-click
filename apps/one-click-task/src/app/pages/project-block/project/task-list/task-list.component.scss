@@ -4,6 +4,7 @@
     border-right: 1px solid var(--light-border);
     font-size: 14px;
     padding: 4px 8px;
+    cursor: pointer;
 
     input {
         border-radius: 6px;
@@ -27,4 +28,11 @@
     .description {
         cursor: pointer;
     }
+}
+
+
+.inner-cell-absolute {
+    padding: 4px 8px;
+    left: 0;
+    top: 0;
 }

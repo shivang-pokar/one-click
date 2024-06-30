@@ -28,6 +28,7 @@ import { ProjectHomeComponent } from './pages/project-block/project/project-home
 import { ProjectHeaderComponent } from './pages/project-block/project/project-header/project-header.component';
 import { TaskListComponent } from './pages/project-block/project/task-list/task-list.component';
 import { TaskListViewComponent } from './pages/project-block/project/task-list-view/task-list-view.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
     imports: [
@@ -59,7 +60,8 @@ import { TaskListViewComponent } from './pages/project-block/project/task-list-v
         NgxMatNativeDateModule,
         MatDatepickerModule,
         FullCalendarModule,
-        MatListModule
+        MatListModule,
+        MatNativeDateModule,
     ],
     declarations: [
         ProjectHomeComponent,
@@ -98,7 +100,8 @@ import { TaskListViewComponent } from './pages/project-block/project/task-list-v
         ProjectHomeComponent,
         ProjectHeaderComponent,
         TaskListComponent,
-        TaskListViewComponent
+        TaskListViewComponent,
+        MatNativeDateModule,
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

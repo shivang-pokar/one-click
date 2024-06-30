@@ -46,7 +46,7 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   blurDescription() {
     this.showDescriptionInput = false;
-    this.groupTaskService.updateTaskDataOnly({ id: this.task.id, description: this.task.description });
+    this.saveObject('description', this.task.description);
   }
 
   isNewTask() {
@@ -71,7 +71,13 @@ export class TaskListComponent implements OnInit, OnChanges {
   }
 
   completeTask(event: any) {
-    this.groupTaskService.updateTaskDataOnly({ id: this.task.id, completed: event.checked });
+    this.saveObject('completed', event.checked);
+  }
+
+  saveObject(key: string, value: any) {
+    let object: any = { id: this.task.id };
+    object[key] = value;
+    this.groupTaskService.updateTaskDataOnly(object);
   }
 
 

@@ -21,16 +21,32 @@
                 <!-- Description -->
                 <ng-container *ngIf="item.id == 'description'">
                     <span [style.width]="isSubTask ? '20px' : '0px'"></span>
-
                     <span class="position-absolute w-100 h-100" style="left: 0; top: 0;" *ngIf="showDescriptionInput">
                         <input #myInput type="text" class="w-100 h-100" [value]="task[item.id]"
                             [(ngModel)]="task.description" (keyup.enter)="blurDescription()" (blur)="blurDescription()">
                     </span>
-
                     <span *ngIf="!showDescriptionInput" (click)="focusInput()">
                         {{ task[item.id] }}
                     </span>
                 </ng-container>
+
+                <!-- Status -->
+                <ng-container *ngIf="item.id == 'status'">
+                    <one-click-status-menu
+                        class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
+                </ng-container>
+
+                <!-- Due -->
+                <ng-container *ngIf="item.id == 'due'">
+                    <span class="w-100 h-100 d-flex align-items-center position-absolute inner-cell-absolute"
+                        (click)="picker.open()">
+                        {{task.due | date}}
+                    </span>
+                    <input matInput [matDatepicker]="picker" class="opacity-0 viability-hidden" style="width: 0;"
+                        [(ngModel)]="task.due" (dateChange)="saveObject('due',task.due)">
+                    <mat-datepicker #picker></mat-datepicker>
+                </ng-container>
+
             </div>
         </ng-container>
     </div>

@@ -28,6 +28,7 @@ import { TaskProjectBlockComponent } from './task/task-project-block/task-projec
 import { TabSectionComponent } from './tab-section/tab-section.component';
 import { CreateProjectComponent } from './task/create-project/create-project.component';
 import { ContextMenuComponent } from './task/context-menu/context-menu.component';
+import { StatusMenuComponent } from './task/status-menu/status-menu.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -58,7 +59,8 @@ import { ContextMenuComponent } from './task/context-menu/context-menu.component
     TaskProjectBlockComponent,
     TabSectionComponent,
     CreateProjectComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    StatusMenuComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -86,7 +88,8 @@ import { ContextMenuComponent } from './task/context-menu/context-menu.component
     TaskProjectBlockComponent,
     TabSectionComponent,
     CreateProjectComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    StatusMenuComponent
   ],
 })
 export class OneClickUiModule { }

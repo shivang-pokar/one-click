@@ -23,6 +23,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MediaTypePipe } from './pipes/mediaType/media-type.pipe';
 import { ValidationMessagePipe } from './pipes/validation-message/validation-message.pipe';
 import { MatListModule } from '@angular/material/list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -48,7 +49,8 @@ import { MatListModule } from '@angular/material/list';
         MatSlideToggleModule,
         MatProgressSpinnerModule,
         SlickCarouselModule,
-        MatListModule
+        MatListModule,
+        MatDatepickerModule
     ],
     declarations: [
         GetSocialTypePipe,
@@ -79,7 +81,8 @@ import { MatListModule } from '@angular/material/list';
         MatProgressSpinnerModule,
         SlickCarouselModule,
         ValidationMessagePipe,
-        MatListModule
+        MatListModule,
+        MatDatepickerModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
