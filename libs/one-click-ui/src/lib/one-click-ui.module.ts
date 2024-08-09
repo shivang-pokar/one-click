@@ -29,6 +29,10 @@ import { TabSectionComponent } from './tab-section/tab-section.component';
 import { CreateProjectComponent } from './task/create-project/create-project.component';
 import { ContextMenuComponent } from './task/context-menu/context-menu.component';
 import { StatusMenuComponent } from './task/status-menu/status-menu.component';
+import { StatusMenuEditDailogComponent } from './task/status-menu-edit-dailog/status-menu-edit-dailog.component';
+import { PopupHeaderComponent } from './common-components/popup-header/popup-header.component';
+import { StatusChipComponent } from './common-components/status-chip/status-chip.component';
+import { AssignMenuComponent } from './task/assign-menu/assign-menu.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -60,7 +64,11 @@ import { StatusMenuComponent } from './task/status-menu/status-menu.component';
     TabSectionComponent,
     CreateProjectComponent,
     ContextMenuComponent,
-    StatusMenuComponent
+    StatusMenuComponent,
+    StatusMenuEditDailogComponent,
+    PopupHeaderComponent,
+    StatusChipComponent,
+    AssignMenuComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -89,7 +97,11 @@ import { StatusMenuComponent } from './task/status-menu/status-menu.component';
     TabSectionComponent,
     CreateProjectComponent,
     ContextMenuComponent,
-    StatusMenuComponent
+    StatusMenuComponent,
+    StatusMenuEditDailogComponent,
+    PopupHeaderComponent,
+    StatusChipComponent,
+    AssignMenuComponent
   ],
 })
-export class OneClickUiModule { }
+export class OneClickUiModule {}

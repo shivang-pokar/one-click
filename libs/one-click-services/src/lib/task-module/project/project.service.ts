@@ -122,6 +122,9 @@ export class ProjectService {
   }
 
   setProject(project_id: string) {
+    if (this.projectData?.id) {
+      this.socketService.leaveProject(this.projectData.id);
+    }
     this.getProjectById(project_id).subscribe(resp => {
       this.project.next(resp);
       this.projectData = resp;

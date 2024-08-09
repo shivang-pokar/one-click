@@ -143,6 +143,7 @@ export class GroupTaskService {
       if (taskList[index].deleteFlag == "Y") {
         taskList = taskList.filter(el => el.id != taskList[index].id);
       } else {
+        task = this.commonServiceService.deepClose(task);
         Object.keys(task).forEach((key: string) => {
           taskList[index][key] = task[key];
         })
@@ -167,10 +168,12 @@ export class GroupTaskService {
 
   async updateTaskDataOnly(data: any) {
     if (data.id) {
-      await this.updateTaskApi(data).toPromise();
+      await this.addUpdateTask(data, false)
       this.alertService.success(messages.TASK_UPDATE);
     }
   }
+
+
 
 
 

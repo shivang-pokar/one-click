@@ -38,12 +38,24 @@ export class SocketService {
     this.socket.emit('joinProject', projectId);
   }
 
+  leaveProjectAll() {
+    this.socket.emit('leaveAllProjects')
+  }
+
+  leaveProject(projectId: string) {
+    this.socket.emit('leaveProject', projectId)
+  }
+
   joinGroup(groupId: string) {
     this.socket.emit('joinGroup', groupId);
   }
 
-  onProjectAdded(callback: (data: any) => void) {
+  onCompanyAdded(callback: (data: any) => void) {
     this.socket.on('projectAdded', callback);
+  }
+
+  onProjectAdded(callback: (data: any) => void) {
+    this.socket.on('companyAdded', callback);
   }
 
   onTodoGroupAdded(callback: (data: any) => void) {
@@ -56,6 +68,10 @@ export class SocketService {
 
   addProject(projectData: any) {
     this.socket.emit('addProject', projectData);
+  }
+  
+  addCompany(companyData: any) {
+    this.socket.emit('addCompany', companyData);
   }
 
   addTodoGroup(groupData: any) {

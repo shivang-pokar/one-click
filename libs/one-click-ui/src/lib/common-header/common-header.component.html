@@ -39,15 +39,35 @@
         <div class="desk-name">
             {{company?.company_name}}'s Desk
         </div>
-        <!-- <mat-icon>expand_more</mat-icon> -->
     </div>
-    <ul class="pt-4">
+    <ul class="pt-4 border-bottom">
         <li [class.active]="router.url == route.url" *ngFor="let route of routerList">
             <a [routerLink]="route.url" class="d-flex align-items-center">
-                <mat-icon>{{route.icon}}</mat-icon>
+                <mat-icon class="material-icons-outlined">{{route.icon}}</mat-icon>
                 <span>{{route.label}}</span>
             </a>
         </li>
+    </ul>
+
+    <p class="header-title">Projects</p>
+    <ul>
+        <ng-container *ngIf="projects$ | async as projects">
+            <ng-container *ngIf="projects != null && projects.length > 0;">
+                <div *ngFor="let item of projects;" class="project-list">
+                    <li [class.active]="projectId == item.id">
+                        <a [routerLink]="'/projects/' + item.id" class="d-flex align-items-center">
+                            <mat-icon class="material-icons-outlined">folder</mat-icon>
+                            <span>{{item.projectName}}</span>
+                        </a>
+                    </li>
+                    <ul class="ml-4 border-left" *ngIf="projectId == item.id">
+                        <li><a [routerLink]="'/projects/' + item.id + '/todosets'">To-dos</a></li>
+                        <li><a [routerLink]="">Message Board</a></li>
+                        <li><a [routerLink]="">Docs & Files</a></li>
+                    </ul>
+                </div>
+            </ng-container>
+        </ng-container>
     </ul>
 
 

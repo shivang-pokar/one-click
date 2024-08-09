@@ -24,5 +24,9 @@ export * from './lib/task/private-notepad/private-notepad.component';
 export * from './lib/task/dashboard-task/dashboard-task.component';
 export * from './lib/task/context-menu/context-menu.component';
 export * from './lib/task/status-menu/status-menu.component';
+export * from './lib/task/status-menu-edit-dailog/status-menu-edit-dailog.component';
+export * from './lib/common-components/popup-header/popup-header.component';
+export * from './lib/common-components/status-chip/status-chip.component';
+export * from './lib/task/assign-menu/assign-menu.component';
 
 export * from './lib/pipes/validation-message/validation-message.pipe';

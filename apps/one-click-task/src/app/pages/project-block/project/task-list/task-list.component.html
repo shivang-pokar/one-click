@@ -32,7 +32,10 @@
 
                 <!-- Status -->
                 <ng-container *ngIf="item.id == 'status'">
-                    <one-click-status-menu
+                    <span>
+                        <one-click-status-chip [selectedlabelId]="task.status"></one-click-status-chip>
+                    </span>
+                    <one-click-status-menu (selectedStatus)="selectedStatus($event)"
                         class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
                 </ng-container>
 

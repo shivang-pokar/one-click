@@ -6,13 +6,15 @@
         </button>
     </h2>
 </div>
-<div mat-dialog-content class="pb-0" [formGroup]="projectForm">
-    <mat-label class="fz-14 d-flex mb-1">Project Name</mat-label>
-    <mat-form-field class="w-100 small-height light-border" appearance="fill">
-        <input matInput type="text" placeholder="Write Project Name" formControlName="projectName" cdkFocusInitial>
-    </mat-form-field>
+<div mat-dialog-content class="pb-0 pt-0" [formGroup]="projectForm">
+    <div>
+        <mat-label class="fz-14 d-flex mb-1">Project Name</mat-label>
+        <mat-form-field class="w-100 small-height light-border" appearance="fill">
+            <input matInput type="text" placeholder="Write Project Name" formControlName="projectName" cdkFocusInitial>
+        </mat-form-field>
+    </div>
 
-    <mat-label class="fz-14 d-flex mb-1">Project Description</mat-label>
+    <mat-label class="fz-14 d-flex mb-1 mt-2">Project Description</mat-label>
     <mat-form-field appearance="fill" class="light-border w-100 post-for-all small-height">
         <textarea class="fz-14" formControlName="projectDescription" matInput
             placeholder="Write Project Description"></textarea>

@@ -17,6 +17,7 @@ export class CommonServiceService {
   integration = new BehaviorSubject<Integration>(new Integration());
   company = new BehaviorSubject<Company>(new Company());
   companyData: Company;
+  labelsMap: any = {};
   user = new BehaviorSubject<Company>(new User());
   company$: Subscription;
   user$: Subscription;
@@ -77,12 +78,19 @@ export class CommonServiceService {
   }
 
   getCompany() {
-    if (!this.companyData?.id) {
-      const company_id = this.cookieService.get('company_id');
-      this.crudService.getCompanyFromId(company_id).subscribe(resp => {
-        this.companyData = resp;
-        this.company.next(resp);
-      });
+    /* if (!this.companyData?.id) {
+    } */
+    const company_id = this.cookieService.get('company_id');
+    this.crudService.getCompanyFromId(company_id).subscribe(resp => {
+      this.companyData = resp;
+      this.setLabelsInMap();
+      this.company.next(resp);
+    });
+  }
+
+  setLabelsInMap() {
+    if (this.companyData?.labels?.length) {
+      this.labelsMap = this.convertArrayToMapObj(this.companyData.labels);
     }
   }
 
@@ -172,6 +180,7 @@ export class CommonServiceService {
     try {
       await this.crudService.update('company', company, company.id);
       this.alertService.success(messages.DETAILS_UPDATED);
+      this.socketService.addCompany(company);
     }
     catch (e: any) {
       this.alertService.error(e.message);
@@ -225,15 +234,15 @@ export class CommonServiceService {
   }
 
 
-  async createLabel(labelString: string) {
-    if (labelString?.trim()) {
-      let label = new Label();
-      label.id = this.crudService.angularFirestore.createId()
-      label.labelName = labelString.trim();
-      label.background = this.generateRandomColor();
-      this.companyData.labels.push(label);
-      await this.updateCompnay(this.companyData);
-    }
+  async createLabel(labelList: { labels: Array<Label> }) {
+    labelList.labels.forEach(el => {
+      if (!el.id) {
+        el.id = this.crudService.angularFirestore.createId();
+      }
+    })
+
+    await this.crudService.setLabels(labelList).toPromise()
+    this.getCompany();
     return;
   }
 
@@ -245,6 +254,10 @@ export class CommonServiceService {
     company.masterId = this.crudService.angularFirestore.createId();
     company.timeZone = this.getTimeZone();
     return this.crudService.createCompany(company).toPromise()
+  }
+
+  getCompnayId() {
+    return this.cookieService.get('company_id');
   }
 
 }

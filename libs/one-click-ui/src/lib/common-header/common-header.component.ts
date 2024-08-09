@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Company, User } from '@one-click/data';
-import { AuthService, CommonServiceService, menuList } from '@one-click/one-click-services';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Company, Project, User } from '@one-click/data';
+import { AuthService, CommonServiceService, menuList, ProjectService } from '@one-click/one-click-services';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'one-click-common-header',
@@ -18,10 +19,16 @@ export class CommonHeaderComponent implements OnInit {
   @Input() menuAttr: any;
   menuList: any = menuList;
 
+  private projectsSubject = new BehaviorSubject<Project[]>([]);
+  projects$: Observable<Project[]> = this.projectsSubject.asObservable();
+  projectId: string;
+
   constructor(
     public router: Router,
+    public activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    public commonServiceService: CommonServiceService
+    public commonServiceService: CommonServiceService,
+    public projectService: ProjectService
   ) {
 
   }
@@ -44,10 +51,29 @@ export class CommonHeaderComponent implements OnInit {
       }
     });
 
+    if (this.menuAttr == 'task') {
+      this.getAllProject();
+      this.detectUrlChanges();
+    }
+
   }
 
   signOut() {
     this.authService.signOut();
+  }
+
+  getAllProject() {
+    this.projectId = this.activatedRoute.snapshot.paramMap.get('id') || "";
+    this.projectService.getProject().pipe(map(data => { this.projectsSubject.next(data); })).subscribe();
+  }
+
+  detectUrlChanges() {
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.projectId = this.activatedRoute.snapshot.paramMap.get('id') || "";
+      });
   }
 
 }

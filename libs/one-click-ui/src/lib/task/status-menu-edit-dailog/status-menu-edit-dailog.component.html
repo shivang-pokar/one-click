@@ -1,0 +1,49 @@
+<one-click-popup-header></one-click-popup-header>
+
+<div mat-dialog-content class="pb-0 pt-3 overflow-auto">
+    <form [formGroup]="labelForm" (ngSubmit)="onSubmit()" *ngIf="labelForm">
+        <div formArrayName="labels">
+            <ng-container *ngFor="let label of labels.controls; let i = index">
+                <div class="d-flex align-items-center mb-3" [formGroupName]="i" *ngIf="label.value.deleteFlag == 'N'">
+                    <div class="drag_indicator mr-2 d-flex align-items-center">
+                        <mat-icon>drag_indicator</mat-icon>
+                    </div>
+                    <div class="color-section d-flex align-items-center justify-content-center mr-2"
+                        style="background-color: {{label?.value?.background?.code}};" [matMenuTriggerFor]="menu">
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </div>
+
+                    <mat-menu #menu="matMenu" class="color-section-menu">
+                        <div class="d-flex align-items-center justify-content-between color-section-menu-body">
+                            <ng-container *ngFor="let color of colors">
+                                <div class="color-section-menu-item cursor-pointer"
+                                    style="background-color: {{color.code}};" (click)="selectColor(label,color)">
+                                </div>
+                            </ng-container>
+                        </div>
+
+                    </mat-menu>
+
+                    <mat-form-field class="w-100 small-height light-border" appearance="fill">
+                        <input matInput type="text" placeholder="" formControlName="labelName">
+                    </mat-form-field>
+                    <div class="close-button ml-2">
+                        <button mat-stroked-button type="button" (click)="deleteItem(label,i)">
+                            <mat-icon class="m-0">close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+
+
+</div>
+
+
+<div mat-dialog-actions class="pr-4 pl-4 pb-3" align="end">
+    <div class="d-flex align-items-center justify-content-between w-100">
+        <one-click-button (click)="addLabel()" [icon]="'add'" [buttonText]="'Add an option'"></one-click-button>
+        <one-click-button (click)="onSubmit()" class="ml-2" [buttonText]="'Save'"></one-click-button>
+    </div>
+</div>

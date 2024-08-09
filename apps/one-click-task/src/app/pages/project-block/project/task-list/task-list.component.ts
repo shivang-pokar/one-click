@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Task } from '@one-click/data';
 import { GroupTaskService, taskRow } from '@one-click/one-click-services';
 
@@ -10,7 +10,7 @@ import { GroupTaskService, taskRow } from '@one-click/one-click-services';
 })
 export class TaskListComponent implements OnInit, OnChanges {
 
-  @Input() task: any;
+  @Input() task: Task;
   @Input() newAddedTaskId: string;
   @Input() isSubTask: boolean = false;
   taskRow = taskRow;
@@ -19,6 +19,8 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   contextMenuVisible = false;
   contextMenuPosition = { x: '0px', y: '0px' };
+
+  @Output() removeNewAddedTaskId = new EventEmitter();
 
 
   constructor(
@@ -47,6 +49,7 @@ export class TaskListComponent implements OnInit, OnChanges {
   blurDescription() {
     this.showDescriptionInput = false;
     this.saveObject('description', this.task.description);
+    this.removeNewAddedTaskId.emit()
   }
 
   isNewTask() {
@@ -75,9 +78,13 @@ export class TaskListComponent implements OnInit, OnChanges {
   }
 
   saveObject(key: string, value: any) {
-    let object: any = { id: this.task.id };
+    let object: any = { id: this.task.id, group_id: this.task.group_id };
     object[key] = value;
     this.groupTaskService.updateTaskDataOnly(object);
+  }
+
+  selectedStatus(event: any) {
+    this.saveObject('status', event.id);
   }
 
 

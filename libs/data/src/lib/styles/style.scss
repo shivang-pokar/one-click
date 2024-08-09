@@ -105,6 +105,9 @@ h1 {
 .fz-14 {
     font-size: 14px !important;
 }
+.fz-16 {
+    font-size: 16px;
+}
 
 mat-icon.fz-34 {
     width: 34px;
@@ -507,6 +510,7 @@ button {
 
 .mat-mdc-menu-content .mat-mdc-menu-item .mdc-list-item__primary-text {
     font-size: 13px;
+    width: 100%;
 }
 
 .cursor-pointer {
@@ -514,7 +518,7 @@ button {
 }
 
 .mat-mdc-menu-item.mdc-list-item {
-    min-height: 32px;
+    min-height: 40px;
 }
 
 .codex-editor--narrow .codex-editor__redactor {
@@ -580,12 +584,48 @@ button {
 .status-drop-button {
     min-width: 167px;
     min-height: 37px !important;
-    .status-drop-item {
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--primary);
-        }
+}
+
+.status-drop-item {
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--primary);
+    }
+}
+
+.no-border-radius {
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 0;
+    }
+}
+
+.dot-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+.dot-squre {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background-color: var(--primary);
+}
+
+.color-section-menu {
+    max-width: 440px !important;
+    .color-section-menu-body {
+        gap: 12px;
+        padding: 12px;
+        width: 440px;
+        flex-wrap: wrap;
+    }
+    .color-section-menu-item {
+        height: 30px;
+        width: 30px;
+        border-radius: 4px;
     }
 }

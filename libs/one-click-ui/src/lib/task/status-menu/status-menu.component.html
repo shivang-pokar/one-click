@@ -1,25 +1,15 @@
 <span class="w-100 h-100 d-flex align-items-center position-absolute inner-cell-absolute" [matMenuTriggerFor]="menu">
 </span>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item class="status-drop-button">
-        <span class="d-flex align-items-center status-drop-item">
-            <span class="dot mr-2"></span>
-            <span>In Progress</span>
-        </span>
-    </button>
-    <button mat-menu-item class="status-drop-button">
-        <span class="d-flex align-items-center status-drop-item">
-            <span class="dot mr-2"></span>
-            <span>Not started</span>
-        </span>
-    </button>
-    <button mat-menu-item class="status-drop-button">
-        <span class="d-flex align-items-center status-drop-item">
-            <span class="dot mr-2"></span>
-            <span>In Progress</span>
-        </span>
-    </button>
-    <button mat-menu-item class="status-drop-button border-top">
+    <ng-container *ngFor="let label of commonServiceService?.companyData?.labels">
+        <button mat-menu-item class="status-drop-button" (click)="selectStatus(label)">
+            <span class="d-flex align-items-center status-drop-item">
+                <span style="background-color: {{label.background.code}};" class="dot mr-2"></span>
+                <span>{{label.labelName}}</span>
+            </span>
+        </button>
+    </ng-container>
+    <button mat-menu-item class="status-drop-button border-top" (click)="editDailog()">
         <span class="d-flex align-items-center status-drop-item">
             <span class="material-icons-outlined mr-2" style="font-size: 18px;">
                 tune

@@ -39,13 +39,23 @@ export const menuList = {
     "task": [
         {
             url: '/dashboard',
-            icon: 'home',
+            icon: 'home_outline',
             label: 'Home'
         },
         {
             url: '/projects',
             icon: 'folder_open',
             label: 'Projects'
+        },
+        {
+            url: '/notifications',
+            icon: 'notifications_outline',
+            label: 'Notifications'
+        },
+        {
+            url: '/members',
+            icon: 'people_outline',
+            label: 'members'
         }
     ]
 }
@@ -123,4 +133,47 @@ export const taskRow = [
         width: "170px",
         icon: "label"
     }
+]
+
+export const labelColorList = [
+    { name: "color-light-silver", code: "#eeefef" },
+    { name: "color-gray", code: "#d7d8d9" },
+    { name: "color-light-blue", code: "#f3f6fc" },
+    { name: "color-light-green", code: "#effcf2" },
+    { name: "color-turquoise", code: "#e7f9fc" },
+    { name: "color-light-cyan", code: "#dcf6fa" },
+    { name: "color-light-yellow", code: "#fffcf3" },
+    { name: "color-light-coral", code: "#f8f0eb" },
+    { name: "color-misty-rose", code: "#f3e7de" },
+    { name: "color-pale-pink", code: "#f4e3f1" },
+    { name: "color-light-blue", code: "#e1e8fc" },
+    { name: "color-mint-cream", code: "#ddf6e3" },
+    { name: "color-cyan", code: "#d0f2f8" },
+    { name: "color-turquoise", code: "#bcedf5" },
+    { name: "color-light-blue", code: "#b1eaf4" },
+    { name: "color-ivory", code: "#fef4de" },
+    { name: "color-blanched-almond", code: "#fcedc5" },
+    { name: "color-mellow-yellow", code: "#fceabb" },
+    { name: "color-peach", code: "#f5e2d2" },
+    { name: "color-pale-green", code: "#f1d6bf" },
+    { name: "color-light-goldenrod", code: "#efd0b5" },
+    { name: "color-lavender", code: "#e8d7f8" },
+    { name: "color-thistle", code: "#dfc6f5" },
+    { name: "color-plum", code: "#d9bcf3" },
+    { name: "color-orchid", code: "#f4d4ef" },
+    { name: "color-pink", code: "#f0c1e8" },
+    { name: "color-light-pink", code: "#edb7e4" },
+    { name: "color-cool-blue", code: "#c6eff7" },
+    { name: "color-silver", code: "#e2e3e4" },
+    { name: "color-light-gray", code: "#bda9a8" },
+    { name: "color-charcoal", code: "#443e42" },
+    { name: "color-black", code: "#07080f" },
+    { name: "color-light-slate", code: "#817375" },
+    { name: "color-light-sky-blue", code: "#d1def9" },
+    { name: "color-sky-blue", code: "#bdd0f6" },
+    { name: "color-powder-blue", code: "#b2c9f4" },
+    { name: "color-mint-cream", code: "#d1f3d9" },
+    { name: "color-light-mint", code: "#bdeec8" },
+    { name: "color-mint-green", code: "#b3ecbf" },
+    { name: "color-deep-sky-blue", code: "#9de3ef" }
 ]

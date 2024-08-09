@@ -11,3 +11,4 @@ export * from './lib/attr-list/attribute';
 export * from './lib/task-module/project/project.service';
 export * from './lib/socket/socket.service';
 export * from './lib/task-module/group-task/group-task.service';
+export * from './lib/task-module/status-menu/status-menu.service';

@@ -26,6 +26,21 @@ export const connectSocket = (server) => {
             console.log(`User joined project room: ${project_id}`);
         });
 
+        socket.on('leaveProject', (projectId) => {
+            socket.leave(projectId);
+            console.log(`User left project: ${projectId}`);
+        });
+
+        socket.on('leaveAllProjects', () => {
+            // Get all rooms the socket is connected to
+            for (let room of socket.rooms) {
+                if (room !== socket.id) {
+                    socket.leave(room);
+                    console.log(`User left project: ${room}`);
+                }
+            }
+        });
+
         socket.on('joinGroup', (group_id) => {
             socket.join(group_id);
             console.log(`User joined group room: ${group_id}`);
@@ -34,6 +49,11 @@ export const connectSocket = (server) => {
         socket.on('addProject', (projectData) => {
             const { company_id } = projectData;
             io.to(company_id).emit('projectAdded', projectData);
+        });
+        
+        socket.on('addCompany', (companyData) => {
+            const { id } = companyData;
+            io.to(id).emit('companyAdded', companyData);
         });
 
         socket.on('addTodoGroup', (groupData) => {

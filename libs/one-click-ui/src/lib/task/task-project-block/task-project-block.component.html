@@ -29,10 +29,12 @@
                 {{date | date}}
             </div>
         </div>
-        <span class="lable position-absolute" [matMenuTriggerFor]="menu" [class.active]="project?.label"
+        <span class="lable position-absolute" [class.active]="project?.label"
             [style.background-color]="labelMap[project.label]?.background" (click)="$event.stopPropagation()">
             <ng-container *ngIf="project?.label && labelMap && labelMap[project.label]">
                 {{labelMap[project.label].labelName}}
+                <one-click-status-menu
+                    class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
             </ng-container>
             <ng-container *ngIf="!project?.label">
                 + LABEL
@@ -41,7 +43,7 @@
     </div>
 </div>
 
-<mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+<!-- <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
     <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="label-menu">
         <div class="p-2">
             <mat-form-field class="w-100 small-height light-border border-top-0" appearance="fill">
@@ -50,10 +52,15 @@
             </mat-form-field>
         </div>
         <ng-container *ngFor="let label of labels">
-            <button mat-menu-item (click)="setLabelInProject(label.id)">
-                <span class="d-flex align-items-center">
-                    <span class="circle-color mr-2" [style.background-color]="label.background"></span>
-                    {{label.labelName}}
+            <button mat-menu-item>
+                <span class="d-flex align-items-center justify-content-between w-100">
+                    <span class="d-flex align-items-center" (click)="setLabelInProject(label.id)">
+                        <span class="circle-color mr-2" [style.background-color]="label.background"></span>
+                        {{label.labelName}}
+                    </span>
+                    <span class="d-flex align-items-center">
+                        <mat-icon class="d-flex align-items-center m-0 fz-16 cursor-pointer">edit</mat-icon>
+                    </span>
                 </span>
             </button>
         </ng-container>
@@ -62,4 +69,4 @@
             Add new
         </button>
     </div>
-</mat-menu>
+</mat-menu> -->

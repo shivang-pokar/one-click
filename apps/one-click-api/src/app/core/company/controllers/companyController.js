@@ -1,3 +1,4 @@
+import { getLabelsFromCompnayId } from '../../label/controllers/labelController';
 import Company from '../models/companyModel';
 
 export const createCompany = async (req, res) => {
@@ -37,6 +38,7 @@ export const getCompany = async (req, res) => {
     try {
         const companyId = req.params.id;
         const company = await Company.findOne({ id: companyId });
+        company.labels = await getLabelsFromCompnayId(company.id)
 
         if (!company) {
             return res.status(404).json({ error: 'Company not found' });
@@ -48,3 +50,4 @@ export const getCompany = async (req, res) => {
         res.status(500).json({ error: 'Failed to get company' });
     }
 };
+

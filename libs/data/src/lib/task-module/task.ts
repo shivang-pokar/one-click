@@ -18,6 +18,8 @@ export class Task {
     completed: boolean = false;
     project_id?: string;
     group_id?: string;
+
+    subTasks?: any;
 }
 
 export enum TaskType {

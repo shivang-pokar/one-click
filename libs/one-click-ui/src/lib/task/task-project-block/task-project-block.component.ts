@@ -41,10 +41,10 @@ export class TaskProjectBlockComponent implements OnInit {
     );
   }
 
-  async createLabel() {
+  /* async createLabel() {
     await this.commonServiceService.createLabel(this.labelListInput);
     this.labelListInput = "";
-  }
+  } */
 
   setLabelInProject(id: string) {
     this.projectService.selectLabelInProject(this.project, id);

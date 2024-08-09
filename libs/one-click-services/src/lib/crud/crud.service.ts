@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, } from '@angular/fire/compat/storage';
-import { ActivityLogs, Company, ContentWrite, PostContent, User } from '@one-click/data';
+import { ActivityLogs, Company, ContentWrite, Label, PostContent, User } from '@one-click/data';
 import { forkJoin, map } from 'rxjs';
 import * as firebase from 'firebase/compat/app';
 import "firebase/compat/database"
@@ -364,6 +364,10 @@ export class CrudService {
   }
 
 
-  /* Project */
+  /* Label */
+
+  setLabels(labelList: { labels: Array<Label> }) {
+    return this.http.post<any>(`${this.env.API_BASE_URL}/common/label-list`, labelList);
+  }
 
 }
