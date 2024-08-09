@@ -12,4 +12,5 @@ export class Company {
     stripe_created?: number;
     stripe_expires_at?: number;
     labels?: Array<any> = [];
+    email?: string
 }
