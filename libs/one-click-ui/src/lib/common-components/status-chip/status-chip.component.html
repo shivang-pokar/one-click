@@ -1,7 +1,6 @@
 <ng-container *ngIf="selectedlabelId && commonServiceService?.labelsMap[selectedlabelId]">
-    <span class="d-flex align-items-center status-drop-item">
-        <span style="background-color: {{commonServiceService?.labelsMap[selectedlabelId].background.code}};"
-            class="dot mr-2"></span>
+    <span class="d-flex align-items-center status-drop-item"
+        style="background-color: {{commonServiceService?.labelsMap[selectedlabelId].background.code}};">
         <span>{{commonServiceService?.labelsMap[selectedlabelId].labelName}}</span>
     </span>
 </ng-container>

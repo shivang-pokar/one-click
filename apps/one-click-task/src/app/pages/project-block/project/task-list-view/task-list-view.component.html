@@ -12,24 +12,36 @@
                 <span class="material-icons-outlined mr-2 group-icon">
                     text_snippet
                 </span>
-                {{group.groupName}}
+                <a href="javascript:void(0)" (click)="toggleEdit()" *ngIf="!isEditing">
+                    {{group.groupName}}
+                </a>
+
+                <mat-form-field class="w-100 small-height light-border" appearance="fill" *ngIf="isEditing">
+                    <input matInput type="text" #inputElement [(ngModel)]="group.groupName"
+                        (keydown.enter)="saveGroup()" (blur)="saveGroup()">
+                </mat-form-field>
+
             </span>
         </span>
     </div>
     <div class="d-flex row-head position-sticky align-items-center" *ngIf="group.isOpen">
         <ng-container *ngFor="let item of taskRow">
-            <div style="min-width: {{item.width}};" class="row-head-item d-flex align-items-center cursor-pointer">
-                <span class="material-icons-outlined mr-2">
-                    {{item.icon}}
-                </span>
-                {{item.label}}
-            </div>
+            <ng-container *ngIf="item.showInList">
+                <div style="min-width: {{item.width}};" class="row-head-item d-flex align-items-center cursor-pointer">
+                    <span class="material-icons-outlined mr-2">
+                        {{item.icon}}
+                    </span>
+                    {{item.label}}
+                </div>
+            </ng-container>
         </ng-container>
     </div>
 
     <ng-container *ngIf="group.isOpen">
-        <one-click-task-list *ngFor="let task of tasks" [task]="task" (removeNewAddedTaskId)="newAddedTaskId = null"
-            [newAddedTaskId]="newAddedTaskId"></one-click-task-list>
+        <ng-container *ngFor="let task of tasks">
+            <one-click-task-list [task]="task" (removeNewAddedTaskId)="newAddedTaskId = null"
+                [newAddedTaskId]="newAddedTaskId"></one-click-task-list>
+        </ng-container>
         <div class="add-item border-bottom fz-14 cursor-pointer position-relative d-flex align-items-center">
             <span class="d-flex align-items-center position-sticky add-item-child" (click)="addNew()">
                 <span class="material-icons-outlined mr-2">

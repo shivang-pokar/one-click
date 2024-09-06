@@ -1,9 +1,9 @@
 import { Component, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommonDialogComponent, ConfirmationDialogComponent, FileManagerComponent, StatusMenuEditDailogComponent } from '@one-click/one-click-ui';
+import { CommonDialogComponent, ConfirmationDialogComponent, FileManagerComponent, StatusMenuEditDailogComponent, TaskEditDialogComponent } from '@one-click/one-click-ui';
 import { CreateProjectComponent } from 'libs/one-click-ui/src/lib/task/create-project/create-project.component';
-import { Project } from '@one-click/data';
+import { Project, Task } from '@one-click/data';
 /* import { CommonDialogComponent, ConfirmationDialogComponent, FileDialogComponent } from '@one-click/one-click-ui'; */
 let message: string;
 
@@ -69,12 +69,26 @@ export class AlertService {
     return dialogRef
   }
 
-  openEditStatus() {
+  openEditStatus(type: string = 'status') {
     const dialogRef = this.dialog.open(StatusMenuEditDailogComponent, {
       width: '500px',
       height: "435px",
-      data: {},
+      data: {
+        type: type
+      }
+    });
+    return dialogRef;
+  }
 
+  openTaskEdit(task: Task) {
+    const dialogRef = this.dialog.open(TaskEditDialogComponent, {
+      width: '40vw',
+      height: '100vh',
+      position: { right: '0' },
+      panelClass: 'right-half-screen',
+      data: {
+        task: task
+      }
     });
     return dialogRef;
   }

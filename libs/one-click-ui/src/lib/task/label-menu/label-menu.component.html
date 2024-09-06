@@ -3,12 +3,15 @@
 <mat-menu #menu="matMenu">
     <ng-container *ngFor="let label of commonServiceService?.companyData?.labels">
         <ng-container *ngIf="label.type == type">
-            <button mat-menu-item class="status-drop-button" (click)="selectStatus(label)">
-                <span class="d-inline-flex align-items-center status-drop-item status-drop-item"
-                    style="background-color: {{label.background.code}};">
-                    <!-- <span  class="dot mr-2"></span> -->
-                    <span>{{label.labelName}}</span>
-                </span>
+            <button mat-menu-item class="status-drop-button pl-0"
+                (click)="$event.stopPropagation();selectStatus(label)">
+                <mat-checkbox class="example-margin" color="primary" [checked]="labelsMap[label.id]">
+                    <span class="d-inline-flex align-items-center status-drop-item status-drop-item"
+                        style="background-color: {{label.background.code}};">
+                        <span>{{label.labelName}}</span>
+                    </span>
+                </mat-checkbox>
+
             </button>
         </ng-container>
     </ng-container>

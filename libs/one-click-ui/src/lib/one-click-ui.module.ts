@@ -33,6 +33,10 @@ import { StatusMenuEditDailogComponent } from './task/status-menu-edit-dailog/st
 import { PopupHeaderComponent } from './common-components/popup-header/popup-header.component';
 import { StatusChipComponent } from './common-components/status-chip/status-chip.component';
 import { AssignMenuComponent } from './task/assign-menu/assign-menu.component';
+import { AssignChipComponent } from './task/assign-chip/assign-chip.component';
+import { LabelMenuComponent } from './task/label-menu/label-menu.component';
+import { SummaryMenuComponent } from './task/summary-menu/summary-menu.component';
+import { TaskEditDialogComponent } from './task/task-edit-dialog/task-edit-dialog.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -68,7 +72,11 @@ import { AssignMenuComponent } from './task/assign-menu/assign-menu.component';
     StatusMenuEditDailogComponent,
     PopupHeaderComponent,
     StatusChipComponent,
-    AssignMenuComponent
+    AssignMenuComponent,
+    AssignChipComponent,
+    LabelMenuComponent,
+    SummaryMenuComponent,
+    TaskEditDialogComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -101,7 +109,11 @@ import { AssignMenuComponent } from './task/assign-menu/assign-menu.component';
     StatusMenuEditDailogComponent,
     PopupHeaderComponent,
     StatusChipComponent,
-    AssignMenuComponent
+    AssignMenuComponent,
+    AssignChipComponent,
+    LabelMenuComponent,
+    SummaryMenuComponent,
+    TaskEditDialogComponent
   ],
 })
-export class OneClickUiModule {}
+export class OneClickUiModule { }

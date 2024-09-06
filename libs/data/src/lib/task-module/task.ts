@@ -6,13 +6,14 @@ export class Task {
     updatedBy?: string;
     updatedAt?: string;
     deleteFlag: string = "N";
+    taskName?: string;
     description?: string;
     status?: string;
-    assignee?: string;
+    assignee?: Array<string>;
     due?: string;
     priority?: string;
     summary?: string;
-    label?: string;
+    label?: Array<string>;
     taskType?: TaskType;
     icon?: string;
     completed: boolean = false;

@@ -1,0 +1,4 @@
+
+<ng-container *ngFor="let team of teamListInTask;let i = index">
+    <span *ngIf="i > 0">,</span> {{teamListMap[team].name}}
+</ng-container>

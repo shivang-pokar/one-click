@@ -28,7 +28,9 @@ export class StatusMenuEditDailogComponent {
     });
 
     this.commonServiceService.companyData.labels.forEach(el => {
-      this.addLabel(el);
+      if (el.type == this.data.type) {
+        this.addLabel(el);
+      }
     })
 
   }
@@ -47,7 +49,8 @@ export class StatusMenuEditDailogComponent {
       createdAt: [label.createdAt || ''],
       updatedBy: [label.updatedBy || ''],
       updatedAt: [label.updatedAt || ''],
-      deleteFlag: [label.deleteFlag || 'N']
+      deleteFlag: [label.deleteFlag || 'N'],
+      type: [this.data.type || "status"]
     });
   }
 

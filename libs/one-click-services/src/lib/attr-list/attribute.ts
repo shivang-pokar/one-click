@@ -89,49 +89,64 @@ export const taskRow = [
         id: "checkbox",
         label: "",
         width: "90px",
-        icon: ""
+        icon: "",
+        showInList: true
     },
     {
         id: "description",
         label: "Description",
         width: "500px",
-        icon: "description"
+        icon: "description",
+        showInList: false
+    },
+    {
+        id: "taskName",
+        label: "Task Name",
+        width: "500px",
+        icon: "description",
+        showInList: true
     },
     {
         id: "status",
         label: "Status",
         width: "170px",
-        icon: "radar"
+        icon: "radar",
+        showInList: true
     },
     {
         id: "assignee",
         label: "Assignee",
         width: "170px",
-        icon: "group"
+        icon: "group",
+        showInList: true
     },
     {
         id: "due",
         label: "Due",
         width: "170px",
-        icon: "event"
+        icon: "event",
+        showInList: true
     },
     {
         id: "priority",
         label: "Priority",
         width: "170px",
-        icon: "arrow_drop_down_circle"
+        icon: "arrow_drop_down_circle",
+        showInList: true
     },
     {
         id: "summary",
         label: "Summary",
         width: "250px",
-        icon: "subject"
+        icon: "subject",
+        showInList: true
     },
     {
         id: "label",
         label: "Label",
         width: "170px",
-        icon: "label"
+        icon: "label",
+        showInList: true
     }
 ]
 

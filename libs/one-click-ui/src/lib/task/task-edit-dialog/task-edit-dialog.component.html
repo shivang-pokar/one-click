@@ -1,0 +1,180 @@
+<div class="header-section d-flex align-items-center justify-content-between pl-3 pr-3 border-bottom">
+
+    <!-- <one-click-button [typeSmall]="true" [icon]="'done'" [buttonText]="'Mark complete'"></one-click-button> -->
+    <mat-checkbox class="example-margin" color="primary">Mark complete</mat-checkbox>
+
+    <div class="d-flex align-items-center header-section-dailog">
+
+        <mat-icon aria-hidden="false" class="d-flex align-items-center mr-3" [matMenuTriggerFor]="menu"
+            matTooltip="Attach files" aria-label="Example home icon">attach_file</mat-icon>
+
+        <mat-icon aria-hidden="false" class="d-flex align-items-center  mr-3" [matMenuTriggerFor]="menu"
+            matTooltip="More" aria-label="Example home icon">more_horiz</mat-icon>
+
+        <mat-icon class="d-flex align-items-center " mat-dialog-close aria-hidden="false" matTooltip="Close"
+            aria-label="Example home icon">last_page</mat-icon>
+
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>
+                <div class="d-flex align-item-center">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                        style="font-size: 18px;">
+                        check_box_outline_blank
+                    </span>
+                    Mark complete
+                </div>
+            </button>
+
+            <button mat-menu-item>
+                <div class="d-flex align-item-center">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                        style="font-size: 18px;">
+                        content_copy
+                    </span>
+                    Duplicate
+                </div>
+            </button>
+
+            <button mat-menu-item>
+                <div class="d-flex align-item-center">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                        style="font-size: 18px;">
+                        link
+                    </span>
+                    Copy Link
+                </div>
+            </button>
+
+            <button mat-menu-item class="border-top">
+                <div class="d-flex align-item-center" style="color: rgb(235, 87, 87);">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
+                        style="font-size: 21px;">
+                        delete
+                    </span>
+                    Delete
+                </div>
+            </button>
+
+        </mat-menu>
+
+    </div>
+
+</div>
+<div class="task-section p-4 pt-2">
+    <mat-form-field class="w-100 mb-3" (keydown.enter)="$event.preventDefault()">
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkFocusInitial
+            (blur)="blurDescription()" [(ngModel)]="data.task.taskName" placeholder="Write a task name"
+            cdkAutosizeMaxRows="10"></textarea>
+    </mat-form-field>
+
+    <ng-container *ngFor="let taskColumn of taskRow">
+        <ng-container *ngIf="
+        taskColumn.id == 'status' || 
+        taskColumn.id == 'assignee' || 
+        taskColumn.id == 'due' || 
+        taskColumn.id == 'priority' || 
+        taskColumn.id == 'summary' || 
+        taskColumn.id == 'label'
+        ">
+            <div class="d-flex">
+                <div class="col-4 row-head-item d-flex align-items-center">
+                    <span class="material-icons-outlined mr-2">
+                        {{taskColumn.icon}}
+                    </span>
+                    {{taskColumn.label}}
+                </div>
+                <div class="col-6 position-relative d-flex align-items-center item-section pl-2 cursor-pointer">
+
+                    <ng-container *ngIf="taskColumn.id == 'status'">
+                        <span>
+                            <one-click-status-chip [selectedlabelId]="data.task.status"></one-click-status-chip>
+                        </span>
+                        <one-click-status-menu (selectedStatus)="selectedStatus($event)" [type]="'status'"
+                            class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
+                    </ng-container>
+
+                    <ng-container *ngIf="taskColumn.id == 'assignee'">
+                        <span *ngIf="commonServiceService?.teamListData?.length">
+                            <ng-container *ngIf="!data.task.assignee.length">
+                                Blank
+                            </ng-container>
+                            <one-click-assign-chip [teamListInTask]="data?.task?.assignee"></one-click-assign-chip>
+                        </span>
+                        <one-click-assign-menu class="d-flex w-100 h-100 position-absolute inner-cell-absolute"
+                            (assigneeList)="assigneeList($event)"
+                            [teamListInTask]="data?.task?.assignee"></one-click-assign-menu>
+                    </ng-container>
+
+                    <ng-container *ngIf="taskColumn.id == 'due'">
+                        <span class="w-100 h-100 d-flex align-items-center position-absolute inner-cell-absolute"
+                            (click)="picker.open()">
+                            {{data.task.due | date}}
+                        </span>
+                        <input matInput [matDatepicker]="picker" class="opacity-0 viability-hidden" style="width: 0;"
+                            [(ngModel)]="data.task.due" (dateChange)="saveObject('due',data.task.due)">
+                        <mat-datepicker #picker></mat-datepicker>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="taskColumn.id == 'priority'">
+                        <span>
+                            <one-click-status-chip [selectedlabelId]="data.task.priority"></one-click-status-chip>
+                        </span>
+                        <one-click-status-menu (selectedStatus)="selectedPriority($event)" [type]="'priority'"
+                            class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
+                    </ng-container>
+
+                    <ng-container *ngIf="taskColumn.id == 'summary'">
+                        <span class="d-flex w-100 text-nowrap overflow-hidden">
+                            {{data.task.summary || 'Blank'}}
+                        </span>
+                        <one-click-summary-menu [summary]="data.task.summary"
+                            (saveSummery)="saveSummery($event)"></one-click-summary-menu>
+                    </ng-container>
+
+                    <ng-container *ngIf="taskColumn.id == 'label'">
+                        <span class="d-flex">
+
+                            <ng-container *ngIf="!data?.task?.label?.length">Blank</ng-container>
+
+                            <ng-container *ngFor="let label of data.task.label">
+                                <one-click-status-chip class="mr-2" [selectedlabelId]="label"></one-click-status-chip>
+                            </ng-container>
+
+                        </span>
+                        <one-click-label-menu [labels]="data.task.label"
+                            (labelsList)="labelsList($event)"></one-click-label-menu>
+                    </ng-container>
+
+                </div>
+            </div>
+
+        </ng-container>
+    </ng-container>
+
+    <div class="d-flex align-items-center comment-section mb-3 pt-2 border-top mt-3 border-bottom pb-2 pl-2">
+        <span class="user_icon d-flex align-items-center justify-content-center">
+            S
+        </span>
+        <mat-form-field class="w-100 d-flex" (keydown.enter)="$event.preventDefault()">
+            <textarea style="font-size: 14px !important;" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                (keydown.enter)="createComment()" cdkAutosizeMinRows="1" placeholder="Add a comment..."
+                cdkAutosizeMaxRows="12"></textarea>
+        </mat-form-field>
+    </div>
+
+
+    <div class="d-flex flex-wrap">
+        <div class="col-4 row-head-item d-flex align-items-center">
+            <span class="material-icons-outlined mr-2">
+                {{taskRowMap['description'].icon}}
+            </span>
+            Description
+        </div>
+        <div class="col-12 p-3 description">
+            <div class="editor" id="editor">
+
+            </div>
+        </div>
+    </div>
+</div>

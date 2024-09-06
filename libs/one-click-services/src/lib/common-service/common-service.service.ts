@@ -8,6 +8,17 @@ import { AlertService } from '../alert/alert.service';
 import _ from 'lodash';
 import { labelList } from '../attr-list/attribute';
 import { SocketService } from '../socket/socket.service';
+import EditorJS from '@editorjs/editorjs';
+// @ts-ignore
+import Header from '@editorjs/header';
+// @ts-ignore
+import Checklist from '@editorjs/checklist';
+// @ts-ignore
+import Table from '@editorjs/table';
+// @ts-ignore
+import Quote from '@editorjs/quote';
+// @ts-ignore
+import NestedList from '@editorjs/nested-list';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +28,8 @@ export class CommonServiceService {
   integration = new BehaviorSubject<Integration>(new Integration());
   company = new BehaviorSubject<Company>(new Company());
   companyData: Company;
+  teamList = new BehaviorSubject<Array<Company>>([]);
+  teamListData: Array<User> = [];
   labelsMap: any = {};
   user = new BehaviorSubject<Company>(new User());
   company$: Subscription;
@@ -61,6 +74,7 @@ export class CommonServiceService {
       await this.getUser(userId);
       this.getCompany();
       this.getIntegration();
+      this.getUserList();
       return;
     }
     catch (e) {
@@ -258,6 +272,53 @@ export class CommonServiceService {
 
   getCompnayId() {
     return this.cookieService.get('company_id');
+  }
+
+  getUserList() {
+    const company_id = this.getCompnayId();
+    this.crudService.getUserFromCompanyId(company_id).subscribe(resp => {
+      this.teamListData = resp;
+      this.teamList.next(resp);
+    })
+
+  }
+
+  editorJS(placeholder: string) {
+    return new EditorJS({
+      holder: 'editor',
+      placeholder: placeholder,
+      hideToolbar: false,
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: ['link']
+        },
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+        table: {
+          class: Table,
+          inlineToolbar: true
+        },
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder: 'Quote\'s author',
+          },
+        },
+        list: {
+          class: NestedList,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered'
+          },
+        },
+      }
+      // Your configuration options for Editor.js
+    });
   }
 
 }

@@ -1,0 +1,9 @@
+<span class="w-100 h-100 d-flex align-items-center position-absolute inner-cell-absolute" [matMenuTriggerFor]="menu">
+</span>
+<mat-menu #menu="matMenu">
+    <mat-form-field class="task-input p-0 border-0 textarea-item summery-textarea">
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" class="w-100" [(ngModel)]="summary"
+            (click)="$event.stopPropagation()" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+            (blur)="saveSummery.emit(summary)" (keydown)="$event.stopPropagation()" name="" id=""></textarea>
+    </mat-form-field>
+</mat-menu>

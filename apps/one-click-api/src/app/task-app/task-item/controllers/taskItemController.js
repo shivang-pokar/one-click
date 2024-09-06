@@ -27,6 +27,7 @@ export const updateTask = async (req, res) => {
         }
         res.status(200).json({ message: 'Task updated successfully', task });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Failed to update task' });
     }
 };

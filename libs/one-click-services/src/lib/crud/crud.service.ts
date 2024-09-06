@@ -352,6 +352,10 @@ export class CrudService {
     return this.http.get<any>(`${this.env.API_BASE_URL}/common/users/${id}`);
   }
 
+  getUserFromCompanyId(company_id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/common/users-by-company/${company_id}`);
+  }
+
 
   /* Company */
 

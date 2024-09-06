@@ -12,6 +12,7 @@ const labelSchema = new mongoose.Schema({
     createdAt: { type: String },
     updatedBy: { type: String },
     updatedAt: { type: String },
+    type: { type: String }, // status, priority
     deleteFlag: { type: String, required: true },
 }, { collection: 'label' });
 

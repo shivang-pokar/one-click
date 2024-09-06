@@ -10,7 +10,7 @@ export class StatusMenuService {
     private alertService: AlertService
   ) { }
 
-  openEditStatus() {
-    this.alertService.openEditStatus();
+  openEditStatus(type: string = 'status') {
+    this.alertService.openEditStatus(type);
   }
 }

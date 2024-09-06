@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Task } from '@one-click/data';
-import { GroupTaskService, taskRow } from '@one-click/one-click-services';
+import { AlertService, CommonServiceService, GroupTaskService, taskRow } from '@one-click/one-click-services';
 
 @Component({
   selector: 'one-click-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  /* changeDetection: ChangeDetectionStrategy.OnPush, */
 })
 export class TaskListComponent implements OnInit, OnChanges {
 
@@ -24,7 +24,9 @@ export class TaskListComponent implements OnInit, OnChanges {
 
 
   constructor(
-    public groupTaskService: GroupTaskService
+    public groupTaskService: GroupTaskService,
+    public commonServiceService: CommonServiceService,
+    public alertService: AlertService
   ) {
 
   }
@@ -48,7 +50,7 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   blurDescription() {
     this.showDescriptionInput = false;
-    this.saveObject('description', this.task.description);
+    this.saveObject('taskName', this.task.taskName);
     this.removeNewAddedTaskId.emit()
   }
 
@@ -85,6 +87,26 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   selectedStatus(event: any) {
     this.saveObject('status', event.id);
+  }
+
+  selectedPriority(event: any) {
+    this.saveObject('priority', event.id);
+  }
+
+  assigneeList(event: any) {
+    this.saveObject('assignee', event);
+  }
+
+  labelsList(event: any) {
+    this.saveObject('label', event);
+  }
+
+  saveSummery(event: any) {
+    this.saveObject('summary', event);
+  }
+
+  openTask() {
+    this.alertService.openTaskEdit(this.task)
   }
 
 

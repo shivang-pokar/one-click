@@ -47,3 +47,19 @@ export const getUser = async (req, res) => {
         res.status(500).json({ error: 'Failed to get user' });
     }
 };
+
+export const getUserListByCompnay = async (req, res) => {
+    try {
+        const company_id = req.params.company_id;
+        const userList = await User.find({ company_id: company_id });
+
+        if (!userList?.length) {
+            return res.status(404).json({ error: 'User list not found' });
+        } else {
+            res.status(200).json(userList);
+        }
+    } catch (error) {
+        console.error('Error getting user:', error);
+        res.status(500).json({ error: 'Failed to get user' });
+    }
+}

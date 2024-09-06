@@ -29,6 +29,8 @@ import { ProjectHeaderComponent } from './pages/project-block/project/project-he
 import { TaskListComponent } from './pages/project-block/project/task-list/task-list.component';
 import { TaskListViewComponent } from './pages/project-block/project/task-list-view/task-list-view.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MessageBoardComponent } from './pages/project-block/project/message-board/message-board.component';
 
 @NgModule({
     imports: [
@@ -62,12 +64,14 @@ import { MatNativeDateModule } from '@angular/material/core';
         FullCalendarModule,
         MatListModule,
         MatNativeDateModule,
+        TextFieldModule
     ],
     declarations: [
         ProjectHomeComponent,
         ProjectHeaderComponent,
         TaskListComponent,
-        TaskListViewComponent
+        TaskListViewComponent,
+        MessageBoardComponent
     ],
     exports: [
         FormsModule,
@@ -102,6 +106,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         TaskListComponent,
         TaskListViewComponent,
         MatNativeDateModule,
+        TextFieldModule,
+        MessageBoardComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

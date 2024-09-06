@@ -91,7 +91,7 @@ export class GroupTaskService {
     const company_id = this.cookieService.get('company_id');
     const project_id = this.commonServiceService.projectData.id;
     let task = new Task();
-    task.description = "Task";
+    task.taskName = "Task";
     task.company_id = company_id;
     task.project_id = project_id;
     task.group_id = group_id;

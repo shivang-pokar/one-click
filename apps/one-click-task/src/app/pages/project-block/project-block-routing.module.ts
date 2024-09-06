@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectBlockComponent } from './project-block.component';
 import { ProjectHomeComponent } from './project/project-home/project-home.component';
+import { MessageBoardComponent } from './project/message-board/message-board.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'todosets',
         component: ProjectHomeComponent,
+      },
+      {
+        path: 'message-board',
+        component: MessageBoardComponent,
       }
     ]
   }

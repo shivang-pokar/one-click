@@ -1,13 +1,13 @@
 <div class="task">
     <div class="d-flex align-items-center cell-section position-relative" (contextmenu)="onRightClick($event)">
         <ng-container *ngFor="let item of taskRow;let i = index;">
-            <div class="cell-item d-flex align-items-center {{item.id}} position-relative"
-                style="width: {{item.width}};" [class.pl-2]="item.id == 'description'"
+            <div class="cell-item d-flex align-items-center {{item.id}} position-relative" *ngIf="item.showInList"
+                style="width: {{item.width}};" [class.pl-2]="item.id == 'taskName'"
                 [class.border-0]="(taskRow?.length - 1) == i">
 
                 <!-- Checkbox -->
                 <ng-container *ngIf="item.id == 'checkbox'">
-                    <span class="d-flex">
+                    <span class="d-flex opacity-0">
                         <span class="material-icons-outlined">
                             arrow_right
                         </span>
@@ -18,16 +18,28 @@
                     </span>
                 </ng-container>
 
-                <!-- Description -->
-                <ng-container *ngIf="item.id == 'description'">
-                    <span [style.width]="isSubTask ? '20px' : '0px'"></span>
-                    <span class="position-absolute w-100 h-100" style="left: 0; top: 0;" *ngIf="showDescriptionInput">
-                        <input #myInput type="text" class="w-100 h-100" [value]="task[item.id]"
-                            [(ngModel)]="task.description" (keyup.enter)="blurDescription()" (blur)="blurDescription()">
-                    </span>
-                    <span *ngIf="!showDescriptionInput" (click)="focusInput()">
-                        {{ task[item.id] }}
-                    </span>
+                <!-- Task Name -->
+                <ng-container *ngIf="item.id == 'taskName'">
+                    <div class="d-flex align-item-center justify-content-between w-100 description-item">
+                        <span>
+                            <span [style.width]="isSubTask ? '20px' : '0px'"></span>
+                            <span class="position-absolute w-100 h-100" style="left: 0; top: 0;"
+                                *ngIf="showDescriptionInput">
+                                <input #myInput type="text" class="task-input w-100 h-100" [value]="task[item.id]"
+                                    [(ngModel)]="task.taskName" (keyup.enter)="blurDescription()"
+                                    (blur)="blurDescription()">
+                            </span>
+                            <span *ngIf="!showDescriptionInput" (click)="focusInput()">
+                                {{ task[item.id] }}
+                            </span>
+                        </span>
+                        <span class="open-icon-for-task d-flex align-items-center" (click)="openTask()">
+                            <span class="material-icons-outlined d-flex align-items-center justify-content-center">
+                                open_in_new
+                            </span>
+                            <!-- OPEN -->
+                        </span>
+                    </div>
                 </ng-container>
 
                 <!-- Status -->
@@ -35,8 +47,35 @@
                     <span>
                         <one-click-status-chip [selectedlabelId]="task.status"></one-click-status-chip>
                     </span>
-                    <one-click-status-menu (selectedStatus)="selectedStatus($event)"
+                    <one-click-status-menu (selectedStatus)="selectedStatus($event)" [type]="'status'"
                         class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
+                </ng-container>
+
+                <ng-container *ngIf="item.id == 'assignee'">
+                    <span *ngIf="commonServiceService?.teamListData?.length">
+                        <one-click-assign-chip [teamListInTask]="task.assignee"></one-click-assign-chip>
+                    </span>
+                    <one-click-assign-menu class="d-flex w-100 h-100 position-absolute inner-cell-absolute"
+                        [teamListInTask]="task.assignee" (assigneeList)="assigneeList($event)"></one-click-assign-menu>
+                </ng-container>
+
+                <ng-container *ngIf="item.id == 'priority'">
+                    <span>
+                        <one-click-status-chip [selectedlabelId]="task.priority"></one-click-status-chip>
+                    </span>
+                    <one-click-status-menu (selectedStatus)="selectedPriority($event)" [type]="'priority'"
+                        class="d-flex w-100 h-100 position-absolute inner-cell-absolute"></one-click-status-menu>
+                </ng-container>
+
+                <ng-container *ngIf="item.id == 'label'">
+                    <span class="d-flex">
+                        <ng-container *ngFor="let label of task.label">
+                            <one-click-status-chip class="mr-2" [selectedlabelId]="label"></one-click-status-chip>
+                        </ng-container>
+
+                    </span>
+                    <one-click-label-menu [labels]="task.label"
+                        (labelsList)="labelsList($event)"></one-click-label-menu>
                 </ng-container>
 
                 <!-- Due -->
@@ -48,6 +87,14 @@
                     <input matInput [matDatepicker]="picker" class="opacity-0 viability-hidden" style="width: 0;"
                         [(ngModel)]="task.due" (dateChange)="saveObject('due',task.due)">
                     <mat-datepicker #picker></mat-datepicker>
+                </ng-container>
+
+                <ng-container *ngIf="item.id == 'summary'">
+                    <span class="d-flex w-100 text-nowrap overflow-hidden">
+                        {{task.summary}}
+                    </span>
+                    <one-click-summary-menu [summary]="task.summary"
+                        (saveSummery)="saveSummery($event)"></one-click-summary-menu>
                 </ng-container>
 
             </div>

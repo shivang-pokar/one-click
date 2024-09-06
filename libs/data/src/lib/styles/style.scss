@@ -122,6 +122,22 @@ mat-icon.fz-34 {
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple {
     display: none !important;
 }
+
+.mat-form-field-appearance-fill.border-0 .mdc-text-field {
+    border: 0;
+}
+
+.summery-textarea {
+    font-size: 14px;
+}
+
+.summery-textarea
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea)
+    .mat-mdc-form-field-infix {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .mat-form-field-appearance-fill .mdc-text-field {
     border: 1px solid rgba(var(--primary-rgb), 0.5);
     border-radius: 12px !important;
@@ -627,5 +643,58 @@ button {
         height: 30px;
         width: 30px;
         border-radius: 4px;
+    }
+}
+
+.task-input {
+    border-radius: 6px;
+    background: var(--white);
+    backdrop-filter: none;
+    position: relative;
+    box-shadow:
+        rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+        rgba(15, 15, 15, 0.1) 0px 3px 6px,
+        rgba(15, 15, 15, 0.2) 0px 9px 24px;
+    border: 0;
+    outline: none;
+    padding: 0px 9px;
+}
+
+.right-half-screen {
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+}
+
+.open-icon-for-task {
+    border-radius: 3px;
+    background: var(--white);
+    backdrop-filter: none;
+    position: relative;
+    box-shadow:
+        rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+        rgba(15, 15, 15, 0.1) 0px 2px 4px;
+    border: 0;
+    outline: none;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 11px;
+    span {
+        font-size: 16px;
+        width: 19px;
+        height: 25px;
+    }
+}
+
+one-click-task-edit-dialog {
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-bottom: 6px;
+        padding-top: 6px;
+    }
+    .mat-mdc-form-field-infix {
+        min-height: 40px;
+    }
+    .mat-form-field-appearance-fill .mdc-text-field {
+        border: 0;
     }
 }

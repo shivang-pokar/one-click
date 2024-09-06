@@ -1,1 +1,16 @@
-<p>assign-menu works!</p>
+<span class="w-100 h-100 d-flex align-items-center position-absolute inner-cell-absolute" [matMenuTriggerFor]="menu">
+</span>
+<mat-menu #menu="matMenu">
+    <input class="search-team border-bottom pl-2 pr-2 w-100" placeholder="Search Team" type="text" name=""
+        (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" id="">
+    <ng-container *ngFor="let team of commonServiceService?.teamListData">
+        <button mat-menu-item class="status-drop-button p-0" (click)="$event.stopPropagation();">
+            <mat-checkbox class="example-margin" color="primary" [checked]="teamListMap[team.id]"
+                (click)="selectTeam(team)">
+                <span class="d-flex align-items-center status-drop-item">
+                    <span>{{team.name}}</span>
+                </span>
+            </mat-checkbox>
+        </button>
+    </ng-container>
+</mat-menu>

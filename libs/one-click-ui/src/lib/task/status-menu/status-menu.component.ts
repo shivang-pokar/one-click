@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonServiceService, StatusMenuService } from '@one-click/one-click-services';
 
 @Component({
@@ -8,7 +8,9 @@ import { CommonServiceService, StatusMenuService } from '@one-click/one-click-se
 })
 export class StatusMenuComponent implements OnInit {
 
-  @Output() selectedStatus = new EventEmitter()
+  @Output() selectedStatus = new EventEmitter();
+
+  @Input() type: string = "status";
 
   constructor(
     public statusMenuService: StatusMenuService,
@@ -22,7 +24,7 @@ export class StatusMenuComponent implements OnInit {
   }
 
   editDailog() {
-    this.statusMenuService.openEditStatus();
+    this.statusMenuService.openEditStatus(this.type);
   }
 
   selectStatus(label: any) {
