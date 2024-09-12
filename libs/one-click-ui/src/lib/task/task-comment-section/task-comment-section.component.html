@@ -1,0 +1,63 @@
+<div class="mb-3 pt-2 border-top mt-3 border-bottom pb-2">
+    <ng-container *ngFor="let comment of commentList;let i = index;">
+        <ng-container *ngIf="comment.createdBy">
+            <div class="d-flex align-items-baseline comment-section pl-2 mb-3">
+                <span class="user_icon d-flex align-items-center justify-content-center">
+                    S
+                </span>
+                <p class="d-flex m-0 flex-column position-relative w-100">
+                    <span class="user_name">
+                        {{teamListDataMap[comment.createdBy].name}}
+                    </span>
+                    <span class="user_comment">
+                        <ng-container *ngIf="!comment.showInput">
+                            {{comment.comment}}
+                        </ng-container>
+
+                        <ng-container *ngIf="comment.showInput">
+                            <input type="text" #commentInput [(ngModel)]="comment.comment" class="w-100"
+                                (blur)="saveComment(comment)" (keydown.enter)="saveComment(comment)" />
+                        </ng-container>
+                    </span>
+                    <span class="position-absolute" style="right: 0; top: 0;">
+                        <mat-icon aria-hidden="false" class="d-flex align-items-center fz-18" [matMenuTriggerFor]="menu"
+                            matTooltip="More actions" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editComment(comment)">
+                                <div class="d-flex align-item-center">
+                                    <span
+                                        class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-18">
+                                        edit
+                                    </span>
+                                    Edit
+                                </div>
+                            </button>
+
+                            <button mat-menu-item class="border-top" (click)="delete(comment)">
+                                <div class="d-flex align-item-center delete-color">
+                                    <span
+                                        class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-21">
+                                        delete
+                                    </span>
+                                    Delete
+                                </div>
+                            </button>
+                        </mat-menu>
+                    </span>
+                </p>
+
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <div class="d-flex align-items-center comment-section pl-2">
+        <span class="user_icon d-flex align-items-center justify-content-center">
+            S
+        </span>
+        <mat-form-field class="w-100 d-flex" (keydown.enter)="$event.preventDefault()">
+            <textarea #comment style="font-size: 14px !important;" matInput cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize" (keydown.enter)="createComment(comment)" cdkAutosizeMinRows="1"
+                placeholder="Add a comment..." cdkAutosizeMaxRows="12"></textarea>
+        </mat-form-field>
+    </div>
+</div>

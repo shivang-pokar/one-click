@@ -1,6 +1,5 @@
 <div class="header-section d-flex align-items-center justify-content-between pl-3 pr-3 border-bottom">
 
-    <!-- <one-click-button [typeSmall]="true" [icon]="'done'" [buttonText]="'Mark complete'"></one-click-button> -->
     <mat-checkbox class="example-margin" color="primary">Mark complete</mat-checkbox>
 
     <div class="d-flex align-items-center header-section-dailog">
@@ -27,8 +26,7 @@
 
             <button mat-menu-item>
                 <div class="d-flex align-item-center">
-                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-18">
                         content_copy
                     </span>
                     Duplicate
@@ -37,8 +35,7 @@
 
             <button mat-menu-item>
                 <div class="d-flex align-item-center">
-                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-18">
                         link
                     </span>
                     Copy Link
@@ -46,15 +43,13 @@
             </button>
 
             <button mat-menu-item class="border-top">
-                <div class="d-flex align-item-center" style="color: rgb(235, 87, 87);">
-                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
-                        style="font-size: 21px;">
+                <div class="d-flex align-item-center delete-color">
+                    <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-21">
                         delete
                     </span>
                     Delete
                 </div>
             </button>
-
         </mat-menu>
 
     </div>
@@ -152,16 +147,9 @@
         </ng-container>
     </ng-container>
 
-    <div class="d-flex align-items-center comment-section mb-3 pt-2 border-top mt-3 border-bottom pb-2 pl-2">
-        <span class="user_icon d-flex align-items-center justify-content-center">
-            S
-        </span>
-        <mat-form-field class="w-100 d-flex" (keydown.enter)="$event.preventDefault()">
-            <textarea style="font-size: 14px !important;" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                (keydown.enter)="createComment()" cdkAutosizeMinRows="1" placeholder="Add a comment..."
-                cdkAutosizeMaxRows="12"></textarea>
-        </mat-form-field>
-    </div>
+    <one-click-task-comment-section [task_id]="data.task.id"></one-click-task-comment-section>
+
+
 
 
     <div class="d-flex flex-wrap">

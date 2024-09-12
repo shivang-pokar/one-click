@@ -29,5 +29,6 @@ export * from './lib/common-components/popup-header/popup-header.component';
 export * from './lib/common-components/status-chip/status-chip.component';
 export * from './lib/task/assign-menu/assign-menu.component';
 export * from './lib/task/task-edit-dialog/task-edit-dialog.component';
+export * from './lib/task/task-comment-section/task-comment-section.component';
 
 export * from './lib/pipes/validation-message/validation-message.pipe';

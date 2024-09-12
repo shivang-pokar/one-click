@@ -1,14 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CommonServiceService, GroupTaskService, taskRow } from '@one-click/one-click-services';
+import { CommonServiceService, GroupTaskService, SocketService, taskRow } from '@one-click/one-click-services';
 import EditorJS from '@editorjs/editorjs';
+import { Comments } from '@one-click/data';
 
 @Component({
   selector: 'one-click-task-edit-dialog',
   templateUrl: './task-edit-dialog.component.html',
   styleUrls: ['./task-edit-dialog.component.scss'],
 })
-export class TaskEditDialogComponent implements OnInit {
+export class TaskEditDialogComponent implements OnInit, OnDestroy {
 
   taskRow = taskRow;
   taskRowMap: any = {};
@@ -18,15 +19,18 @@ export class TaskEditDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<TaskEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public commonServiceService: CommonServiceService,
-    public groupTaskService: GroupTaskService
+    public groupTaskService: GroupTaskService,
+    public socketService: SocketService
   ) {
 
   }
 
   ngOnInit(): void {
     this.editor = this.commonServiceService.editorJS("What is this task about?");
-    this.taskRowMap = this.commonServiceService.convertArrayToMapObj(this.taskRow)
+    this.taskRowMap = this.commonServiceService.convertArrayToMapObj(this.taskRow);
+    
   }
+
 
   assigneeList(event: any) {
     this.saveObject('assignee', event);
@@ -58,8 +62,9 @@ export class TaskEditDialogComponent implements OnInit {
     this.saveObject('taskName', this.data.task.taskName);
   }
 
-  createComment() {
-    console.log('Test')
+
+  ngOnDestroy(): void {
+    
   }
 
 }

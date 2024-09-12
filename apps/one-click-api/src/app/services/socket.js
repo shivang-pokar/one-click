@@ -31,6 +31,11 @@ export const connectSocket = (server) => {
             console.log(`User left project: ${projectId}`);
         });
 
+        socket.on('leaveComments', (task_id) => {
+            socket.leave(task_id);
+            console.log(`User left Comments: ${task_id}`);
+        });
+
         socket.on('leaveAllProjects', () => {
             // Get all rooms the socket is connected to
             for (let room of socket.rooms) {
@@ -46,11 +51,16 @@ export const connectSocket = (server) => {
             console.log(`User joined group room: ${group_id}`);
         });
 
+        socket.on('joinComments', (task_id) => {
+            socket.join(task_id);
+            console.log(`User joined comments: ${task_id}`);
+        });
+
         socket.on('addProject', (projectData) => {
             const { company_id } = projectData;
             io.to(company_id).emit('projectAdded', projectData);
         });
-        
+
         socket.on('addCompany', (companyData) => {
             const { id } = companyData;
             io.to(id).emit('companyAdded', companyData);
@@ -63,8 +73,12 @@ export const connectSocket = (server) => {
 
         socket.on('addTodoTask', (taskData) => {
             const { group_id } = taskData;
-            console.log(group_id)
             io.to(group_id).emit('todoTaskAdded', taskData);
+        });
+
+        socket.on('addTodoComments', (commentsData) => {
+            const { task_id } = commentsData;
+            io.to(task_id).emit('todoCommentsAdded', commentsData);
         });
 
         socket.on('disconnect', () => {

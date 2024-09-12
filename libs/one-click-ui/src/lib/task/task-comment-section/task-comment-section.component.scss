@@ -1,0 +1,35 @@
+textarea {
+    font-size: 14px;
+}
+
+.comment-section {
+    mat-form-field,
+    p {
+        max-width: calc(100% - 40px);
+    }
+    p {
+        padding: 0 16px;
+        color: var(--primary);
+
+        .user_comment {
+            color: var(--light-font);
+            input {
+                border: 0;
+            }
+        }
+
+        .user_name {
+            line-height: 26px;
+        }
+    }
+}
+
+.user_icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--light-border);
+    background: var(--white);
+    color: var(--light-font);
+    font-size: 10px;
+}

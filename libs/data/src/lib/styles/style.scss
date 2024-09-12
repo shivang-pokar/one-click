@@ -59,6 +59,7 @@ $theme: mat-light-theme($primary, $accent);
     --light-border: #e0e0e0;
     --facebook: #4267b2;
     --danger: #f44336;
+    --delete-button: rgb(235, 87, 87);
     --danger-rgb: 244, 67, 54;
     --active: #f4f4f4;
     --gray-background: #f4f4f4;
@@ -96,6 +97,10 @@ h1 {
     font-size: 20px;
 }
 
+.fz-21 {
+    font-size: 21px;
+}
+
 .fz-12 {
     font-size: 12px;
 }
@@ -107,6 +112,9 @@ h1 {
 }
 .fz-16 {
     font-size: 16px;
+}
+.fz-18 {
+    font-size: 18px;
 }
 
 mat-icon.fz-34 {
@@ -697,4 +705,8 @@ one-click-task-edit-dialog {
     .mat-form-field-appearance-fill .mdc-text-field {
         border: 0;
     }
+}
+
+.delete-color {
+    color: var(--delete-button);
 }

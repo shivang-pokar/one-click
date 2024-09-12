@@ -5,7 +5,7 @@ import { CommonServiceService } from '../../common-service/common-service.servic
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { SocketService } from '../../socket/socket.service';
-import { Group, Task, messages } from '@one-click/data';
+import { Comments, Group, Task, messages } from '@one-click/data';
 
 @Injectable({
   providedIn: 'root'
@@ -169,8 +169,86 @@ export class GroupTaskService {
   async updateTaskDataOnly(data: any) {
     if (data.id) {
       await this.addUpdateTask(data, false)
-      this.alertService.success(messages.TASK_UPDATE);
+      /* this.alertService.success(messages.TASK_UPDATE); */
     }
+  }
+
+  /* Comment */
+
+  async createComment(task_id: string, comment: string) {
+    try {
+      let taskObj = this.createCommentObject(task_id, comment);
+      let task = await this.addUpdateComment(taskObj, false);
+      return task;
+    }
+    catch (e) {
+      throw e;
+    }
+  }
+
+
+  createCommentObject(task_id: string, comment: string) {
+    const company_id = this.cookieService.get('company_id');
+    const project_id = this.commonServiceService.projectData.id;
+
+    let comments = new Comments();
+    comments.company_id = company_id;
+    comments.project_id = project_id;
+    comments.task_id = task_id;
+    comments.comment = comment;
+    comments.createdBy = this.cookieService.get('uid');
+
+    return comments;
+  }
+
+  createCommentApi(comments: Comments) {
+    comments.id = this.crudService.angularFirestore.createId();
+    return this.http.post<any>(`${this.env.API_BASE_URL}/task/comments`, comments);
+  }
+
+  updateCommentApi(comments: Comments) {
+    return this.http.put<any>(`${this.env.API_BASE_URL}/task/comments/${comments.id}`, comments);
+  }
+
+  async addUpdateComment(comments: Comments, showAlert: boolean = true) {
+    try {
+      if (!comments.id) {
+        await this.createCommentApi(comments).toPromise();
+        if (showAlert) {
+          this.alertService.success(messages.TASK_CREAT);
+        }
+      } else {
+        await this.updateCommentApi(comments).toPromise();
+        if (showAlert) {
+          this.alertService.success(messages.TASK_UPDATE);
+        }
+      }
+      this.socketService.addTodoComments(comments);
+      return comments;
+    }
+    catch (e: any) {
+      this.alertService.error(e.message);
+      throw e;
+    }
+  }
+
+  getCommentsForTask(task_id: string) {
+    return this.http.get<any>(`${this.env.API_BASE_URL}/task/comments/task/${task_id}`);
+  }
+
+  deleteCommentApi(comment_id: string) {
+    return this.http.delete<any>(`${this.env.API_BASE_URL}/task/comments/${comment_id}`);
+  }
+
+  deleteComment(comment: Comments) {
+    this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
+      if (resp) {
+        await this.deleteCommentApi(comment.id).toPromise();
+        comment.deleteFlag = "Y";
+        this.socketService.addTodoComments(comment);
+        this.alertService.success(messages.DELETED);
+      }
+    })
   }
 
 

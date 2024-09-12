@@ -37,6 +37,7 @@ import { AssignChipComponent } from './task/assign-chip/assign-chip.component';
 import { LabelMenuComponent } from './task/label-menu/label-menu.component';
 import { SummaryMenuComponent } from './task/summary-menu/summary-menu.component';
 import { TaskEditDialogComponent } from './task/task-edit-dialog/task-edit-dialog.component';
+import { TaskCommentSectionComponent } from './task/task-comment-section/task-comment-section.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -76,7 +77,8 @@ import { TaskEditDialogComponent } from './task/task-edit-dialog/task-edit-dialo
     AssignChipComponent,
     LabelMenuComponent,
     SummaryMenuComponent,
-    TaskEditDialogComponent
+    TaskEditDialogComponent,
+    TaskCommentSectionComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -113,7 +115,8 @@ import { TaskEditDialogComponent } from './task/task-edit-dialog/task-edit-dialo
     AssignChipComponent,
     LabelMenuComponent,
     SummaryMenuComponent,
-    TaskEditDialogComponent
+    TaskEditDialogComponent,
+    TaskCommentSectionComponent
   ],
 })
 export class OneClickUiModule { }
