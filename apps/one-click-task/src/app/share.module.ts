@@ -31,6 +31,9 @@ import { TaskListViewComponent } from './pages/project-block/project/task-list-v
 import { MatNativeDateModule } from '@angular/material/core';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MessageBoardComponent } from './pages/project-block/project/message-board/message-board.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { ChatRoomComponent } from './pages/project-block/project/chat-room/chat-room.component';
 
 @NgModule({
     imports: [
@@ -64,14 +67,17 @@ import { MessageBoardComponent } from './pages/project-block/project/message-boa
         FullCalendarModule,
         MatListModule,
         MatNativeDateModule,
-        TextFieldModule
+        TextFieldModule,
+        PickerModule,
+        EmojiModule,
     ],
     declarations: [
         ProjectHomeComponent,
         ProjectHeaderComponent,
         TaskListComponent,
         TaskListViewComponent,
-        MessageBoardComponent
+        MessageBoardComponent,
+        ChatRoomComponent
     ],
     exports: [
         FormsModule,
@@ -107,7 +113,10 @@ import { MessageBoardComponent } from './pages/project-block/project/message-boa
         TaskListViewComponent,
         MatNativeDateModule,
         TextFieldModule,
-        MessageBoardComponent
+        MessageBoardComponent,
+        PickerModule,
+        EmojiModule,
+        ChatRoomComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

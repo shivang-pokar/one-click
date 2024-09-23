@@ -25,7 +25,7 @@ export class TaskCommentSectionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.socketService.joinComments(this.task_id);
     this.teamListDataMap = this.commonServiceService.convertArrayToMapObj(this.commonServiceService.teamListData);
-    console.log(this.teamListDataMap)
+    
     this.getCommentsForTask();
   }
 
@@ -36,7 +36,6 @@ export class TaskCommentSectionComponent implements OnInit, OnDestroy {
 
   getCommentsForTask() {
     this.groupTaskService.getCommentsForTask(this.task_id).subscribe(resp => {
-      console.log(resp)
       this.commentList = resp;
     })
 

@@ -7,7 +7,7 @@ export class Task {
     updatedAt?: string;
     deleteFlag: string = "N";
     taskName?: string;
-    description?: string;
+    description?: any;
     status?: string;
     assignee?: Array<string>;
     due?: string;

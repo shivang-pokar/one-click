@@ -29,7 +29,8 @@
           "node_modules/slick-carousel/slick/slick.scss",
           "node_modules/slick-carousel/slick/slick-theme.scss",
           "apps/one-click-task/src/styles.scss",
-          "libs/data/src/lib/styles/style.scss"
+          "libs/data/src/lib/styles/style.scss",
+          "./node_modules/@ctrl/ngx-emoji-mart/picker.css"
         ],
         "scripts": [],
         "stylePreprocessorOptions": {

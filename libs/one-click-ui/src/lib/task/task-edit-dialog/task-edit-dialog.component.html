@@ -1,6 +1,8 @@
 <div class="header-section d-flex align-items-center justify-content-between pl-3 pr-3 border-bottom">
 
-    <mat-checkbox class="example-margin" color="primary">Mark complete</mat-checkbox>
+    <mat-checkbox [(ngModel)]="data.task.completed" (change)="taskDoneUnDone($event.checked)" class="example-margin"
+        color="primary">Mark
+        complete</mat-checkbox>
 
     <div class="d-flex align-items-center header-section-dailog">
 
@@ -14,7 +16,7 @@
             aria-label="Example home icon">last_page</mat-icon>
 
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="taskDoneUnDone(!data.task.completed)">
                 <div class="d-flex align-item-center">
                     <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center"
                         style="font-size: 18px;">
@@ -33,7 +35,7 @@
                 </div>
             </button>
 
-            <button mat-menu-item>
+            <button mat-menu-item [cdkCopyToClipboard]="taskUrl">
                 <div class="d-flex align-item-center">
                     <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-18">
                         link
@@ -42,7 +44,7 @@
                 </div>
             </button>
 
-            <button mat-menu-item class="border-top">
+            <button mat-menu-item class="border-top" (click)="deleteTask()">
                 <div class="d-flex align-item-center delete-color">
                     <span class="material-icons-outlined mr-2 d-flex align-items-center justify-content-center fz-21">
                         delete

@@ -156,13 +156,20 @@ export class GroupTaskService {
   }
 
   deleteTask(task: Task) {
-    this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
-      if (resp) {
-        await this.deleteTaskApi(task.id).toPromise();
-        task.deleteFlag = "Y";
-        this.socketService.addTodoTask(task);
-        this.alertService.success(messages.DELETED);
-      }
+    return new Promise((resolve, reject) => {
+      this.alertService.confirmationDialog(messages.ARE_YOU_SURE_DELETE).afterClosed().subscribe(async resp => {
+        if (resp) {
+          await this.deleteTaskApi(task.id).toPromise();
+          task.deleteFlag = "Y";
+          this.socketService.addTodoTask(task);
+          this.alertService.success(messages.DELETED);
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }, er => {
+        resolve(false);
+      })
     })
   }
 

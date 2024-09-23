@@ -538,7 +538,7 @@ button {
 }
 
 .cursor-pointer {
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 .mat-mdc-menu-item.mdc-list-item {
@@ -709,4 +709,7 @@ one-click-task-edit-dialog {
 
 .delete-color {
     color: var(--delete-button);
+}
+.clear {
+    clear: both;
 }

@@ -283,9 +283,10 @@ export class CommonServiceService {
 
   }
 
-  editorJS(placeholder: string) {
+  editorJS(placeholder: string, content?: any) {
     return new EditorJS({
       holder: 'editor',
+      data: content || {},
       placeholder: placeholder,
       hideToolbar: false,
       tools: {

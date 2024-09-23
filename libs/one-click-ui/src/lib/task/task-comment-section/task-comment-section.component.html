@@ -6,8 +6,11 @@
                     S
                 </span>
                 <p class="d-flex m-0 flex-column position-relative w-100">
-                    <span class="user_name">
+                    <span class="user_name d-flex align-items-center">
                         {{teamListDataMap[comment.createdBy].name}}
+                        <span class="date ml-2 cursor-pointer"
+                            [matTooltip]="comment.updatedAt | date:'medium'">{{comment.updatedAt |
+                            date:'mediumDate'}}</span>
                     </span>
                     <span class="user_comment">
                         <ng-container *ngIf="!comment.showInput">

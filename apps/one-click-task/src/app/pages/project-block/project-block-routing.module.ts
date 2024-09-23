@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectBlockComponent } from './project-block.component';
 import { ProjectHomeComponent } from './project/project-home/project-home.component';
 import { MessageBoardComponent } from './project/message-board/message-board.component';
+import { ChatRoomComponent } from './project/chat-room/chat-room.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'message-board',
         component: MessageBoardComponent,
+      },
+      {
+        path: 'chat',
+        component: ChatRoomComponent,
       }
     ]
   }

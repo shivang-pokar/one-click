@@ -20,6 +20,10 @@ textarea {
 
         .user_name {
             line-height: 26px;
+            .date {
+                color: var(--light-font);
+                font-size: 12px;
+            }
         }
     }
 }

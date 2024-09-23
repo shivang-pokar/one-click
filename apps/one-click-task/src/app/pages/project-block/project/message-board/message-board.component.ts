@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './message-board.component.html',
   styleUrls: ['./message-board.component.scss'],
 })
-export class MessageBoardComponent {}
+export class MessageBoardComponent {
+
+  
+
+  
+
+}

@@ -6,7 +6,7 @@ const taskItemSchema = new Schema({
     id: { type: String, required: true },
     company_id: { type: String, required: true },
     project_id: { type: String, required: true },
-    description: { type: String },
+    description: { type: Object },
     taskName: { type: String },
     group_id: { type: String },
     status: { type: String },
