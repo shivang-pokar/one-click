@@ -12,3 +12,4 @@ export * from './lib/task-module/project/project.service';
 export * from './lib/socket/socket.service';
 export * from './lib/task-module/group-task/group-task.service';
 export * from './lib/task-module/status-menu/status-menu.service';
+export * from './lib/task-module/chat-room/chat-room.service';

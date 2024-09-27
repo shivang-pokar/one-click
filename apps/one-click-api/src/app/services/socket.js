@@ -36,6 +36,11 @@ export const connectSocket = (server) => {
             console.log(`User left Comments: ${task_id}`);
         });
 
+        socket.on('leaveChatRoom', (projectId) => {
+            socket.leave(projectId);
+            console.log(`User left ChatRoom: ${projectId}`);
+        });
+
         socket.on('leaveAllProjects', () => {
             // Get all rooms the socket is connected to
             for (let room of socket.rooms) {
@@ -54,6 +59,11 @@ export const connectSocket = (server) => {
         socket.on('joinComments', (task_id) => {
             socket.join(task_id);
             console.log(`User joined comments: ${task_id}`);
+        });
+
+        socket.on('joinChatRoom', (projectId) => {
+            socket.join(projectId);
+            console.log(`User joined chatroom: ${projectId}`);
         });
 
         socket.on('addProject', (projectData) => {
@@ -79,6 +89,11 @@ export const connectSocket = (server) => {
         socket.on('addTodoComments', (commentsData) => {
             const { task_id } = commentsData;
             io.to(task_id).emit('todoCommentsAdded', commentsData);
+        });
+
+        socket.on('addToDoChatRoom', (chatRoomData) => {
+            const { project_id } = chatRoomData;
+            io.to(project_id).emit('toDoChatRoomAdded', chatRoomData);
         });
 
         socket.on('disconnect', () => {

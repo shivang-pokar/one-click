@@ -4,18 +4,36 @@
         <div class="team-list">
             <div class="list">
 
-                <div class="other-features-in-chat">
-                    <p class="d-flex align-items-center p-2 cursor-pointer">
-                        <span class="material-icons-outlined">
+                <div class="other-features-in-chat mb-3">
+
+                    <p class="d-flex align-items-center p-2 cursor-pointer mb-1">
+                        <span class="material-icons-outlined mr-2" style="font-size: 20px;">
+                            create
+                        </span>
+                        New Message
+                    </p>
+
+                    <p class="d-flex align-items-center p-2 cursor-pointer mb-0">
+                        <span class="material-icons-outlined mr-2">
                             tag
                         </span>
                         Channels
                     </p>
+
                 </div>
 
                 <p class="m-0 mb-2">Messages</p>
                 <mat-list role="list">
-                    <mat-list-item role="listitem" class="mb-1 p-2 active cursor-pointer">
+                    <ng-container *ngFor="let item of chatRoomList">
+                        <mat-list-item role="listitem" class="mb-1 p-2 active cursor-pointer">
+                            <div class="d-flex align-items-center">
+                                <img src="assets/147133.png" alt="">
+                                <p class="m-0 pl-2 fz-14">{{item.members[1].user_id}}</p>
+                            </div>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <!-- <mat-list-item role="listitem" class="mb-1 p-2 cursor-pointer">
                         <div class="d-flex align-items-center">
                             <img src="assets/147133.png" alt="">
                             <p class="m-0 pl-2 fz-14">Shivang Pokar</p>
@@ -56,13 +74,7 @@
                             <img src="assets/147133.png" alt="">
                             <p class="m-0 pl-2 fz-14">Shivang Pokar</p>
                         </div>
-                    </mat-list-item>
-                    <mat-list-item role="listitem" class="mb-1 p-2 cursor-pointer">
-                        <div class="d-flex align-items-center">
-                            <img src="assets/147133.png" alt="">
-                            <p class="m-0 pl-2 fz-14">Shivang Pokar</p>
-                        </div>
-                    </mat-list-item>
+                    </mat-list-item> -->
 
                 </mat-list>
             </div>

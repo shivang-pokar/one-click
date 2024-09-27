@@ -13,3 +13,4 @@ export * from './lib/task-module/project';
 export * from './lib/task-module/label';
 export * from './lib/task-module/task';
 export * from './lib/task-module/comments';
+export * from './lib/task-module/chatRoom';

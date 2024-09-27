@@ -46,8 +46,12 @@ export class SocketService {
     this.socket.emit('leaveProject', projectId)
   }
 
-  leaveComments(task_id:string) {
+  leaveComments(task_id: string) {
     this.socket.emit('leaveComments', task_id)
+  }
+  
+  leaveChatRoom(project_id: string) {
+    this.socket.emit('leaveChatRoom', project_id)
   }
 
   joinGroup(groupId: string) {
@@ -56,6 +60,10 @@ export class SocketService {
 
   joinComments(task_id: string) {
     this.socket.emit('joinComments', task_id);
+  }
+
+  joinChatRoom(project_id: string) {
+    this.socket.emit('joinChatRoom', project_id);
   }
 
   onCompanyAdded(callback: (data: any) => void) {
@@ -78,6 +86,10 @@ export class SocketService {
     this.socket.on('todoCommentsAdded', callback);
   }
 
+  onTodoChatRoomAdded(callback: (data: any) => void) {
+    this.socket.on('toDoChatRoomAdded', callback);
+  }
+
   addProject(projectData: any) {
     this.socket.emit('addProject', projectData);
   }
@@ -96,6 +108,10 @@ export class SocketService {
 
   addTodoTask(taskData: any) {
     this.socket.emit('addTodoTask', taskData);
+  }
+
+  addToDoChatRoom(chatRoomData: any) {
+    this.socket.emit('addToDoChatRoom', chatRoomData);
   }
 
 }

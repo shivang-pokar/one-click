@@ -31,5 +31,10 @@ export const appRoutes: Route[] = [
         path: 'projects/:id',
         loadChildren: () => import('./pages/project-block/project-block.module').then(m => m.ProjectBlockModule),
         canActivate: [AuthGardGuard]
-    }
+    },
+    {
+        path: 'members',
+        loadChildren: () => import('./pages/members/members.module').then((m) => m.MembersModule),
+        canActivate: [AuthGardGuard]
+    },
 ];
