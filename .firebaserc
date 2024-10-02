@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "oneclick-sch"
+  },
+  "targets": {
+    "oneclick-sch": {
+      "hosting": {
+        "one-click-desk-stage": [
+          "one-click-desk-stage",
+          "one-click-desk-task-staging"
+        ]
+      }
+    }
   }
 }
