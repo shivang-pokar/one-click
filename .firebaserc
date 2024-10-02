@@ -6,8 +6,10 @@
     "oneclick-sch": {
       "hosting": {
         "one-click-desk-stage": [
-          "one-click-desk-stage",
           "one-click-desk-task-staging"
+        ],
+        "one-click": [
+          "one-click-desk-stage"
         ]
       }
     }
