@@ -10,7 +10,7 @@
     "build": "nx build",
     "test": "nx test",
     "one-click-desk-stage": "nx build --project=one-click --configuration=staging",
-    "one-click-task": "nx build --project=one-click-task --configuration=staging",
+    "one-click-desk-task-staging": "nx build --project=one-click-task --configuration=staging",
     "build-prod": "nx build --project=one-click"
   },
   "private": true,

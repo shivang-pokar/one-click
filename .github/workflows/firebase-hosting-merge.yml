@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        app: [one-click-desk-stage, one-click-task]
+        app: [one-click-desk-stage, one-click-desk-task-staging]
 
     steps:
       - uses: actions/checkout@v2

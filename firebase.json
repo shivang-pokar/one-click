@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "one-click",
+      "target": "one-click-desk-stage",
       "public": "dist/apps/one-click",
       "ignore": [
         "firebase.json",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "target": "one-click-task",
+      "target": "one-click-desk-task-staging",
       "public": "dist/apps/one-click-task",
       "ignore": [
         "firebase.json",

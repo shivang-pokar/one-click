@@ -5,10 +5,10 @@
   "targets": {
     "oneclick-sch": {
       "hosting": {
-        "one-click": [
+        "one-click-desk-stage": [
           "one-click-desk-stage"
         ],
-        "one-click-task": [
+        "one-click-desk-task-staging": [
           "one-click-desk-task-staging"
         ]
       }
