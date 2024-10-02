@@ -1,6 +1,8 @@
+import { sendEmail } from '../controllers/commonController';
+
 const express = require('express');
-const routerCommon = express.Router();
+const routerCommonService = express.Router();
 
-//routerCommon.get('/company/:id', getCompany);
+routerCommonService.post('/send-email', sendEmail);
 
-export default routerCommon;
+export default routerCommonService;
