@@ -9,7 +9,8 @@
     "start-all": "concurrently \"npm run start-task\" \"npm run start-api\"",
     "build": "nx build",
     "test": "nx test",
-    "build-staging": "nx build --project=one-click --configuration=staging",
+    "build-task-staging": "nx build --project=one-click --configuration=staging",
+    "one-click-desk-task": "nx build --project=one-click-task --configuration=staging",
     "build-prod": "nx build --project=one-click"
   },
   "private": true,
