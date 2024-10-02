@@ -16,7 +16,7 @@
       ]
     },
     {
-      "target": "one-click-desk-task",
+      "target": "one-click-task",
       "public": "dist/apps/one-click-task",
       "ignore": [
         "firebase.json",
