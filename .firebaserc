@@ -1,9 +1,9 @@
 {
   "projects": {
-    "default": "oneclick-sch"
+    "default": "one-click-desk-stage"
   },
   "targets": {
-    "oneclick-sch": {
+    "one-click-desk-stage": {
       "hosting": {
         "one-click-desk-stage": [
           "one-click-desk-stage"
