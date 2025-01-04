@@ -1,0 +1,30 @@
+<div class="dailog-header">
+    <h2 class="d-flex align-items-center justify-content-between">
+        <span>Invite Members</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+        </button>
+    </h2>
+</div>
+
+<div mat-dialog-content class="pb-0 pt-0">
+    <mat-form-field class="example-chip-list w-100 mt-3" appearance="fill">
+        <!-- <mat-label>Favorite Fruits</mat-label> -->
+        <mat-chip-grid #chipGrid aria-label="Enter fruits">
+            <mat-chip-row *ngFor="let email of emails" (removed)="remove(email)" [editable]="true"
+                (edited)="edit(email, $event)" [aria-description]="'press enter to edit ' + email.name">
+                {{email.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + email.name">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip-row>
+            <input placeholder="Email..." [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-grid>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions class="pr-4 pb-3" align="end">
+    <one-click-button class="ml-2" (click)="invite()" [buttonText]="'Invite'"></one-click-button>
+</div>

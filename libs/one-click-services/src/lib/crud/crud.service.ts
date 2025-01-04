@@ -374,4 +374,9 @@ export class CrudService {
     return this.http.post<any>(`${this.env.API_BASE_URL}/common/label-list`, labelList);
   }
 
+  inviteMember(body: any) {
+    body.uid = this.uid;
+    return this.http.post<any>(`${this.env.API_BASE_URL}/common/invite-member`, body);
+  }
+
 }

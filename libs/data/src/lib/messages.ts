@@ -38,7 +38,8 @@ export const messages = {
     GROUP_CREAT: "Group created successfully",
     GROUP_UPDATE: "Group updated successfully",
     TASK_CREAT: "Task created successfully",
-    TASK_UPDATE: "Task updated successfully"
+    TASK_UPDATE: "Task updated successfully",
+    EMAIL_NOTVALID: "Email is not valid"
 
 }
 

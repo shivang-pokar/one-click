@@ -38,6 +38,7 @@ import { LabelMenuComponent } from './task/label-menu/label-menu.component';
 import { SummaryMenuComponent } from './task/summary-menu/summary-menu.component';
 import { TaskEditDialogComponent } from './task/task-edit-dialog/task-edit-dialog.component';
 import { TaskCommentSectionComponent } from './task/task-comment-section/task-comment-section.component';
+import { InviteDailogComponent } from './invite-dailog/invite-dailog.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
@@ -78,7 +79,8 @@ import { TaskCommentSectionComponent } from './task/task-comment-section/task-co
     LabelMenuComponent,
     SummaryMenuComponent,
     TaskEditDialogComponent,
-    TaskCommentSectionComponent
+    TaskCommentSectionComponent,
+    InviteDailogComponent
   ],
   exports: [
     IntegrationCardComponent,
@@ -116,7 +118,8 @@ import { TaskCommentSectionComponent } from './task/task-comment-section/task-co
     LabelMenuComponent,
     SummaryMenuComponent,
     TaskEditDialogComponent,
-    TaskCommentSectionComponent
+    TaskCommentSectionComponent,
+    InviteDailogComponent
   ],
 })
 export class OneClickUiModule { }

@@ -7,16 +7,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/one-click-task",
         "index": "apps/one-click-task/src/index.html",
         "main": "apps/one-click-task/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/one-click-task/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -34,9 +30,7 @@
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/data/styles"
-          ]
+          "includePaths": ["libs/data/styles"]
         }
       },
       "configurations": {
@@ -107,9 +101,7 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/one-click-task/**/*.ts",
@@ -119,9 +111,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/one-click-task/jest.config.ts",
         "passWithNoTests": true

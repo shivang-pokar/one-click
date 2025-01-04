@@ -322,4 +322,9 @@ export class CommonServiceService {
     });
   }
 
+  invitMember(body: any) {
+    body.company_id = this.cookieService.get('company_id');
+    this.crudService.inviteMember(body).subscribe();
+  }
+
 }
